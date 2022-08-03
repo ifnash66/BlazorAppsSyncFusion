@@ -3,7 +3,7 @@
 @using AutoMapper
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Models.DTOs
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Edit Host</h3>
@@ -84,12 +84,11 @@
     public int Id { get; set; }
 
     private HostRecordDTO HostModel { get; set; } = new();
-    private HostClientService? _hostClientService;
-
+    private HostRepository? _hostRepository;
     protected override async Task OnInitializedAsync()
     {
-        _hostClientService = ScopedServices.GetRequiredService<HostClientService>();
-        var host = await _hostClientService.Get(Id);
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        var host = _hostRepository.GetHost(Id);
         if (host is not null)
         {
             HostModel = Mapper.Map<HostRecordDTO>(host);
@@ -98,10 +97,10 @@
         await base.OnInitializedAsync();
     }
 
-    private async Task SubmitForm()
+    private void SubmitForm()
     {
         var host = Mapper.Map<HostRecord>(HostModel);
-        await _hostClientService.UpdateHost(host.Id, host);
+        _hostRepository.UpdateHost(host);
         NavigationManager.NavigateTo("/hosts/index");
     }
 }

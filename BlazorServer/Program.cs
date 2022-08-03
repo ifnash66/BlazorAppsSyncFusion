@@ -1,9 +1,7 @@
 using AutoMapper;
-using BlazorApps.Shared;
-using BlazorApps.Shared.Repositories;
 using BlazorServer.Data.Contexts;
+using BlazorServer.Data.Repositories;
 using BlazorServer.MappingProfiles;
-using BlazorServer.Services;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
 
@@ -15,26 +13,21 @@ var mapperConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new HostMappingProfile());
     mc.AddProfile(new GuestMappingProfile());
     mc.AddProfile(new HomeVisitMappingProfile());
+    mc.AddProfile(new CaseRecordMappingProfile());
 });
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddDbContextFactory<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddTransient<DataRepository>();
-
-builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<HostClientService>(client => client.BaseAddress = new Uri("https://localhost:7099/api/Hosts/"));
-builder.Services.AddHttpClient<GuestClientService>(client => client.BaseAddress = new Uri("https://localhost:7099/api/Guests/"));
-builder.Services.AddHttpClient<HomeVisitClientService>(client => client.BaseAddress = new Uri("https://localhost:7099/api/HomeVisits/"));
+builder.Services.AddTransient<HostRepository>();
+builder.Services.AddTransient<GuestRepository>();
+builder.Services.AddTransient<HomeVisitRepository>();
+builder.Services.AddTransient<CaseRepository>();
 
 var app = builder.Build();
 
@@ -45,11 +38,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
     app.UseExceptionHandler("/Error");
 }
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
@@ -57,7 +45,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.UseAuthentication();;

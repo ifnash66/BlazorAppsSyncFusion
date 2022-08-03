@@ -1,0 +1,62 @@
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<p>
+    <a href="/cases/create-case">Create case</a>
+</p>
+
+<SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(CaseRecord.Id) HeaderText="Case Id" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(CaseRecord.CaseReference) HeaderText="Case Reference"></GridColumn>
+        <GridColumn Field=@nameof(CaseRecord.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(CaseRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+            <Template>
+                @{
+                    var caseRecord = (context as CaseRecord);
+                    <div>
+                        <button class="btn btn-primary" @onclick="@(() => EditCase(caseRecord.Id))">Edit</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteCase(caseRecord))">Delete</button>
+                    </div>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+
+    private List<CaseRecord> CaseRecords { get; set; } = new();
+    private CaseRepository _CaseRepository { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _CaseRepository = ScopedServices.GetRequiredService<CaseRepository>();
+        
+        var caseRecords = _CaseRepository.GetCases();
+        if (caseRecords is not null)
+        {
+            CaseRecords = caseRecords;
+        }
+    }
+
+    private void EditCase(int id)
+    {
+        NavigationManager.NavigateTo($@"/cases/edit-case/{id}");
+    }
+
+    private void DeleteCase(CaseRecord caseRecord)
+    {
+        _CaseRepository.RemoveCase(caseRecord);
+        var caseRecords = _CaseRepository.GetCases();
+        if (caseRecords is not null)
+        {
+            CaseRecords = caseRecords;
+            StateHasChanged();
+        }
+    }
+}

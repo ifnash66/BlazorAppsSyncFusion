@@ -365,7 +365,6 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.Extensions.DependencyModel.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.JSInterop.dll
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.OpenApi.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.VisualStudio.Debugger.Contracts.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -388,9 +387,6 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/SQLitePCLRaw.batteries_v2.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/SQLitePCLRaw.core.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Syncfusion.Blazor.Buttons.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Syncfusion.Blazor.Calendars.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Syncfusion.Blazor.Core.dll
@@ -599,7 +595,6 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.AssemblyInfoInputs.cache
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.AssemblyInfo.cs
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.MvcApplicationPartsAssemblyInfo.cs
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.MvcApplicationPartsAssemblyInfo.cache
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.RazorAssemblyInfo.cache
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.RazorAssemblyInfo.cs

@@ -3,7 +3,7 @@
 @using AutoMapper
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Models.DTOs
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Create Guest</h3>
@@ -186,28 +186,26 @@
 
     private GuestRecordDTO GuestModel { get; set; } = new();
     private List<Gender> GenderList { get; set; } = new();
-    private GuestClientService? _guestClientService;
+    private GuestRepository? _guestRepository;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
 
         GuestModel.DateCreated = DateTime.Now;
         GuestModel.CreatedBy = "System";
 
-        var genderList = await _guestClientService.GetGenderList();
+        var genderList = _guestRepository.GetGenderList();
         if (genderList is not null)
         {
-            GenderList = genderList.ToList();
+            GenderList = genderList;
         }
-
-        await base.OnInitializedAsync();
     }
 
-    private async Task SubmitForm()
+    private void SubmitForm()
     {
         var guest = Mapper.Map<GuestRecord>(GuestModel);
-        await _guestClientService.AddGuest(guest);
+        _guestRepository.AddGuest(guest);
         NavigationManager.NavigateTo("/guests/index");
     }
 }

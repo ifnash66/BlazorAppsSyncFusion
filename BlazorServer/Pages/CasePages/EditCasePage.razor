@@ -1,0 +1,56 @@
+@page "/cases/edit-case/{id:int}"
+@inject NavigationManager NavigationManager
+@using BlazorServer.Data.Models.Domain
+@using AutoMapper
+@using BlazorServer.Data.Repositories
+@inherits OwningComponentBase
+@inject IMapper Mapper
+<h3>Edit Case</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@CaseModel" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <label for="@CaseModel.CaseReference">Case reference</label>
+                <InputText @bind-Value="CaseModel.CaseReference" class="form-control"/>
+                <ValidationMessage For="@(() => CaseModel.CaseReference)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="CaseModel.IsActive" Label="Active case" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => CaseModel.IsActive)"/>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+                <a href="/cases/index" class="btn btn-secondary ml-2">Back to case list</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private CaseRecordDTO CaseModel { get; set; } = new();
+    private CaseRepository? _caseRepository;
+
+    protected override void OnInitialized()
+    {
+        _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
+        var caseRecord = _caseRepository.GetCase(Id);
+        if (caseRecord is not null)
+        {
+            CaseModel = Mapper.Map<CaseRecordDTO>(caseRecord);
+        }
+    }
+
+    private void SubmitForm()
+    {
+        var caseRecord = Mapper.Map<CaseRecord>(CaseModel);
+        _caseRepository.UpdateCase(caseRecord);
+        NavigationManager.NavigateTo("/cases/index");
+    }
+}

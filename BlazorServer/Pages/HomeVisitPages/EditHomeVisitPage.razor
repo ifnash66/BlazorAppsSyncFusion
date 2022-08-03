@@ -3,7 +3,7 @@
 @using AutoMapper
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Models.DTOs
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Edit Home Visit</h3>
@@ -93,9 +93,9 @@
     public int Id { get; set; }
 
     private HomeVisitRecordDTO HomeVisitModel { get; set; } = new();
-    private HomeVisitClientService? _homeVisitClientService;
-    private HostClientService? _hostClientService;
-    private GuestClientService? _guestClientService;
+    private HomeVisitRepository? _homeVisitRepository;
+    private HostRepository? _hostRepository;
+    private GuestRepository? _guestRepository;
 
     private string[] _selectedHostIds = Array.Empty<string>();
     private string[] _selectedGuestIds = Array.Empty<string>();
@@ -106,38 +106,38 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _homeVisitClientService = ScopedServices.GetRequiredService<HomeVisitClientService>();
-        _hostClientService = ScopedServices.GetRequiredService<HostClientService>();
-        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+        _homeVisitRepository = ScopedServices.GetRequiredService<HomeVisitRepository>();
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
 
-        var hosts = await _hostClientService.GetAll();
+        var hosts = _hostRepository.GetHosts();
         if (hosts is not null)
         {
-            HostRecords = hosts.ToList();
+            HostRecords = hosts;
         }
 
-        var visit = await _homeVisitClientService.Get(Id);
+        var visit = _homeVisitRepository.GetHomeVisit(Id);
         if (visit is not null)
         {
             HomeVisitModel = Mapper.Map<HomeVisitRecordDTO>(visit);
         }
 
-        var guests = await _guestClientService.GetAll();
+        var guests = _guestRepository.GetGuests();
         if (guests is not null)
         {
-            GuestRecords = guests.ToList();
+            GuestRecords = guests;
         }
 
-        var visitStatusList = await _homeVisitClientService.GetVisitStatusList();
+        var visitStatusList = _homeVisitRepository.GetVisitStatusList();
         if (visitStatusList is not null)
         {
-            VisitStatusList = visitStatusList.ToList();
+            VisitStatusList = visitStatusList;
         }
 
         await base.OnInitializedAsync();
     }
 
-    private async Task SubmitForm()
+    private void SubmitForm()
     {
         var visit = Mapper.Map<HomeVisitRecord>(HomeVisitModel);
         var selectedHostNames = string.Empty;
@@ -158,7 +158,7 @@
         visit.HostsVisited = selectedHostNames;
         visit.GuestsVisited = selectedGuestNames;
 
-        await _homeVisitClientService.UpdateVisit(visit.Id, visit);
+        _homeVisitRepository.UpdateHomeVisit(visit);
         NavigationManager.NavigateTo("/home-visits/index");
     }
 }

@@ -1,5 +1,5 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
 @inject NavigationManager NavigationManager
 
@@ -22,7 +22,7 @@
                     var guestRecord = (context as GuestRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord.Id))">Delete</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord))">Delete</button>
                     </div>
                 }
             </Template>
@@ -33,19 +33,17 @@
 @code {
 
     public List<GuestRecord> GuestRecords { get; set; } = new();
-    private GuestClientService? _guestClientService;
+    private GuestRepository? _guestRepository;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
 
-        var guests = await _guestClientService.GetAll();
+        var guests = _guestRepository.GetGuests();
         if (guests is not null)
         {
-            GuestRecords = guests.ToList();
+            GuestRecords = guests;
         }
-
-        await base.OnInitializedAsync();
     }
 
     private void EditGuest(int id)
@@ -53,13 +51,13 @@
         NavigationManager.NavigateTo($"/guests/edit-guest/{id}");
     }
 
-    private async Task DeleteGuest(int id)
+    private void DeleteGuest(GuestRecord guest)
     {
-        await _guestClientService.DeleteGuest(id);
-        var guests = await _guestClientService.GetAll();
+        _guestRepository.RemoveGuest(guest);
+        var guests = _guestRepository.GetGuests();
         if (guests is not null)
         {
-            GuestRecords = guests.ToList();
+            GuestRecords = guests;
             StateHasChanged();
         }
     }

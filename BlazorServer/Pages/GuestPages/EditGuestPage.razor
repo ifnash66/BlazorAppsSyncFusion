@@ -3,7 +3,7 @@
 @using AutoMapper
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Models.DTOs
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Edit Guest</h3>
@@ -187,33 +187,31 @@
     [Parameter]
     public int Id { get; set; }
 
-    private GuestClientService? _guestClientService;
+    private GuestRepository? _guestRepository;
     private GuestRecordDTO GuestModel { get; set; } = new();
     private List<Gender> GenderList { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
 
-        var guest = await _guestClientService.Get(Id);
+        var guest = _guestRepository.GetGuest(Id);
         if (guest is not null)
         {
             GuestModel = Mapper.Map<GuestRecordDTO>(guest);
         }
 
-        var genderList = await _guestClientService.GetGenderList();
+        var genderList = _guestRepository.GetGenderList();
         if (genderList is not null)
         {
-            GenderList = genderList.ToList();
+            GenderList = genderList;
         }
-
-        await base.OnInitializedAsync();
     }
 
-    private async Task SubmitForm()
+    private void SubmitForm()
     {
         var guest = Mapper.Map<GuestRecord>(GuestModel);
-        await _guestClientService?.UpdateGuest(guest.Id, guest);
+        _guestRepository.UpdateGuest(guest);
         NavigationManager.NavigateTo("/guests/index");
     }
 }

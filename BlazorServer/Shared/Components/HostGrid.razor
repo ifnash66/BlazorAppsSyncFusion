@@ -1,5 +1,5 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
 @inject NavigationManager NavigationManager
 
@@ -22,7 +22,7 @@
                     var hostRecord = (context as HostRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteHost(hostRecord.Id))">Delete</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteHost(hostRecord))">Delete</button>
                     </div>
                 }
             </Template>
@@ -33,19 +33,17 @@
 @code {
 
     private List<HostRecord> HostRecords { get; set; } = new();
-    private HostClientService _hostClientService { get; set; }
+    private HostRepository _hostRepository { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _hostClientService = ScopedServices.GetRequiredService<HostClientService>();
-        
-        var hosts = await _hostClientService.GetAll();
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+
+        var hosts = _hostRepository.GetHosts();
         if (hosts is not null)
         {
-            HostRecords = hosts.ToList();
+            HostRecords = hosts;
         }
-
-        await base.OnInitializedAsync();
     }
 
     private void EditHost(int id)
@@ -53,13 +51,13 @@
         NavigationManager.NavigateTo($@"/hosts/edit-host/{id}");
     }
 
-    private async Task DeleteHost(int id)
+    private void DeleteHost(HostRecord hostRecord)
     {
-        await _hostClientService.DeleteHost(id);
-        var hosts = await _hostClientService.GetAll();
+        _hostRepository.RemoveHost(hostRecord);
+        var hosts = _hostRepository.GetHosts();
         if (hosts is not null)
         {
-            HostRecords = hosts.ToList();
+            HostRecords = hosts;
             StateHasChanged();
         }
     }

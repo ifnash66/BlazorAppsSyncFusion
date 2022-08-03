@@ -1,5 +1,5 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Services
+@using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
 @inject NavigationManager NavigationManager
 
@@ -23,7 +23,7 @@
                     var visit = (context as HomeVisitRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => EditVisit(visit.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteVisit(visit.Id))">Delete</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteVisit(visit))">Delete</button>
                     </div>
                 }
             </Template>
@@ -34,19 +34,17 @@
 @code {
 
     private List<HomeVisitRecord> HomeVisitRecords { get; set; } = new();
-    private HomeVisitClientService? _homeVisitClientService;
+    private HomeVisitRepository? _homeVisitRepository;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _homeVisitClientService = ScopedServices.GetRequiredService<HomeVisitClientService>();
+        _homeVisitRepository = ScopedServices.GetRequiredService<HomeVisitRepository>();
 
-        var visits = await _homeVisitClientService.GetAll();
+        var visits = _homeVisitRepository.GetHomeVisits();
         if (visits is not null)
         {
-            HomeVisitRecords = visits.ToList();
+            HomeVisitRecords = visits;
         }
-
-        await base.OnInitializedAsync();
     }
 
     private void EditVisit(int id)
@@ -54,13 +52,13 @@
         NavigationManager.NavigateTo($@"/home-visits/edit-visit/{id}");
     }
 
-    private async Task DeleteVisit(int id)
+    private void DeleteVisit(HomeVisitRecord visit)
     {
-        await _homeVisitClientService.DeleteVisit(id);
-        var visits = await _homeVisitClientService.GetAll();
+        _homeVisitRepository.RemoveHomeVisit(visit);
+        var visits = _homeVisitRepository.GetHomeVisits();
         if (visits is not null)
         {
-            HomeVisitRecords = visits.ToList();
+            HomeVisitRecords = visits;
             StateHasChanged();
         }
     }
