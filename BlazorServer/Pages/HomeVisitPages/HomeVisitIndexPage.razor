@@ -1,0 +1,76 @@
+@page "/home-visits/index"
+@using BlazorApps.Shared.Models
+@using BlazorServer.Services
+@inject NavigationManager NavigationManager
+@inherits OwningComponentBase
+<h3>Home Visits</h3>
+
+<p>
+    <a href="/home-visits/create-visit">Create home visit</a>
+</p>
+
+<div class="row">
+    <div class="col-lg-8">
+
+        <SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+            <GridPageSettings PageSize="5"></GridPageSettings>
+            <GridColumns>
+                <GridColumn Field=@nameof(HomeVisitRecord.Id) HeaderText="Visit Id" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(HomeVisitRecord.VisitorName) HeaderText="Visitor Name"></GridColumn>
+                <GridColumn Field=@nameof(HomeVisitRecord.HostsVisited) HeaderText="Hosts Visited" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(HomeVisitRecord.GuestsVisited) HeaderText="Guests Visited" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(HomeVisitRecord.VisitDate) HeaderText="Visit Date/Time" Format="dd/MM/yyyy hh:mm" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(HomeVisitRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn Field=@nameof(HomeVisitRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
+                <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+                    <Template>
+                        @{
+                            var visit = (context as HomeVisitRecord);
+                            <div>
+                                <button class="btn btn-primary" @onclick="@(() => EditVisit(visit.Id))">Edit</button>
+                                <button class="btn btn-danger ml-2" @onclick="@(() => DeleteVisit(visit.Id))">Delete</button>
+
+                            </div>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </SfGrid>
+
+    </div>
+</div>
+
+@code {
+
+    private List<HomeVisitRecord> HomeVisitRecords { get; set; } = new();
+    private HomeVisitClientService? _homeVisitClientService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _homeVisitClientService = ScopedServices.GetRequiredService<HomeVisitClientService>();
+
+        var visits = await _homeVisitClientService.GetAll();
+        if (visits is not null)
+        {
+            HomeVisitRecords = visits.ToList();
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private void EditVisit(int id)
+    {
+        NavigationManager.NavigateTo($@"/home-visits/edit-visit/{id}");
+    }
+
+    private async Task DeleteVisit(int id)
+    {
+        await _homeVisitClientService.DeleteVisit(id);
+        var visits = await _homeVisitClientService.GetAll();
+        if (visits is not null)
+        {
+            HomeVisitRecords = visits.ToList();
+            StateHasChanged();
+        }
+    }
+}

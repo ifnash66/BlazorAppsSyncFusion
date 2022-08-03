@@ -1,0 +1,106 @@
+@page "/hosts/edit-host/{id:int}"
+@inject NavigationManager NavigationManager
+@using BlazorApps.Shared.Models
+@using AutoMapper
+@using BlazorServer.Services
+@inject IMapper Mapper
+@inherits OwningComponentBase
+<h3>Edit Host</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@HostModel" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <label for="@HostModel.FirstName">First name</label>
+                <InputText @bind-Value="HostModel.FirstName" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.FirstName)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.LastName">Last name</label>
+                <InputText @bind-Value="HostModel.LastName" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.LastName)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.HostAge">Host age</label>
+                <InputNumber @bind-Value="HostModel.HostAge" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.HostAge)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.BuildingNameNumber">Building name/number</label>
+                <InputText @bind-Value="HostModel.BuildingNameNumber" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.BuildingNameNumber)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.Street">Street</label>
+                <InputText @bind-Value="HostModel.Street" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.Street)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.Town">Town</label>
+                <InputText @bind-Value="HostModel.Town" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.Town)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.County">County</label>
+                <InputText @bind-Value="HostModel.County" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.County)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.Postcode">Postcode</label>
+                <InputText @bind-Value="HostModel.Postcode" class="form-control"/>
+                <ValidationMessage For="@(() => HostModel.Postcode)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HostModel.InitialHomeVisit">Initial home visit</label>
+                <InputTextArea @bind-Value="HostModel.InitialHomeVisit" rows="5" class="form-control"></InputTextArea>
+                <ValidationMessage For="@(() => HostModel.InitialHomeVisit)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="HostModel.ProformaInvoiceGivenToHost" Label="Proforma invoice given to host" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => HostModel.ProformaInvoiceGivenToHost)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="HostModel.BankDetailsConfirmed" Label="Bank details confirmed" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => HostModel.BankDetailsConfirmed)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="HostModel.ProformaSignedByCaiw" Label="Proforma signed by CAIW" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => HostModel.ProformaSignedByCaiw)"/>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+                <a href="/hosts/index" class="btn btn-secondary ml-2">Back to host list</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private HostRecordDTO HostModel { get; set; } = new();
+    private HostClientService? _hostClientService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hostClientService = ScopedServices.GetRequiredService<HostClientService>();
+        var host = await _hostClientService.Get(Id);
+        if (host is not null)
+        {
+            HostModel = Mapper.Map<HostRecordDTO>(host);
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SubmitForm()
+    {
+        var host = Mapper.Map<HostRecord>(HostModel);
+        await _hostClientService.UpdateHost(host.Id, host);
+        NavigationManager.NavigateTo("/hosts/index");
+    }
+}

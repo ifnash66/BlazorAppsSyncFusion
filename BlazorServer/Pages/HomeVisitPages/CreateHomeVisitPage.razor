@@ -1,0 +1,157 @@
+@page "/home-visits/create-visit"
+@inject NavigationManager NavigationManager
+@using BlazorApps.Shared.Models
+@using AutoMapper
+@using BlazorServer.Services
+@inject IMapper Mapper
+@inherits OwningComponentBase
+<h3>Create Home Visit</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@HomeVisitModel" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <label for="@HomeVisitModel.VisitStatusId">Visit Status</label>
+                <InputSelect @bind-Value="HomeVisitModel.VisitStatusId" class="form-control form-select">
+                    <option value="">Please select a visit status</option>
+                    @foreach (var status in VisitStatusList)
+                    {
+                        <option value="@status.Id">@status.Title</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => HomeVisitModel.VisitStatusId)"/>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-4">
+                    <label for="@HomeVisitModel.VisitDate">Visit Date and Time</label>
+                    <SfDateTimePicker TValue="DateTime?"
+                                      Format="dd/MM/yyyy HH:mm"
+                                      StrictMode=true
+                                      Placeholder='Please enter a date and time'
+                                      @bind-Value="HomeVisitModel.VisitDate">
+                    </SfDateTimePicker>
+                    <ValidationMessage For="@(() => HomeVisitModel.VisitDate)"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Hosts Visited</label>
+                <InputSelect @bind-Value="@_selectedHostIds" class="form-control">
+                    @foreach (var host in HostRecords)
+                    {
+                        <option value="@host.Id">@host.FullName</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="mb-3">
+                <label>Guests Visited</label>
+                <InputSelect @bind-Value="@_selectedGuestIds" class="form-control">
+                    @foreach (var guest in GuestRecords)
+                    {
+                        <option value="@guest.Id">@guest.FullName</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="mb-3">
+                <label for="@HomeVisitModel.VisitorName">Visitor Name</label>
+                <InputText @bind-Value="HomeVisitModel.VisitorName" class="form-control"/>
+                <ValidationMessage For="@(() => HomeVisitModel.VisitorName)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="HomeVisitModel.IsTranslatorNeeded" Label="Is translator needed" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => HomeVisitModel.IsTranslatorNeeded)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HomeVisitModel.TranslationLanguage">Translation Language</label>
+                <InputText @bind-Value="HomeVisitModel.TranslationLanguage" class="form-control"/>
+                <ValidationMessage For="@(() => HomeVisitModel.TranslationLanguage)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HomeVisitModel.TranslatorName">Translator Name</label>
+                <InputText @bind-Value="HomeVisitModel.TranslatorName" class="form-control"/>
+                <ValidationMessage For="@(() => HomeVisitModel.TranslatorName)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@HomeVisitModel.VisitNotes">Notes</label>
+                <InputTextArea @bind-Value="HomeVisitModel.VisitNotes" rows="5" class="form-control"></InputTextArea>
+                <ValidationMessage For="@(() => HomeVisitModel.VisitNotes)"/>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+                <a href="/home-visits/index" class="btn btn-secondary ml-2">Back to visits list</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private HomeVisitRecordDTO HomeVisitModel { get; set; } = new();
+    private HomeVisitClientService? _homeVisitClientService;
+    private HostClientService? _hostClientService;
+    private GuestClientService? _guestClientService;
+
+    private string[] _selectedHostIds = Array.Empty<string>();
+    private string[] _selectedGuestIds = Array.Empty<string>();
+
+    private List<HostRecord> HostRecords { get; set; } = new();
+    private List<GuestRecord> GuestRecords { get; set; } = new();
+    private List<VisitStatus> VisitStatusList { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _homeVisitClientService = ScopedServices.GetRequiredService<HomeVisitClientService>();
+        _hostClientService = ScopedServices.GetRequiredService<HostClientService>();
+        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+
+        HomeVisitModel.DateCreated = DateTime.Now;
+        HomeVisitModel.CreatedBy = "System";
+        HomeVisitModel.VisitDate = DateTime.Now;
+
+        var hosts = await _hostClientService.GetAll();
+        if (hosts is not null)
+        {
+            HostRecords = hosts.ToList();
+        }
+
+        var guests = await _guestClientService.GetAll();
+        if (guests is not null)
+        {
+            GuestRecords = guests.ToList();
+        }
+
+        var visitStatusList = await _homeVisitClientService.GetVisitStatusList();
+        if (visitStatusList is not null)
+        {
+            VisitStatusList = visitStatusList.ToList();
+        }
+        
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SubmitForm()
+    {
+        var visit = Mapper.Map<HomeVisitRecord>(HomeVisitModel);
+        var selectedHostNames = string.Empty;
+        foreach (var id in _selectedHostIds)
+        {
+            var hostRecord = HostRecords.FirstOrDefault(x => x.Id == int.Parse(id));
+            selectedHostNames += hostRecord.FullName + ", ";
+        }
+        selectedHostNames.TrimEnd(',').Trim();
+        var selectedGuestNames = string.Empty;
+        foreach (var id in _selectedGuestIds)
+        {
+            var guestRecord = GuestRecords.FirstOrDefault(x => x.Id == int.Parse(id));
+            selectedGuestNames += guestRecord.FullName + ", ";
+        }
+        selectedHostNames.Trim().TrimEnd(',');
+        selectedGuestNames.Trim().TrimEnd(',');
+        visit.HostsVisited = selectedHostNames;
+        visit.GuestsVisited = selectedGuestNames;
+
+        await _homeVisitClientService.AddVisit(visit);
+        NavigationManager.NavigateTo("/home-visits/index");
+    }
+}

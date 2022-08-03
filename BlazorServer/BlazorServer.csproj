@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="11.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.2.0.40" />
+        <PackageReference Include="Syncfusion.Blazor.Calendars" Version="20.2.0.40" />
+        <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="20.2.0.40" />
+        <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.2.0.40" />
+        <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.2.0.40" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BlazorApps.Shared\BlazorApps.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

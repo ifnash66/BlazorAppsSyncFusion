@@ -1,0 +1,212 @@
+@page "/guests/create-guest"
+@inject NavigationManager NavigationManager
+@using BlazorApps.Shared.Models
+@using AutoMapper
+@using BlazorServer.Services
+@inject IMapper Mapper
+@inherits OwningComponentBase
+<h3>Create Guest</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@GuestModel" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <p class="h2">Personal details</p>
+            <hr/>
+            <div class="mb-3">
+                <label for="@GuestModel.FirstName">First name</label>
+                <InputText @bind-Value="GuestModel.FirstName" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.FirstName)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.LastName">Last name</label>
+                <InputText @bind-Value="GuestModel.LastName" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.LastName)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.EmailAddress">Email address</label>
+                <InputText @bind-Value="GuestModel.EmailAddress" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.EmailAddress)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.PhoneNumber">Phone number</label>
+                <InputText @bind-Value="GuestModel.PhoneNumber" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.PhoneNumber)"/>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@GuestModel.DateOfBirth">Date of birth</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@GuestModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => GuestModel.DateOfBirth)"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.Age">Age</label>
+                <InputNumber @bind-Value="GuestModel.Age" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.Age)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.GenderId">Gender</label>
+                <InputSelect @bind-Value="GuestModel.GenderId" class="form-control form-select">
+                    <option value="">Please select a gender...</option>
+                    @foreach (var gender in GenderList)
+                    {
+                        <option value="@gender.Id">@gender.Title</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => GuestModel.GenderId)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.FamilyNumber">Family number</label>
+                <InputNumber @bind-Value="GuestModel.FamilyNumber" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.FamilyNumber)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.NumberOfChildrenArrived">Number of children arrived</label>
+                <InputNumber @bind-Value="GuestModel.NumberOfChildrenArrived" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.NumberOfChildrenArrived)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.NumberOfAdultsArrived">Number of adults arrived</label>
+                <InputNumber @bind-Value="GuestModel.NumberOfAdultsArrived" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.NumberOfAdultsArrived)"/>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@GuestModel.DateOfArrivalUk">Date of arrival in UK</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="GuestModel.DateOfArrivalUk" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => GuestModel.DateOfArrivalUk)"/>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@GuestModel.DateOfArrivalAtAddress">Date of arrival at address</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="GuestModel.DateOfArrivalAtAddress" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => GuestModel.DateOfArrivalAtAddress)"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.CashAllowance">Cash allowance</label>
+                <InputNumber @bind-Value="GuestModel.CashAllowance" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.CashAllowance)"/>
+            </div>
+            <p class="h2">Applications</p>
+            <hr/>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.VodafoneSimGiven" Label="Vodafone SIM given" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.VodafoneSimGiven)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.UcRegistration" Label="UC registration" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.UcRegistration)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.UcApplicationMade" Label="UC application made" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.UcApplicationMade)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.BusAppDownloadedToPhone" Label="Bus app downloaded to phone" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.BusAppDownloadedToPhone)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.GpApplicationSubmitted" Label="GP application submitted" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.GpApplicationSubmitted)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.NameOfSurgery">Name of surgery</label>
+                <InputText @bind-Value="GuestModel.NameOfSurgery" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.NameOfSurgery)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.EsolEnrolmentAtIwCollege" Label="ESOL enrolment at college" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.EsolEnrolmentAtIwCollege)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.BiometricResidencePermitAppliedFor" Label="Biometric residence permit applied for" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.BiometricResidencePermitAppliedFor)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.BiometricResidencePermitReceived" Label="Biometric residence permit received" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.BiometricResidencePermitReceived)"/>
+            </div>
+            <p class="h2">Schools</p>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.SchoolPlace" Label="School place" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.SchoolPlace)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.NameOfSchool">Name of school</label>
+                <InputText @bind-Value="GuestModel.NameOfSchool" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.NameOfSchool)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.SchoolYearStartedSchool">School year started/school</label>
+                <InputNumber @bind-Value="GuestModel.SchoolYearStartedSchool" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.SchoolYearStartedSchool)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.HomeToSchoolTransport">Home to school transport</label>
+                <InputText @bind-Value="GuestModel.HomeToSchoolTransport" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.HomeToSchoolTransport)"/>
+            </div>
+            <p class="h2">Permissions</p>
+            <hr/>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.PermissionToShareDataWithOtherUkrainianArrivals" Label="Permission to share data with other Ukrainian arrivals" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.PermissionToShareDataWithOtherUkrainianArrivals)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.PermissionForCaiwToHold" Label="Permission for CAIW to hold" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.PermissionForCaiwToHold)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.PermissionToShareContactInformationWithFaithOrganisation" Label="Permission to share contact information with faith organisaton" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.PermissionToShareContactInformationWithFaithOrganisation)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="GuestModel.PermissionToShareEmailAddressWithSv" Label="Permission to share email address with SV" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => GuestModel.PermissionToShareEmailAddressWithSv)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.Notes">Notes</label>
+                <InputTextArea @bind-Value="GuestModel.Notes" rows="5" class="form-control"></InputTextArea>
+                <ValidationMessage For="@(() => GuestModel.Notes)"/>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+                <a href="/guests/index" class="btn btn-secondary ml-2">Back to guest list</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private GuestRecordDTO GuestModel { get; set; } = new();
+    private List<Gender> GenderList { get; set; } = new();
+    private GuestClientService? _guestClientService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+
+        GuestModel.DateCreated = DateTime.Now;
+        GuestModel.CreatedBy = "System";
+
+        var genderList = await _guestClientService.GetGenderList();
+        if (genderList is not null)
+        {
+            GenderList = genderList.ToList();
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SubmitForm()
+    {
+        var guest = Mapper.Map<GuestRecord>(GuestModel);
+        await _guestClientService.AddGuest(guest);
+        NavigationManager.NavigateTo("/guests/index");
+    }
+}

@@ -1,0 +1,92 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BlazorServer
+build_property.RootNamespace = BlazorServer
+build_property.ProjectDir = /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/GuestPages/GuestIndexPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR3Vlc3RQYWdlcy9HdWVzdEluZGV4UGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HomeVisitPages/HomeVisitIndexPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZVZpc2l0UGFnZXMvSG9tZVZpc2l0SW5kZXhQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/HostIndexPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0hvc3RJbmRleFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/GuestPages/CreateGuestPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR3Vlc3RQYWdlcy9DcmVhdGVHdWVzdFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-o0xwuo8gyx
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/GuestPages/EditGuestPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR3Vlc3RQYWdlcy9FZGl0R3Vlc3RQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-a0pov6u0nb
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HomeVisitPages/CreateHomeVisitPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZVZpc2l0UGFnZXMvQ3JlYXRlSG9tZVZpc2l0UGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-mzw6ybp9hi
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HomeVisitPages/EditHomeVisitPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZVZpc2l0UGFnZXMvRWRpdEhvbWVWaXNpdFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-dpi3k5v2fc
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/CreateHostPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0NyZWF0ZUhvc3RQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-qbw96waugz
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/EditHostPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0VkaXRIb3N0UGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-qpfn4m4tby
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-s5uh5d1cba
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-dctiheqh1z
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = X1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
