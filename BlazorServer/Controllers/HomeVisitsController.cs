@@ -1,5 +1,5 @@
-using BlazorApps.Shared;
-using BlazorApps.Shared.Models;
+using BlazorApps.Shared.Repositories;
+using BlazorServer.Data.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorServer.Controllers
@@ -8,35 +8,35 @@ namespace BlazorServer.Controllers
     [ApiController]
     public class HomeVisitsController : ControllerBase
     {
-        private readonly DataService _dataService;
+        private readonly DataRepository _dataRepository;
 
-        public HomeVisitsController(DataService dataService)
+        public HomeVisitsController(DataRepository dataRepository)
         {
-            _dataService = dataService;
+            _dataRepository = dataRepository;
         }
 
         [HttpGet("GetVisits")]
         public async Task<ActionResult<List<HomeVisitRecord>>> GetVisits()
         {
-            return await _dataService.GetHomeVisits();
+            return await _dataRepository.GetHomeVisits();
         }
         
         [HttpGet("GetVisitStatusList")]
         public async Task<ActionResult<List<VisitStatus>>> GetVisitStatusList()
         {
-            return await _dataService.GetVisitStatusList();
+            return await _dataRepository.GetVisitStatusList();
         }
 
         [HttpGet("GetVisit/{id:int}")]
         public async Task<ActionResult<HomeVisitRecord?>> GetVisit(int id)
         {
-            return await _dataService.GetHomeVisit(id);
+            return await _dataRepository.GetHomeVisit(id);
         }
 
         [HttpPost("AddVisit")]
         public async Task<ActionResult> AddVisit(HomeVisitRecord visit)
         {
-            await _dataService.AddHomeVisit(visit);
+            await _dataRepository.AddHomeVisit(visit);
             return CreatedAtAction("GetVisit", new { id = visit.Id }, visit);
         }
         
@@ -51,26 +51,26 @@ namespace BlazorServer.Controllers
             {
                 return NotFound();
             }
-            await _dataService.UpdateHomeVisit(visit);
+            await _dataRepository.UpdateHomeVisit(visit);
             return NoContent();
         }
 
         [HttpDelete("DeleteVisit/{id:int}")]
         public async Task<ActionResult> DeleteVisit(int id)
         {
-            var visit = await _dataService.GetHomeVisit(id);
+            var visit = await _dataRepository.GetHomeVisit(id);
             if (visit is null)
             {
                 return NotFound();
             }
 
-            await _dataService.RemoveHomeVisit(visit);
+            await _dataRepository.RemoveHomeVisit(visit);
             return NoContent();
         }
 
         private async Task<bool> VisitRecordExists(int id)
         {
-            var visit = await _dataService.GetHomeVisit(id);
+            var visit = await _dataRepository.GetHomeVisit(id);
             return visit is not null;
         }
     }

@@ -29,8 +29,4 @@
         <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.2.0.40" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\BlazorApps.Shared\BlazorApps.Shared.csproj" />
-    </ItemGroup>
-
 </Project>

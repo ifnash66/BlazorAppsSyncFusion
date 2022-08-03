@@ -1,7 +1,8 @@
 @page "/guests/edit-guest/{id:int}"
 @inject NavigationManager NavigationManager
-@using BlazorApps.Shared.Models
 @using AutoMapper
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Models.DTOs
 @using BlazorServer.Services
 @inject IMapper Mapper
 @inherits OwningComponentBase

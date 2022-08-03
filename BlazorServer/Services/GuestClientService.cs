@@ -1,7 +1,7 @@
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
-using BlazorApps.Shared.Models;
+using BlazorServer.Data.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorServer.Services;

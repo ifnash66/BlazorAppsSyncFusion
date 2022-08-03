@@ -3210,20 +3210,6 @@
             "rid": "win"
           }
         }
-      },
-      "BlazorApps.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.7",
-          "Microsoft.EntityFrameworkCore.Sqlite": "6.0.7"
-        },
-        "compile": {
-          "bin/placeholder/BlazorApps.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BlazorApps.Shared.dll": {}
-        }
       }
     }
   },
@@ -9428,18 +9414,12 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
-    },
-    "BlazorApps.Shared/1.0.0": {
-      "type": "project",
-      "path": "../BlazorApps.Shared/BlazorApps.Shared.csproj",
-      "msbuildProject": "../BlazorApps.Shared/BlazorApps.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "AutoMapper >= 11.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
-      "BlazorApps.Shared >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.7",
@@ -9478,11 +9458,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorApps.Shared/BlazorApps.Shared.csproj": {
-              "projectPath": "/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorApps.Shared/BlazorApps.Shared.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

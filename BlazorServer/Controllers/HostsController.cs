@@ -1,5 +1,5 @@
-using BlazorApps.Shared;
-using BlazorApps.Shared.Models;
+using BlazorApps.Shared.Repositories;
+using BlazorServer.Data.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorServer.Controllers
@@ -8,29 +8,29 @@ namespace BlazorServer.Controllers
     [ApiController]
     public class HostsController : ControllerBase
     {
-        private readonly DataService _dataService;
+        private readonly DataRepository _dataRepository;
 
-        public HostsController(DataService dataService)
+        public HostsController(DataRepository dataRepository)
         {
-            _dataService = dataService;
+            _dataRepository = dataRepository;
         }
 
         [HttpGet("GetHosts")]
         public async Task<ActionResult<List<HostRecord>>> GetHosts()
         {
-            return await _dataService.GetHosts();
+            return await _dataRepository.GetHosts();
         }
 
         [HttpGet("GetHost/{id:int}")]
         public async Task<ActionResult<HostRecord?>> GetHost(int id)
         {
-            return await _dataService.GetHost(id);
+            return await _dataRepository.GetHost(id);
         }
 
         [HttpPost("AddHost")]
         public async Task<ActionResult> AddHost(HostRecord hostRecord)
         {
-            await _dataService.AddHost(hostRecord);
+            await _dataRepository.AddHost(hostRecord);
             return CreatedAtAction("GetHost", new { id = hostRecord.Id }, hostRecord);
         }
         
@@ -45,26 +45,26 @@ namespace BlazorServer.Controllers
             {
                 return NotFound();
             }
-            await _dataService.UpdateHost(hostRecord);
+            await _dataRepository.UpdateHost(hostRecord);
             return NoContent();
         }
 
         [HttpDelete("DeleteHost/{id:int}")]
         public async Task<ActionResult> DeleteHost(int id)
         {
-            var host = await _dataService.GetHost(id);
+            var host = await _dataRepository.GetHost(id);
             if (host is null)
             {
                 return NotFound();
             }
 
-            await _dataService.RemoveHost(host);
+            await _dataRepository.RemoveHost(host);
             return NoContent();
         }
 
         private async Task<bool> HostRecordExists(int id)
         {
-            var host = await _dataService.GetHost(id);
+            var host = await _dataRepository.GetHost(id);
             return host is not null;
         }
     }

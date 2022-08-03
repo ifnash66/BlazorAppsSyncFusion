@@ -1,5 +1,6 @@
 using AutoMapper;
-using BlazorApps.Shared.Models;
+using BlazorServer.Data.Models.Domain;
+using BlazorServer.Data.Models.DTOs;
 
 namespace BlazorServer.MappingProfiles;
 

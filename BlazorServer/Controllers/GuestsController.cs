@@ -1,5 +1,5 @@
-using BlazorApps.Shared;
-using BlazorApps.Shared.Models;
+using BlazorApps.Shared.Repositories;
+using BlazorServer.Data.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorServer.Controllers
@@ -8,35 +8,35 @@ namespace BlazorServer.Controllers
     [ApiController]
     public class GuestsController : ControllerBase
     {
-        private readonly DataService _dataService;
+        private readonly DataRepository _dataRepository;
 
-        public GuestsController(DataService dataService)
+        public GuestsController(DataRepository dataRepository)
         {
-            _dataService = dataService;
+            _dataRepository = dataRepository;
         }
 
         [HttpGet("GetGuests")]
         public async Task<ActionResult<List<GuestRecord>>> GetGuests()
         {
-            return await _dataService.GetGuests();
+            return await _dataRepository.GetGuests();
         }
         
         [HttpGet("GetGenderList")]
         public async Task<ActionResult<List<Gender>>> GetGenderList()
         {
-            return await _dataService.GetGenderList();
+            return await _dataRepository.GetGenderList();
         }
 
         [HttpGet("GetGuest/{id:int}")]
         public async Task<ActionResult<GuestRecord?>> GetGuest(int id)
         {
-            return await _dataService.GetGuest(id);
+            return await _dataRepository.GetGuest(id);
         }
 
         [HttpPost("AddGuest")]
         public async Task<ActionResult> AddGuest(GuestRecord guestRecord)
         {
-            await _dataService.AddGuest(guestRecord);
+            await _dataRepository.AddGuest(guestRecord);
             return CreatedAtAction("GetGuest", new { id = guestRecord.Id }, guestRecord);
         }
         
@@ -51,26 +51,26 @@ namespace BlazorServer.Controllers
             {
                 return NotFound();
             }
-            await _dataService.UpdateGuest(guestRecord);
+            await _dataRepository.UpdateGuest(guestRecord);
             return NoContent();
         }
         
         [HttpDelete("DeleteGuest/{id:int}")]
         public async Task<ActionResult> DeleteGuest(int id)
         {
-            var guest = await _dataService.GetGuest(id);
+            var guest = await _dataRepository.GetGuest(id);
             if (guest is null)
             {
                 return NotFound();
             }
 
-            await _dataService.RemoveGuest(guest);
+            await _dataRepository.RemoveGuest(guest);
             return NoContent();
         }
 
         private async Task<bool> GuestRecordExists(int id)
         {
-            var guest = await _dataService.GetGuest(id);
+            var guest = await _dataRepository.GetGuest(id);
             return guest is not null;
         }
     }

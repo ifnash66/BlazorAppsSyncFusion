@@ -1,5 +1,7 @@
 using AutoMapper;
 using BlazorApps.Shared;
+using BlazorApps.Shared.Repositories;
+using BlazorServer.Data.Contexts;
 using BlazorServer.MappingProfiles;
 using BlazorServer.Services;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +29,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddDbContextFactory<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddTransient<DataService>();
+builder.Services.AddTransient<DataRepository>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<HostClientService>(client => client.BaseAddress = new Uri("https://localhost:7099/api/Hosts/"));
