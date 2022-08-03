@@ -85,22 +85,28 @@
 
     private HostRecordDTO HostModel { get; set; } = new();
     private HostRepository? _hostRepository;
-    protected override async Task OnInitializedAsync()
+    private bool _busy = false;
+    
+    protected override void OnInitialized()
     {
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        if (_busy) return;
+        _busy = true;
         var host = _hostRepository.GetHost(Id);
         if (host is not null)
         {
             HostModel = Mapper.Map<HostRecordDTO>(host);
         }
-
-        await base.OnInitializedAsync();
+        _busy = false;
     }
 
     private void SubmitForm()
     {
         var host = Mapper.Map<HostRecord>(HostModel);
+        if (_busy) return;
+        _busy = true;
         _hostRepository.UpdateHost(host);
+        _busy = false;
         NavigationManager.NavigateTo("/hosts/index");
     }
 }

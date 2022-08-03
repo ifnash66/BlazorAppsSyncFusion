@@ -104,12 +104,15 @@
     private List<GuestRecord> GuestRecords { get; set; } = new();
     private List<VisitStatus> VisitStatusList { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    private bool _busy = false;
+
+    protected override void OnInitialized()
     {
         _homeVisitRepository = ScopedServices.GetRequiredService<HomeVisitRepository>();
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
-
+        if (_busy) return;
+        _busy = true;
         var hosts = _hostRepository.GetHosts();
         if (hosts is not null)
         {
@@ -133,8 +136,7 @@
         {
             VisitStatusList = visitStatusList;
         }
-
-        await base.OnInitializedAsync();
+        _busy = false;
     }
 
     private void SubmitForm()
@@ -157,8 +159,10 @@
         selectedGuestNames.Trim().TrimEnd(',');
         visit.HostsVisited = selectedHostNames;
         visit.GuestsVisited = selectedGuestNames;
-
+        if (_busy) return;
+        _busy = true;
         _homeVisitRepository.UpdateHomeVisit(visit);
+        _busy = false;
         NavigationManager.NavigateTo("/home-visits/index");
     }
 }

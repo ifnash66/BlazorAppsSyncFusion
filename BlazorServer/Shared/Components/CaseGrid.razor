@@ -32,16 +32,19 @@
 
     private List<CaseRecord> CaseRecords { get; set; } = new();
     private CaseRepository _CaseRepository { get; set; }
+    private bool _busy = false;
 
     protected override void OnInitialized()
     {
         _CaseRepository = ScopedServices.GetRequiredService<CaseRepository>();
-        
+        if (_busy) return;
+        _busy = true;
         var caseRecords = _CaseRepository.GetCases();
         if (caseRecords is not null)
         {
             CaseRecords = caseRecords;
         }
+        _busy = false;
     }
 
     private void EditCase(int id)
@@ -51,6 +54,8 @@
 
     private void DeleteCase(CaseRecord caseRecord)
     {
+        if (_busy) return;
+        _busy = true;
         _CaseRepository.RemoveCase(caseRecord);
         var caseRecords = _CaseRepository.GetCases();
         if (caseRecords is not null)
@@ -58,5 +63,6 @@
             CaseRecords = caseRecords;
             StateHasChanged();
         }
+        _busy = false;
     }
 }

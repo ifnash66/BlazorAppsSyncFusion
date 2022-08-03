@@ -36,21 +36,28 @@
 
     private CaseRecordDTO CaseModel { get; set; } = new();
     private CaseRepository? _caseRepository;
+    private bool _busy = false;
 
     protected override void OnInitialized()
     {
         _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
+        if (_busy) return;
+        _busy = true;
         var caseRecord = _caseRepository.GetCase(Id);
         if (caseRecord is not null)
         {
             CaseModel = Mapper.Map<CaseRecordDTO>(caseRecord);
         }
+        _busy = false;
     }
 
     private void SubmitForm()
     {
         var caseRecord = Mapper.Map<CaseRecord>(CaseModel);
+        if (_busy) return;
+        _busy = true;
         _caseRepository.UpdateCase(caseRecord);
+        _busy = false;
         NavigationManager.NavigateTo("/cases/index");
     }
 }

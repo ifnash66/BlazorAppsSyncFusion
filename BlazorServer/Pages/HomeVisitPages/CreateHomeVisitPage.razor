@@ -92,6 +92,7 @@
     private HomeVisitRepository? _homeVisitRepository;
     private HostRepository? _hostRepository;
     private GuestRepository? _guestRepository;
+    private bool _busy = false;
 
     private string[] _selectedHostIds = Array.Empty<string>();
     private string[] _selectedGuestIds = Array.Empty<string>();
@@ -109,7 +110,8 @@
         HomeVisitModel.DateCreated = DateTime.Now;
         HomeVisitModel.CreatedBy = "System";
         HomeVisitModel.VisitDate = DateTime.Now;
-
+        if (_busy) return;
+        _busy = true;
         var hosts = _hostRepository.GetHosts();
         if (hosts is not null)
         {
@@ -127,6 +129,7 @@
         {
             VisitStatusList = visitStatusList.ToList();
         }
+        _busy = false;
     }
 
     private void SubmitForm()
@@ -149,8 +152,10 @@
         selectedGuestNames.Trim().TrimEnd(',');
         visit.HostsVisited = selectedHostNames;
         visit.GuestsVisited = selectedGuestNames;
-
+        if (_busy) return;
+        _busy = true;
         _homeVisitRepository.AddHomeVisit(visit);
+        _busy = false;
         NavigationManager.NavigateTo("/home-visits/index");
     }
 }

@@ -32,18 +32,21 @@
 
 @code {
 
-    public List<GuestRecord> GuestRecords { get; set; } = new();
+    private List<GuestRecord> GuestRecords { get; set; } = new();
     private GuestRepository? _guestRepository;
+    private bool _busy = false;
 
     protected override void OnInitialized()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
-
+        if (_busy) return;
+        _busy = true;
         var guests = _guestRepository.GetGuests();
         if (guests is not null)
         {
             GuestRecords = guests;
         }
+        _busy = false;
     }
 
     private void EditGuest(int id)
@@ -53,6 +56,8 @@
 
     private void DeleteGuest(GuestRecord guest)
     {
+        if (_busy) return;
+        _busy = true;
         _guestRepository.RemoveGuest(guest);
         var guests = _guestRepository.GetGuests();
         if (guests is not null)
@@ -60,5 +65,6 @@
             GuestRecords = guests;
             StateHasChanged();
         }
+        _busy = false;
     }
 }

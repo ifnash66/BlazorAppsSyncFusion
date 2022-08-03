@@ -82,6 +82,7 @@
 
     private HostRecordDTO HostModel { get; set; } = new();
     private HostRepository? _hostRepository;
+    private bool _busy = false;
     
     protected override void OnInitialized()
     {
@@ -93,7 +94,10 @@
     private void SubmitForm()
     {
         var host = Mapper.Map<HostRecord>(HostModel);
+        if (_busy) return;
+        _busy = true;
         _hostRepository.AddHost(host);
+        _busy = false;
         NavigationManager.NavigateTo("/hosts/index");
     }
 }

@@ -187,6 +187,7 @@
     private GuestRecordDTO GuestModel { get; set; } = new();
     private List<Gender> GenderList { get; set; } = new();
     private GuestRepository? _guestRepository;
+    private bool _busy = false;
 
     protected override void OnInitialized()
     {
@@ -194,18 +195,23 @@
 
         GuestModel.DateCreated = DateTime.Now;
         GuestModel.CreatedBy = "System";
-
+        if (_busy) return;
+        _busy = true;
         var genderList = _guestRepository.GetGenderList();
         if (genderList is not null)
         {
             GenderList = genderList;
         }
+        _busy = false;
     }
 
     private void SubmitForm()
     {
         var guest = Mapper.Map<GuestRecord>(GuestModel);
+        if (_busy) return;
+        _busy = true;
         _guestRepository.AddGuest(guest);
+        _busy = false;
         NavigationManager.NavigateTo("/guests/index");
     }
 }

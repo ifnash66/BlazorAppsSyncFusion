@@ -190,11 +190,13 @@
     private GuestRepository? _guestRepository;
     private GuestRecordDTO GuestModel { get; set; } = new();
     private List<Gender> GenderList { get; set; } = new();
+    private bool _busy = false;
 
     protected override void OnInitialized()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
-
+        if (_busy) return;
+        _busy = true;
         var guest = _guestRepository.GetGuest(Id);
         if (guest is not null)
         {
@@ -206,12 +208,16 @@
         {
             GenderList = genderList;
         }
+        _busy = false;
     }
 
     private void SubmitForm()
     {
         var guest = Mapper.Map<GuestRecord>(GuestModel);
+        if (_busy) return;
+        _busy = true;
         _guestRepository.UpdateGuest(guest);
+        _busy = false;
         NavigationManager.NavigateTo("/guests/index");
     }
 }
