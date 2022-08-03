@@ -1,6 +1,7 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
-@inherits OwningComponentBase
+@using BlazorServer.Data.Contexts
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<AppDbContext> DbContextFactory
 @inject NavigationManager NavigationManager
 
 <p>
@@ -34,38 +35,43 @@
 @code {
 
     private List<HomeVisitRecord> HomeVisitRecords { get; set; } = new();
-    private HomeVisitRepository? _homeVisitRepository;
-    private bool _busy = false;
+    
+    [Parameter]
+    public bool Busy { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _homeVisitRepository = ScopedServices.GetRequiredService<HomeVisitRepository>();
-        if (_busy) return;
-        _busy = true;
-        var visits = _homeVisitRepository.GetHomeVisits();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var visits = await context.HomeVisitRecords.ToListAsync();
         if (visits is not null)
         {
             HomeVisitRecords = visits;
         }
-        _busy = false;
+        Busy = false;
+        await base.OnInitializedAsync();
     }
 
     private void EditVisit(int id)
     {
-        NavigationManager.NavigateTo($@"/home-visits/edit-visit/{id}");
+        NavigationManager.NavigateTo($"/home-visits/edit-visit/{id}");
     }
 
-    private void DeleteVisit(HomeVisitRecord visit)
+    private async Task DeleteVisit(HomeVisitRecord visit)
     {
-        if (_busy) return;
-        _busy = true;
-        _homeVisitRepository.RemoveHomeVisit(visit);
-        var visits = _homeVisitRepository.GetHomeVisits();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        context.Attach(visit);
+        context.Entry(visit).State = EntityState.Deleted;
+        await context.SaveChangesAsync();
+        var visits = await context.HomeVisitRecords.ToListAsync();
         if (visits is not null)
         {
             HomeVisitRecords = visits;
             StateHasChanged();
         }
-        _busy = false;
+        Busy = false;
     }
 }

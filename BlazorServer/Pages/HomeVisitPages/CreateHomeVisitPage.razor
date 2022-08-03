@@ -1,11 +1,12 @@
 @page "/home-visits/create-visit"
 @inject NavigationManager NavigationManager
 @using AutoMapper
+@using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Models.DTOs
-@using BlazorServer.Data.Repositories
+@using Microsoft.EntityFrameworkCore
 @inject IMapper Mapper
-@inherits OwningComponentBase
+@inject IDbContextFactory<AppDbContext> DbContextFactory
 <h3>Create Home Visit</h3>
 
 <div class="row">
@@ -89,11 +90,8 @@
 @code {
 
     private HomeVisitRecordDTO HomeVisitModel { get; set; } = new();
-    private HomeVisitRepository? _homeVisitRepository;
-    private HostRepository? _hostRepository;
-    private GuestRepository? _guestRepository;
-    private bool _busy = false;
-
+    public bool Busy { get; set; }
+    
     private string[] _selectedHostIds = Array.Empty<string>();
     private string[] _selectedGuestIds = Array.Empty<string>();
 
@@ -101,38 +99,36 @@
     private List<GuestRecord> GuestRecords { get; set; } = new();
     private List<VisitStatus> VisitStatusList { get; set; } = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _homeVisitRepository = ScopedServices.GetRequiredService<HomeVisitRepository>();
-        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
-        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
-
         HomeVisitModel.DateCreated = DateTime.Now;
         HomeVisitModel.CreatedBy = "System";
         HomeVisitModel.VisitDate = DateTime.Now;
-        if (_busy) return;
-        _busy = true;
-        var hosts = _hostRepository.GetHosts();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var hosts = await context.HostRecords.ToListAsync();
         if (hosts is not null)
         {
             HostRecords = hosts;
         }
 
-        var guests = _guestRepository.GetGuests();
+        var guests = await context.GuestRecords.ToListAsync();
         if (guests is not null)
         {
             GuestRecords = guests;
         }
 
-        var visitStatusList = _homeVisitRepository.GetVisitStatusList();
+        var visitStatusList = await context.VisitStatuses.ToListAsync();
         if (visitStatusList is not null)
         {
             VisitStatusList = visitStatusList.ToList();
         }
-        _busy = false;
+        Busy = false;
+        await base.OnInitializedAsync();
     }
 
-    private void SubmitForm()
+    private async Task SubmitForm()
     {
         var visit = Mapper.Map<HomeVisitRecord>(HomeVisitModel);
         var selectedHostNames = string.Empty;
@@ -152,10 +148,12 @@
         selectedGuestNames.Trim().TrimEnd(',');
         visit.HostsVisited = selectedHostNames;
         visit.GuestsVisited = selectedGuestNames;
-        if (_busy) return;
-        _busy = true;
-        _homeVisitRepository.AddHomeVisit(visit);
-        _busy = false;
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        await context.HomeVisitRecords.AddAsync(visit);
+        await context.SaveChangesAsync();
+        Busy = false;
         NavigationManager.NavigateTo("/home-visits/index");
     }
 }

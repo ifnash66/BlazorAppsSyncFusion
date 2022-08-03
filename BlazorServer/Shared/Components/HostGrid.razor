@@ -1,7 +1,8 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
-@inherits OwningComponentBase
+@using BlazorServer.Data.Contexts
+@using Microsoft.EntityFrameworkCore
 @inject NavigationManager NavigationManager
+@inject IDbContextFactory<AppDbContext> DbContextFactory
 
 <p>
     <a href="/hosts/create-host">Create host</a>
@@ -33,38 +34,43 @@
 @code {
 
     private List<HostRecord> HostRecords { get; set; } = new();
-    private HostRepository _hostRepository { get; set; }
-    private bool _busy = false;
+    
+    [Parameter]
+    public bool Busy { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
-        if (_busy) return;
-        _busy = true;
-        var hosts = _hostRepository.GetHosts();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var hosts = await context.HostRecords.ToListAsync();
         if (hosts is not null)
         {
             HostRecords = hosts;
         }
-        _busy = false;
+        Busy = false;
+        await base.OnInitializedAsync();
     }
 
     private void EditHost(int id)
     {
-        NavigationManager.NavigateTo($@"/hosts/edit-host/{id}");
+        NavigationManager.NavigateTo($"/hosts/edit-host/{id}", forceLoad:true);
     }
 
-    private void DeleteHost(HostRecord hostRecord)
+    private async Task DeleteHost(HostRecord hostRecord)
     {
-        if (_busy) return;
-        _busy = true;
-        _hostRepository.RemoveHost(hostRecord);
-        var hosts = _hostRepository.GetHosts();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        context.Attach(hostRecord);
+        context.Entry(hostRecord);
+        await context.SaveChangesAsync();
+        var hosts = await context.HostRecords.ToListAsync();
         if (hosts is not null)
         {
             HostRecords = hosts;
             StateHasChanged();
         }
-        _busy = false;
+        Busy = false;
     }
 }

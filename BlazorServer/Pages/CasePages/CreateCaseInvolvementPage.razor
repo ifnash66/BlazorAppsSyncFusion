@@ -1,0 +1,120 @@
+@page "/cases/case-involvement/create/{id:int}"
+@using BlazorServer.Data.Contexts
+@using BlazorServer.Data.Models.Domain
+@using Microsoft.EntityFrameworkCore
+@using ChangeEventArgs = Microsoft.AspNetCore.Components.ChangeEventArgs
+@inject IDbContextFactory<AppDbContext> DbContextFactory
+@inject NavigationManager NavigationManager
+
+<EditForm Model="@Model" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="mb-3">
+        <label>Involvement type</label>
+        <select class="form-select form-control" @onchange="InvolvementSelected">
+            <option value="">Please select an involvement type...</option>
+            @foreach (var item in InvolvementTypes)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+    </div>
+    <div class="@($"{HostToggle} mb-3")">
+        <label>Hosts</label>
+        <InputSelect class="form-select form-control" @bind-Value="Model.HostRecordId">
+            <option value="">Please select a host...</option>
+            @foreach (var item in HostRecords)
+            {
+                <option value="@item.Id">@item.FullName</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="@($"{GuestToggle} mb-3")">
+        <label>Guests</label>
+        <InputSelect class="form-select form-control" @bind-Value="Model.GuestRecordId">
+            <option value="">Please select a guest...</option>
+            @foreach (var item in GuestRecords)
+            {
+                <option value="@item.Id">@item.FullName</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-primary" value="Create" />
+        <button @onclick="ReloadCaseSummary" class="btn btn-secondary ml-2">Back to case summary</button>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public bool Busy { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private string HostToggle { get; set; } = "d-none";
+    private string GuestToggle { get; set; } = "d-none";
+    
+    private CaseInvolvement Model { get; set; } = new();
+    private List<string> InvolvementTypes { get; set; } = new();
+    private string InvolvementType { get; set; } = string.Empty;
+    public string GuestString { get; set; } = string.Empty;
+    private List<HostRecord> HostRecords { get; set; } = new();
+    private List<GuestRecord> GuestRecords { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        InvolvementTypes.AddRange(new[] {"Host", "Guest", "CaseWorker"});
+
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        HostRecords = await context.HostRecords.ToListAsync();
+        GuestRecords = await context.GuestRecords.ToListAsync();
+        Model.CaseRecordId = Id;
+        Model.DateCreated = DateTime.Now;
+        Model.IsActive = true;
+        Model.FromDate = DateTime.Now;
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private void InvolvementSelected(ChangeEventArgs args)
+    {
+        InvolvementType = args.Value.ToString();
+        
+        switch (InvolvementType)
+        {
+            case "Host":
+                HostToggle = "d-block";
+                GuestToggle = "d-none";
+                break;
+            case "Guest":
+                HostToggle = "d-none";
+                GuestToggle = "d-block";
+                break;
+            case "CaseWorker":
+                HostToggle = "d-none";
+                GuestToggle = "d-none";
+                break;
+        }
+    }
+
+    private void ReloadCaseSummary()
+    {
+        NavigationManager.NavigateTo($"/cases/case-detail/{Id}", forceLoad:true);
+    }
+
+    private async Task SubmitForm()
+    {
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        await context.CaseInvolvements.AddAsync(Model);
+        await context.SaveChangesAsync();
+        Busy = false;
+        Model = new CaseInvolvement();
+        NavigationManager.NavigateTo($"/cases/case-detail/{Id}", forceLoad:true);  
+    }
+}

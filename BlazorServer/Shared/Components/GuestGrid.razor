@@ -1,7 +1,8 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
-@inherits OwningComponentBase
+@using Microsoft.EntityFrameworkCore
+@using BlazorServer.Data.Contexts
 @inject NavigationManager NavigationManager
+@inject IDbContextFactory<AppDbContext> DbContextFactory
 
 <p>
     <a href="/guests/create-guest">Create guest</a>
@@ -33,20 +34,22 @@
 @code {
 
     private List<GuestRecord> GuestRecords { get; set; } = new();
-    private GuestRepository? _guestRepository;
-    private bool _busy = false;
+    
+    [Parameter]
+    public bool Busy { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
-        if (_busy) return;
-        _busy = true;
-        var guests = _guestRepository.GetGuests();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var guests = await context.GuestRecords.ToListAsync();
         if (guests is not null)
         {
             GuestRecords = guests;
         }
-        _busy = false;
+        Busy = false;
+        await base.OnInitializedAsync();
     }
 
     private void EditGuest(int id)
@@ -54,17 +57,20 @@
         NavigationManager.NavigateTo($"/guests/edit-guest/{id}");
     }
 
-    private void DeleteGuest(GuestRecord guest)
+    private async Task DeleteGuest(GuestRecord guest)
     {
-        if (_busy) return;
-        _busy = true;
-        _guestRepository.RemoveGuest(guest);
-        var guests = _guestRepository.GetGuests();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        context.Attach(guest);
+        context.Entry(guest).State = EntityState.Deleted;
+        await context.SaveChangesAsync();
+        var guests = await context.GuestRecords.ToListAsync();
         if (guests is not null)
         {
             GuestRecords = guests;
             StateHasChanged();
         }
-        _busy = false;
+        Busy = false;
     }
 }

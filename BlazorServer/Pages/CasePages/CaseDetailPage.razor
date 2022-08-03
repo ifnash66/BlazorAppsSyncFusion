@@ -1,0 +1,85 @@
+@page "/cases/case-detail/{id:int}"
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Contexts
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<AppDbContext> DbContextFactory
+@inject NavigationManager NavigationManager
+<h3>Case Detail Page</h3>
+
+<p>Case reference: @CaseRecord.CaseReference</p>
+
+<div class="row">
+    <div class="col-lg-8">
+        <CaseInvolvementGrid Busy="@Busy" Id="@CaseRecord.Id"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <SfTab>
+            <TabItems>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Hosts"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Guests"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Case Workers"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Home Visits"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Case Notes"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                    </ContentTemplate>
+                </TabItem>
+            </TabItems>
+        </SfTab>
+    </div>
+</div>
+
+@code {
+
+    public bool Busy { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public CaseRecord CaseRecord { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        CaseRecord = await context.CaseRecords.FindAsync(Id);
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private void AddInvolvement()
+    {
+        NavigationManager.NavigateTo($"/cases/case-involvement/create/{Id}");
+    }
+
+}

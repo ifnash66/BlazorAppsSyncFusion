@@ -1,7 +1,8 @@
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
-@inherits OwningComponentBase
+@using BlazorServer.Data.Contexts
+@using Microsoft.EntityFrameworkCore
 @inject NavigationManager NavigationManager
+@inject IDbContextFactory<AppDbContext> DbContextFactory
 
 <p>
     <a href="/cases/create-case">Create case</a>
@@ -19,6 +20,7 @@
                 @{
                     var caseRecord = (context as CaseRecord);
                     <div>
+                        <button class="btn btn-primary" @onclick="@(() => ViewCase(caseRecord.Id))">View</button>
                         <button class="btn btn-primary" @onclick="@(() => EditCase(caseRecord.Id))">Edit</button>
                         <button class="btn btn-danger ml-2" @onclick="@(() => DeleteCase(caseRecord))">Delete</button>
                     </div>
@@ -31,38 +33,48 @@
 @code {
 
     private List<CaseRecord> CaseRecords { get; set; } = new();
-    private CaseRepository _CaseRepository { get; set; }
-    private bool _busy = false;
+    
+    [Parameter]
+    public bool Busy { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _CaseRepository = ScopedServices.GetRequiredService<CaseRepository>();
-        if (_busy) return;
-        _busy = true;
-        var caseRecords = _CaseRepository.GetCases();
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var caseRecords = await context.CaseRecords.ToListAsync();
         if (caseRecords is not null)
         {
             CaseRecords = caseRecords;
         }
-        _busy = false;
+        Busy = false;
+        await base.OnInitializedAsync();
     }
 
     private void EditCase(int id)
     {
-        NavigationManager.NavigateTo($@"/cases/edit-case/{id}");
+        NavigationManager.NavigateTo($"/cases/edit-case/{id}");
     }
 
-    private void DeleteCase(CaseRecord caseRecord)
+    private void ViewCase(int id)
     {
-        if (_busy) return;
-        _busy = true;
-        _CaseRepository.RemoveCase(caseRecord);
-        var caseRecords = _CaseRepository.GetCases();
+        NavigationManager.NavigateTo($"/cases/case-detail/{id}");
+    }
+
+    private async Task DeleteCase(CaseRecord caseRecord)
+    {
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        context.Attach(caseRecord);
+        context.Entry(caseRecord).State = EntityState.Deleted;
+        await context.SaveChangesAsync();
+        var caseRecords = await context.CaseRecords.ToListAsync();
         if (caseRecords is not null)
         {
             CaseRecords = caseRecords;
             StateHasChanged();
         }
-        _busy = false;
+        Busy = false;
     }
 }

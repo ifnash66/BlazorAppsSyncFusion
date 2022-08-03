@@ -11,7 +11,7 @@
                         <TabHeader Text="Hosts"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <HostGrid/>
+                        <HostGrid Busy="@Busy"/>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -19,7 +19,7 @@
                         <TabHeader Text="Guests"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <GuestGrid/>
+                        <GuestGrid Busy="@Busy"/>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -27,7 +27,7 @@
                         <TabHeader Text="Visits"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <VisitGrid/>
+                        <VisitGrid Busy="@Busy"/>
                     </ContentTemplate>
                 </TabItem>
 
@@ -37,5 +37,8 @@
 </div>
 
 @code {
+    
+    public bool Busy { get; set; }
+
 
 }

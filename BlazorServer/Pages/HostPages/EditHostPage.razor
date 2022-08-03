@@ -1,11 +1,12 @@
 @page "/hosts/edit-host/{id:int}"
 @inject NavigationManager NavigationManager
 @using AutoMapper
+@using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Models.DTOs
-@using BlazorServer.Data.Repositories
+@using Microsoft.EntityFrameworkCore
 @inject IMapper Mapper
-@inherits OwningComponentBase
+@inject IDbContextFactory<AppDbContext> DbContextFactory
 <h3>Edit Host</h3>
 
 <div class="row">
@@ -84,29 +85,33 @@
     public int Id { get; set; }
 
     private HostRecordDTO HostModel { get; set; } = new();
-    private HostRepository? _hostRepository;
-    private bool _busy = false;
     
-    protected override void OnInitialized()
+    public bool Busy { get; set; }
+    
+    protected override async Task OnInitializedAsync()
     {
-        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
-        if (_busy) return;
-        _busy = true;
-        var host = _hostRepository.GetHost(Id);
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        if (Busy) return;
+        Busy = true;
+        var host = await context.HostRecords.FindAsync(Id);
         if (host is not null)
         {
             HostModel = Mapper.Map<HostRecordDTO>(host);
         }
-        _busy = false;
+        Busy = false;
+        await base.OnInitializedAsync();
     }
 
-    private void SubmitForm()
+    private async Task SubmitForm()
     {
         var host = Mapper.Map<HostRecord>(HostModel);
-        if (_busy) return;
-        _busy = true;
-        _hostRepository.UpdateHost(host);
-        _busy = false;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+
+        if (Busy) return;
+        Busy = true;
+        context.HostRecords.Update(host);
+        await context.SaveChangesAsync();
+        Busy = false;
         NavigationManager.NavigateTo("/hosts/index");
     }
 }
