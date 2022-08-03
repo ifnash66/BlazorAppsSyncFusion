@@ -35,6 +35,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/GuestGrid.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvR3Vlc3RHcmlkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/HostGrid.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvSG9zdEdyaWQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/VisitGrid.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvVmlzaXRHcmlkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

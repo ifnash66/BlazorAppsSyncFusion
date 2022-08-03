@@ -21,6 +21,7 @@
           "Syncfusion.Blazor.Calendars": "20.2.0.40",
           "Syncfusion.Blazor.DropDowns": "20.2.0.40",
           "Syncfusion.Blazor.Grid": "20.2.0.40",
+          "Syncfusion.Blazor.Navigations": "20.2.0.40",
           "Syncfusion.Blazor.Themes": "20.2.0.40"
         },
         "runtime": {

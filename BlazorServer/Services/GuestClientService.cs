@@ -9,10 +9,12 @@ namespace BlazorServer.Services;
 public class GuestClientService
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<GuestClientService> _logger;
 
-    public GuestClientService(HttpClient httpClient)
+    public GuestClientService(HttpClient httpClient, ILogger<GuestClientService> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
     }
 
     public async Task<GuestRecord?> Get(int id)
@@ -24,6 +26,7 @@ public class GuestClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error getting guest with id:{Id}", id);
             return null;
         }
     }
@@ -37,6 +40,7 @@ public class GuestClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error getting guests");
             return null;
         }
     }
@@ -49,6 +53,7 @@ public class GuestClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error adding guest for: {@Guest}", guestRecord);
         }
     }
     
@@ -60,6 +65,7 @@ public class GuestClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error updating guest with id:{Id} for guest:{@Guest}", guestRecordId, guestRecord);
         }
     }
     
@@ -71,6 +77,7 @@ public class GuestClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error deleting guest with id:{Id}", guestRecordId);
         }
     }
     
@@ -83,6 +90,7 @@ public class GuestClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error getting gender list");
             return null;
         }
     }
