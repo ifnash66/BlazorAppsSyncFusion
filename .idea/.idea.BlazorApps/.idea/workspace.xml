@@ -12,8 +12,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-shm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-wal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Services/GuestClientService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Services/GuestClientService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Services/HomeVisitClientService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Services/HomeVisitClientService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Services/HostClientService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Services/HostClientService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +60,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/883b71c25ac209a55cec616a5fb996ceca2779a441fba38b8d1b0c75b75c9/BindConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bebd253e21dcf766929bfdfd74615bfe46e6e1693b289273dbdb82152893/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BlazorApps.Shared/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/BlazorAppsApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -64,24 +72,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "list.type.of.created.stylesheet": "CSS",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BlazorServer">
     <configuration name="BlazorAppsApi" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BlazorAppsApi/BlazorAppsApi.csproj" />
@@ -165,6 +172,7 @@
       <workItem from="1659341039618" duration="18842000" />
       <workItem from="1659381259842" duration="1897000" />
       <workItem from="1659418617904" duration="7741000" />
+      <workItem from="1659510232194" duration="397000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -313,6 +321,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Controllers/HostsController.cs</url>
+          <line>31</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Controllers/HostsController.cs" initialLine="31" containingFunctionPresentation="method 'AddHost'">
+            <startOffsets>
+              <option value="862" />
+            </startOffsets>
+            <endOffsets>
+              <option value="863" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Controllers/HostsController.cs</url>
+          <line>38</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Controllers/HostsController.cs" initialLine="38" containingFunctionPresentation="method 'UpdateHost'">
+            <startOffsets>
+              <option value="1153" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1154" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

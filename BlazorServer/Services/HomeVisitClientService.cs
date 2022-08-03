@@ -9,10 +9,12 @@ namespace BlazorServer.Services;
 public class HomeVisitClientService
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<HomeVisitClientService> _logger;
 
-    public HomeVisitClientService(HttpClient httpClient)
+    public HomeVisitClientService(HttpClient httpClient, ILogger<HomeVisitClientService> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
     }
 
     public async Task<HomeVisitRecord?> Get(int id)
@@ -24,6 +26,7 @@ public class HomeVisitClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error getting home visit with id:{Id}", id);
             return null;
         }
     }
@@ -37,6 +40,7 @@ public class HomeVisitClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error getting home visits");
             return null;
         }
     }
@@ -49,6 +53,7 @@ public class HomeVisitClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error adding visit for visit:{@HomeVisit}", visitRecord);
         }
     }
 
@@ -60,6 +65,8 @@ public class HomeVisitClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error updating home visit with id:{Id} for visit record:{@VisitRecord}",
+                visitRecord.Id, visitRecord);
         }
     }
 
@@ -71,6 +78,7 @@ public class HomeVisitClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error deleting home visit with id:{Id}", visitRecordId);
         }
     }
 
@@ -83,6 +91,7 @@ public class HomeVisitClientService
         }
         catch (HttpRequestException e)
         {
+            _logger.LogError(e, "Error getting visit status list");
             return null;
         }
     }
