@@ -1,0 +1,66 @@
+@using BlazorApps.Shared.Models
+@using BlazorServer.Services
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<p>
+    <a href="/hosts/create-host">Create host</a>
+</p>
+
+<SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(HostRecord.Id) HeaderText="Host Id" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(HostRecord.FirstName) HeaderText="First Name"></GridColumn>
+        <GridColumn Field=@nameof(HostRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(HostRecord.HostAge) HeaderText="Age" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(HostRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(HostRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+            <Template>
+                @{
+                    var hostRecord = (context as HostRecord);
+                    <div>
+                        <button class="btn btn-primary" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteHost(hostRecord.Id))">Delete</button>
+                    </div>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+
+    private List<HostRecord> HostRecords { get; set; } = new();
+    private HostClientService _hostClientService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hostClientService = ScopedServices.GetRequiredService<HostClientService>();
+        
+        var hosts = await _hostClientService.GetAll();
+        if (hosts is not null)
+        {
+            HostRecords = hosts.ToList();
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private void EditHost(int id)
+    {
+        NavigationManager.NavigateTo($@"/hosts/edit-host/{id}");
+    }
+
+    private async Task DeleteHost(int id)
+    {
+        await _hostClientService.DeleteHost(id);
+        var hosts = await _hostClientService.GetAll();
+        if (hosts is not null)
+        {
+            HostRecords = hosts.ToList();
+            StateHasChanged();
+        }
+    }
+}

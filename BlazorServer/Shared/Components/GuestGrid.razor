@@ -1,0 +1,66 @@
+@using BlazorApps.Shared.Models
+@using BlazorServer.Services
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<p>
+    <a href="/guests/create-guest">Create guest</a>
+</p>
+
+<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(GuestRecord.Id) HeaderText="Guest Id" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(GuestRecord.FirstName) HeaderText="First Name"></GridColumn>
+        <GridColumn Field=@nameof(GuestRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(GuestRecord.EmailAddress) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(GuestRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(GuestRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+            <Template>
+                @{
+                    var guestRecord = (context as GuestRecord);
+                    <div>
+                        <button class="btn btn-primary" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord.Id))">Delete</button>
+                    </div>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+
+    public List<GuestRecord> GuestRecords { get; set; } = new();
+    private GuestClientService? _guestClientService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _guestClientService = ScopedServices.GetRequiredService<GuestClientService>();
+
+        var guests = await _guestClientService.GetAll();
+        if (guests is not null)
+        {
+            GuestRecords = guests.ToList();
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private void EditGuest(int id)
+    {
+        NavigationManager.NavigateTo($"/guests/edit-guest/{id}");
+    }
+
+    private async Task DeleteGuest(int id)
+    {
+        await _guestClientService.DeleteGuest(id);
+        var guests = await _guestClientService.GetAll();
+        if (guests is not null)
+        {
+            GuestRecords = guests.ToList();
+            StateHasChanged();
+        }
+    }
+}

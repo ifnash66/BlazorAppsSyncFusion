@@ -2,6 +2,40 @@
 
 <h1>Index page</h1>
 
-@code{
+<div class="row">
+    <div class="col-lg-8">
+        <SfTab>
+            <TabItems>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Hosts"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                        <HostGrid/>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Guests"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                        <GuestGrid/>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
+                        <TabHeader Text="Visits"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                        <VisitGrid/>
+                    </ContentTemplate>
+                </TabItem>
+
+            </TabItems>
+        </SfTab>
+    </div>
+</div>
+
+@code {
 
 }
