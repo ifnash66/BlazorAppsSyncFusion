@@ -21,7 +21,7 @@ public class AppDbContext: DbContext
     public virtual DbSet<AppUser> AppUsers => Set<AppUser>();
     public virtual DbSet<GuestChild> GuestChildren => Set<GuestChild>();
     public virtual DbSet<GuestGuestChild> GuestGuestChildren => Set<GuestGuestChild>();
-
+    public virtual DbSet<AddressRecord> AddressRecords => Set<AddressRecord>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,6 +34,7 @@ public class AppDbContext: DbContext
         modelBuilder.Entity<AppUser>().ToTable(nameof(AppUser));
         modelBuilder.Entity<GuestChild>().ToTable(nameof(GuestChild));
         modelBuilder.Entity<GuestGuestChild>().ToTable(nameof(GuestGuestChild));
+        modelBuilder.Entity<AddressRecord>().ToTable(nameof(AddressRecord));
         
         modelBuilder.Entity<VisitStatus>().HasData(new List<VisitStatus>
         {

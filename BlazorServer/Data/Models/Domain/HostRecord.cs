@@ -9,7 +9,7 @@ public class HostRecord
     [DataType(DataType.Date)] public DateTime DataFromExport { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public int? HostAge { get; set; }
+    public DateTime? DateOfBirth { get; set; }
     public string? BuildingNameNumber { get; set; }
     public string? Street { get; set; }
     public string? Town { get; set; }
@@ -25,4 +25,6 @@ public class HostRecord
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
     public ICollection<CaseInvolvement> CaseInvolvements { get; set; }
+    
+    public ICollection<AddressRecord> AddressRecords { get; set; }
 }

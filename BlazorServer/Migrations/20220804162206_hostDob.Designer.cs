@@ -3,6 +3,7 @@ using System;
 using BlazorServer.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,59 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220804162206_hostDob")]
+    partial class hostDob
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
-
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.AddressRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("BuildingNameNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("County")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("HostRecordId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsCurrentAddress")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("MoveInDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("MoveOutDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Postcode")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Town")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HostRecordId");
-
-                    b.ToTable("AddressRecord");
-                });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.AppUser", b =>
                 {
@@ -462,11 +417,11 @@ namespace BlazorServer.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("HostAge")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("InitialHomeVisit")
                         .HasColumnType("TEXT");
@@ -537,17 +492,6 @@ namespace BlazorServer.Migrations
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Complete"
                         });
-                });
-
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.AddressRecord", b =>
-                {
-                    b.HasOne("BlazorServer.Data.Models.Domain.HostRecord", "HostRecord")
-                        .WithMany("AddressRecords")
-                        .HasForeignKey("HostRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HostRecord");
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseInvolvement", b =>
@@ -662,8 +606,6 @@ namespace BlazorServer.Migrations
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.HostRecord", b =>
                 {
-                    b.Navigation("AddressRecords");
-
                     b.Navigation("CaseInvolvements");
                 });
 

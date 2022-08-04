@@ -10,7 +10,7 @@
     <GridColumns>
         <GridColumn Field=@nameof(HostRecord.FirstName) HeaderText="First Name"></GridColumn>
         <GridColumn Field=@nameof(HostRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(HostRecord.HostAge) HeaderText="Age" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(HostRecord.DateOfBirth) HeaderText="Date of Birth" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(HostRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(HostRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">

@@ -20,10 +20,12 @@
                 <InputText @bind-Value="HostModel.LastName" class="form-control"/>
                 <ValidationMessage For="@(() => HostModel.LastName)"/>
             </div>
-            <div class="mb-3">
-                <label for="@HostModel.HostAge">Host age</label>
-                <InputNumber @bind-Value="HostModel.HostAge" class="form-control"/>
-                <ValidationMessage For="@(() => HostModel.HostAge)"/>
+          <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@HostModel.DateOfBirth">Date of birth</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@HostModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => HostModel.DateOfBirth)"/>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="@HostModel.BuildingNameNumber">Building name/number</label>

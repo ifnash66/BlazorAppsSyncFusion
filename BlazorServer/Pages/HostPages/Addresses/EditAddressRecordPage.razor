@@ -1,0 +1,90 @@
+@page "/hosts/addresses/edit-address/{id:int}"
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inject NavigationManager Nav
+@inherits OwningComponentBase
+
+<h3>Edit Address Record</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@AddressModel" OnValidSubmit="SubmitForm">
+            <FluentValidationValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <label for="@AddressModel.BuildingNameNumber">Building name/number</label>
+                <InputText @bind-Value="AddressModel.BuildingNameNumber" class="form-control"/>
+                <ValidationMessage For="@(() => AddressModel.BuildingNameNumber)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@AddressModel.Street">Street</label>
+                <InputText @bind-Value="AddressModel.Street" class="form-control"/>
+                <ValidationMessage For="@(() => AddressModel.Street)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@AddressModel.Town">Town</label>
+                <InputText @bind-Value="AddressModel.Town" class="form-control"/>
+                <ValidationMessage For="@(() => AddressModel.Town)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@AddressModel.County">County</label>
+                <InputText @bind-Value="AddressModel.County" class="form-control"/>
+                <ValidationMessage For="@(() => AddressModel.County)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@AddressModel.Postcode">Postcode</label>
+                <InputText @bind-Value="AddressModel.Postcode" class="form-control"/>
+                <ValidationMessage For="@(() => AddressModel.Postcode)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="AddressModel.IsCurrentAddress" Label="Is current address" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => AddressModel.IsCurrentAddress)"/>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@AddressModel.MoveOutDate">Move out date</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@AddressModel.MoveOutDate" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => AddressModel.MoveOutDate)"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+                <a href="@($"/hosts/view-host/{AddressModel.HostRecordId}")" class="btn btn-secondary">Back to host</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private AddressRecord AddressModel { get; set; } = new();
+    private HostRepository? _hostRepository;
+    private bool _busy = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        if (_busy) return;
+        _busy = true;
+        var addressRecord = await _hostRepository.GetAddress(Id);
+        if (addressRecord is not null)
+        {
+            AddressModel = addressRecord;
+        }
+        _busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SubmitForm()
+    {
+        if (_busy) return;
+        _busy = true;
+        await _hostRepository.UpdateAddress(AddressModel);
+        _busy = false;
+        Nav.NavigateTo($"/hosts/view-host/{AddressModel.HostRecordId}");
+    }
+
+}

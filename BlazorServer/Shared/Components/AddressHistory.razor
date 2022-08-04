@@ -1,0 +1,63 @@
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inherits OwningComponentBase
+@inject NavigationManager Nav
+
+<h3>Address History </h3>
+
+<SfGrid DataSource="@AddressRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(AddressRecord.BuildingNameNumber) HeaderText="Building Name/Number"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.Street) HeaderText="Street" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.Town) HeaderText="Town" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.County) HeaderText="County" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.Postcode) HeaderText="Postcode" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.MoveInDate) HeaderText="Move In Date" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.MoveOutDate) HeaderText="Move Out Date" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(CaseRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+            <Template>
+                @{
+                    var addressRecord = (context as AddressRecord);
+                    <div>
+                        <button class="btn btn-primary" @onclick="@(() => EditAddress(addressRecord.Id))">Edit</button>
+                    </div>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    
+    [Parameter]
+    public int HostRecordId { get; set; }
+    
+    [Parameter]
+    public bool Busy { get; set; }
+
+    private HostRepository? _hostRepository;
+
+    private List<AddressRecord> AddressRecords { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        if (Busy) return;
+        Busy = true;
+        var addressRecords = await _hostRepository.GetAddressHistory(HostRecordId);
+        if (addressRecords is not null)
+        {
+            AddressRecords = addressRecords.ToList();
+        }
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private void EditAddress(int addressRecordId)
+    {
+        Nav.NavigateTo($"/hosts/addresses/edit-address/{addressRecordId}");
+    }
+}

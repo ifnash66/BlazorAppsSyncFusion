@@ -55,12 +55,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZVZpc2l0UGFnZXMvSG9tZVZpc2l0SW5kZXhQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/Addresses/EditAddressRecordPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0FkZHJlc3Nlcy9FZGl0QWRkcmVzc1JlY29yZFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/HostIndexPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0hvc3RJbmRleFBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/ViewHostPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL1ZpZXdIb3N0UGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/AddressHistory.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvQWRkcmVzc0hpc3RvcnkucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/CaseGrid.razor]

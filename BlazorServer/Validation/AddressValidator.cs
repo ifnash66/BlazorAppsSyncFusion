@@ -3,13 +3,11 @@ using FluentValidation;
 
 namespace BlazorServer.Validation;
 
-public class HostValidator : AbstractValidator<HostRecord>
+public class AddressValidator : AbstractValidator<AddressRecord>
 {
-    public HostValidator()
+    public AddressValidator()
     {
-        RuleFor(x => x.FirstName).NotEmpty().WithMessage("First name is required");
-        RuleFor(x => x.LastName).NotEmpty().WithMessage("Last name is required");
-        RuleFor(x => x.DateOfBirth).NotEmpty().GreaterThan(DateTime.MinValue).WithMessage("Date of birth is required");
+        RuleFor(x => x.MoveInDate).NotEmpty().GreaterThan(DateTime.MinValue).WithMessage("Move in date is required");
         RuleFor(x => x.BuildingNameNumber).NotEmpty().WithMessage("Building name/number is required");
         RuleFor(x => x.Street).NotEmpty().WithMessage("Street is required");
         RuleFor(x => x.Town).NotEmpty().WithMessage("Town is required");

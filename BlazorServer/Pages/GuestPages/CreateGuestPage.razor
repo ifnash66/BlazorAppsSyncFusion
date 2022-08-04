@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@GuestModel" OnValidSubmit="@SubmitForm">
-            <FluentValidationValidator />
+            <FluentValidationValidator/>
             <ValidationSummary/>
             <p class="h2">Personal details</p>
             <hr/>
@@ -23,28 +23,6 @@
                 <ValidationMessage For="@(() => GuestModel.LastName)"/>
             </div>
             <div class="mb-3">
-                <label for="@GuestModel.EmailAddress">Email address</label>
-                <InputText @bind-Value="GuestModel.EmailAddress" class="form-control"/>
-                <ValidationMessage For="@(() => GuestModel.EmailAddress)"/>
-            </div>
-            <div class="mb-3">
-                <label for="@GuestModel.PhoneNumber">Phone number</label>
-                <InputText @bind-Value="GuestModel.PhoneNumber" class="form-control"/>
-                <ValidationMessage For="@(() => GuestModel.PhoneNumber)"/>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-lg-3">
-                    <label for="@GuestModel.DateOfBirth">Date of birth</label>
-                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@GuestModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
-                    <ValidationMessage For="@(() => GuestModel.DateOfBirth)"/>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="@GuestModel.Age">Age</label>
-                <InputNumber @bind-Value="GuestModel.Age" class="form-control"/>
-                <ValidationMessage For="@(() => GuestModel.Age)"/>
-            </div>
-            <div class="mb-3">
                 <label for="@GuestModel.GenderId">Gender</label>
                 <InputSelect @bind-Value="GuestModel.GenderId" class="form-control form-select">
                     <option value="">Please select a gender...</option>
@@ -54,6 +32,37 @@
                     }
                 </InputSelect>
                 <ValidationMessage For="@(() => GuestModel.GenderId)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.EmailAddress">Email address</label>
+                <InputText @bind-Value="GuestModel.EmailAddress" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.EmailAddress)"/>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@GuestModel.DateOfBirth">Date of birth</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@GuestModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => GuestModel.DateOfBirth)"/>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@GuestModel.DateOfArrivalUk">Date of arrival in UK</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="GuestModel.DateOfArrivalUk" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => GuestModel.DateOfArrivalUk)"/>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@GuestModel.DateOfArrivalAtAddress">Date of arrival at address</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="GuestModel.DateOfArrivalAtAddress" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => GuestModel.DateOfArrivalAtAddress)"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="@GuestModel.PhoneNumber">Phone number</label>
+                <InputText @bind-Value="GuestModel.PhoneNumber" class="form-control"/>
+                <ValidationMessage For="@(() => GuestModel.PhoneNumber)"/>
             </div>
             <div class="mb-3">
                 <label for="@GuestModel.FamilyNumber">Family number</label>
@@ -69,20 +78,6 @@
                 <label for="@GuestModel.NumberOfAdultsArrived">Number of adults arrived</label>
                 <InputNumber @bind-Value="GuestModel.NumberOfAdultsArrived" class="form-control"/>
                 <ValidationMessage For="@(() => GuestModel.NumberOfAdultsArrived)"/>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-lg-3">
-                    <label for="@GuestModel.DateOfArrivalUk">Date of arrival in UK</label>
-                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="GuestModel.DateOfArrivalUk" Format="dd/MM/yyyy"></SfDatePicker>
-                    <ValidationMessage For="@(() => GuestModel.DateOfArrivalUk)"/>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-lg-3">
-                    <label for="@GuestModel.DateOfArrivalAtAddress">Date of arrival at address</label>
-                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="GuestModel.DateOfArrivalAtAddress" Format="dd/MM/yyyy"></SfDatePicker>
-                    <ValidationMessage For="@(() => GuestModel.DateOfArrivalAtAddress)"/>
-                </div>
             </div>
             <div class="mb-3">
                 <label for="@GuestModel.CashAllowance">Cash allowance</label>
@@ -186,4 +181,5 @@
         Busy = false;
         Nav.NavigateTo("/guests/index");
     }
+
 }

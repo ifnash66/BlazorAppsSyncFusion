@@ -1,5 +1,6 @@
 using BlazorServer.Data.Contexts;
 using BlazorServer.Data.Models.Domain;
+using BlazorServer.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServer.Data.Repositories;
@@ -40,6 +41,23 @@ public class HostRepository
         await using var context = await _dbContextFactory.CreateDbContextAsync();
         await context.HostRecords.AddAsync(host);
         await context.SaveChangesAsync();
+
+        var addressRecord = new AddressRecord
+        {
+            HostRecordId = host.Id,
+            IsCurrentAddress = true,
+            DateCreated = DateTime.Now,
+            CreatedBy = "System",
+            MoveInDate = DateTime.Now,
+            BuildingNameNumber = host.BuildingNameNumber,
+            Street = host.Street,
+            Town = host.Town,
+            County = host.County,
+            Postcode = host.Postcode
+        };
+
+        await context.AddressRecords.AddAsync(addressRecord);
+        await context.SaveChangesAsync();
     }
 
     public async Task UpdateHost(HostRecord host)
@@ -64,6 +82,40 @@ public class HostRepository
             .Where(x => x.CaseRecordId == caseId && x.HostRecordId == hostId && x.IsActive).ToListAsync();
         
         context.CaseInvolvements.RemoveRange(hostInvolvements);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<AddressRecord>> GetAddressHistory(int hostRecordId)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        return await context.AddressRecords.Where(x => x.HostRecordId == hostRecordId).ToListAsync();
+    }
+    
+    public async Task<AddressRecord> GetAddress(int addressRecordId)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        return await context.AddressRecords.FindAsync(addressRecordId);
+    }
+    
+    public async Task AddAddress(AddressRecord addressRecord)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        await context.AddressRecords.AddAsync(addressRecord);
+        await context.SaveChangesAsync();
+    }
+    
+    public async Task UpdateAddress(AddressRecord addressRecord)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        context.AddressRecords.Update(addressRecord);
+        await context.SaveChangesAsync();
+    }
+    
+    public async Task DeleteAddress(int addressRecordId)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        var addressRecord = await context.AddressRecords.FindAsync(addressRecordId);
+        context.AddressRecords.Remove(addressRecord);
         await context.SaveChangesAsync();
     }
 }

@@ -1,0 +1,54 @@
+@page "/hosts/view-host/{id:int}"
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inherits OwningComponentBase
+<h1>View Host</h1>
+<hr/>
+<div class="row">
+    <div class="col-lg-6">
+        <dl class="row">
+            <dt class="col-lg-2">First name</dt>
+            <dd class="col-lg-10">@HostRecord.FirstName</dd>
+            <dt class="col-lg-2">Last name</dt>
+            <dd class="col-lg-10">@HostRecord.LastName</dd>
+            <dt class="col-lg-2">Date of Birth</dt>
+            <dd class="col-lg-10">@HostRecord.DateOfBirth</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <AddressHistory HostRecordId="@Id" Busy="@_busy" />
+    </div>
+</div>
+
+<div class="row my-2">
+    <div class="col-lg-6">
+        <a href="/hosts/index" class="btn btn-secondary ml-2">Back to host list</a>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private HostRecord HostRecord { get; set; } = new();
+    private bool _busy = false;
+    private HostRepository? _hostRepository;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        if (_busy) return;
+        _busy = true;
+        var hostRecord = await _hostRepository.GetHost(Id);
+        if (hostRecord is not null)
+        {
+            HostRecord = hostRecord;
+        }
+        _busy = false;
+        await base.OnInitializedAsync();
+    }
+}
