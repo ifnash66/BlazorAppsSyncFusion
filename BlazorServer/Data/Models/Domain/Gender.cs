@@ -6,5 +6,5 @@ public class Gender
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
     
-    public virtual ICollection<GuestRecord> GuestRecords { get; set; }
+    public ICollection<GuestRecord> GuestRecords { get; set; }
 }

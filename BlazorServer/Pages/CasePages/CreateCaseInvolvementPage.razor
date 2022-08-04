@@ -1,6 +1,7 @@
 @page "/cases/case-involvement/create/{id:int}"
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
 @using ChangeEventArgs = Microsoft.AspNetCore.Components.ChangeEventArgs
 @inject IDbContextFactory<AppDbContext> DbContextFactory
@@ -70,8 +71,16 @@
         if (Busy) return;
         Busy = true;
         await using var context = await DbContextFactory.CreateDbContextAsync();
-        HostRecords = await context.HostRecords.ToListAsync();
-        GuestRecords = await context.GuestRecords.ToListAsync();
+        var hosts = await context.HostRecords.ToListAsync();
+        if (hosts is not null)
+        {
+            HostRecords = hosts.ToList();
+        }
+        var guests = await context.GuestRecords.ToListAsync();
+        if (guests is not null)
+        {
+            GuestRecords = guests;
+        }
         Model.CaseRecordId = Id;
         Model.DateCreated = DateTime.Now;
         Model.IsActive = true;

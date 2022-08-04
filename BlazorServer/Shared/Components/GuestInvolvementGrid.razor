@@ -5,10 +5,6 @@
 @inject NavigationManager NavigationManager
 @inherits OwningComponentBase
 
-<p>
-    <a href="/guests/create-guest">Create guest</a>
-</p>
-
 <SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
@@ -22,8 +18,7 @@
                 @{
                     var guestRecord = (context as GuestRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord))">Delete</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(guestRecord))">End</button>
                     </div>
                 }
             </Template>
@@ -39,12 +34,15 @@
     [Parameter]
     public bool Busy { get; set; }
 
+    [Parameter]
+    public int CaseId { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
         if (Busy) return;
         Busy = true;
-        var guests = await _guestRepository.GetGuests();
+        var guests = await _guestRepository.GetGuestsForCase(CaseId);
         if (guests is not null)
         {
             GuestRecords = guests.ToList();
@@ -58,12 +56,12 @@
         NavigationManager.NavigateTo($"/guests/edit-guest/{id}");
     }
 
-    private async Task DeleteGuest(GuestRecord guest)
+    private async Task EndInvolvement(GuestRecord guest)
     {
         if (Busy) return;
         Busy = true;
-        await _guestRepository.DeleteGuest(guest.Id);
-        var guests = await _guestRepository.GetGuests();
+        await _guestRepository.EndInvolvement(CaseId, guest.Id);
+        var guests = await _guestRepository.GetGuestsForCase(CaseId);
         if (guests is not null)
         {
             GuestRecords = guests.ToList();

@@ -13,14 +13,14 @@ public class GuestRecord
     public string? EmailAddress { get; set; }
     public string? PhoneNumber { get; set; }
     [DataType(DataType.Date)] public DateTime? DateOfBirth { get; set; }
-    public int Age { get; set; }
-    public int GenderId { get; set; }
-    public int FamilyNumber { get; set; }
-    public int NumberOfChildrenArrived { get; set; }
-    public int NumberOfAdultsArrived { get; set; }
+    public int? Age { get; set; }
+    public int? GenderId { get; set; }
+    public int? FamilyNumber { get; set; }
+    public int? NumberOfChildrenArrived { get; set; }
+    public int? NumberOfAdultsArrived { get; set; }
     [DataType(DataType.Date)] public DateTime? DateOfArrivalUk { get; set; }
     [DataType(DataType.Date)] public DateTime? DateOfArrivalAtAddress { get; set; }
-    public decimal CashAllowance { get; set; }
+    public decimal? CashAllowance { get; set; }
 
     // Applications.
     public bool VodafoneSimGiven { get; set; }
@@ -39,7 +39,7 @@ public class GuestRecord
     // Schools.
     public bool SchoolPlace { get; set; }
     public string? NameOfSchool { get; set; }
-    public int SchoolYearStartedSchool { get; set; }
+    public int? SchoolYearStartedSchool { get; set; }
     public string? HomeToSchoolTransport { get; set; }
 
     // Permissions.
@@ -51,9 +51,9 @@ public class GuestRecord
     public DateTime? DateCreated { get; set; }
     public string? CreatedBy { get; set; }
     
-    public virtual Gender? Gender { get; set; }
+    public Gender? Gender { get; set; }
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
-    public virtual  ICollection<CaseInvolvement> CaseInvolvements { get; set; }
+    public  ICollection<CaseInvolvement> CaseInvolvements { get; set; }
 }

@@ -16,8 +16,8 @@ public class CaseInvolvement
     public DateTime? ToDate { get; set; }
     public DateTime DateCreated { get; set; }
     
-    public virtual CaseRecord? CaseRecord { get; set; }
-    public virtual HostRecord? HostRecord { get; set; }
-    public virtual GuestRecord? GuestRecord { get; set; }
-    public virtual AppUser? AppUser { get; set; }
+    public CaseRecord? CaseRecord { get; set; }
+    public HostRecord? HostRecord { get; set; }
+    public GuestRecord? GuestRecord { get; set; }
+    public AppUser? AppUser { get; set; }
 }

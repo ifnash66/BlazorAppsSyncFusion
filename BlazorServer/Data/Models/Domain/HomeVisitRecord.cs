@@ -3,6 +3,8 @@ namespace BlazorServer.Data.Models.Domain;
 public class HomeVisitRecord
 {
     public int Id { get; set; }
+    
+    public int? CaseRecordId { get; set; }
     public int? VisitStatusId { get; set; }
     public DateTime? VisitDate { get; set; }
     public string? HostsVisited { get; set; }
@@ -15,5 +17,6 @@ public class HomeVisitRecord
     public DateTime? DateCreated { get; set; }
     public string? CreatedBy { get; set; }
     
-    public virtual VisitStatus? VisitStatus { get; set; }
+    public VisitStatus? VisitStatus { get; set; }
+    public CaseRecord? CaseRecord { get; set; }
 }

@@ -8,9 +8,7 @@ public class CaseRecordDTO
     
     [Required]
     public string? CaseReference { get; set; }
-    
     public bool IsActive { get; set; }
-    
     public DateTime DateCreated { get; set; }
     
 }

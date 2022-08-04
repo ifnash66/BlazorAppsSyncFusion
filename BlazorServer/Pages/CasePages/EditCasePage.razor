@@ -2,10 +2,9 @@
 @inject NavigationManager NavigationManager
 @using BlazorServer.Data.Models.Domain
 @using AutoMapper
-@using BlazorServer.Data.Contexts
-@using Microsoft.EntityFrameworkCore
+@using BlazorServer.Data.Repositories
 @inject IMapper Mapper
-@inject IDbContextFactory<AppDbContext> DbContextFactory
+@inherits OwningComponentBase
 <h3>Edit Case</h3>
 
 <div class="row">
@@ -36,14 +35,15 @@
     public int Id { get; set; }
 
     private CaseRecordDTO CaseModel { get; set; } = new();
-    public bool Busy { get; set; }
+    private bool Busy { get; set; }
+    private CaseRepository? _caseRepository;
 
     protected override async Task OnInitializedAsync()
     {
+        _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        var caseRecord = await context.CaseRecords.FindAsync(Id);
+        var caseRecord = await _caseRepository.GetCase(Id);
         if (caseRecord is not null)
         {
             CaseModel = Mapper.Map<CaseRecordDTO>(caseRecord);
@@ -57,9 +57,7 @@
         var caseRecord = Mapper.Map<CaseRecord>(CaseModel);
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        context.CaseRecords.Update(caseRecord);
-        await context.SaveChangesAsync();
+        await _caseRepository.UpdateCase(caseRecord);
         Busy = false;
         NavigationManager.NavigateTo("/cases/index");
     }

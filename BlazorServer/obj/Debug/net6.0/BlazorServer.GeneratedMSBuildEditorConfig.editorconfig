@@ -67,8 +67,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvR3Vlc3RHcmlkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/GuestInvolvementGrid.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvR3Vlc3RJbnZvbHZlbWVudEdyaWQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/HostGrid.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvSG9zdEdyaWQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/HostInvolvementGrid.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvSG9zdEludm9sdmVtZW50R3JpZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/VisitGrid.razor]

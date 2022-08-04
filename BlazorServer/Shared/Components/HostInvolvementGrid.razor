@@ -5,10 +5,6 @@
 @inject NavigationManager NavigationManager
 @inherits OwningComponentBase
 
-<p>
-    <a href="/hosts/create-host">Create host</a>
-</p>
-
 <SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
@@ -22,8 +18,7 @@
                 @{
                     var hostRecord = (context as HostRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteHost(hostRecord))">Delete</button>
+                        <button class="btn btn-danger" @onclick="@(() => EndInvolvement(hostRecord))">End</button>
                     </div>
                 }
             </Template>
@@ -37,6 +32,9 @@
     private HostRepository? _hostRepository;
 
     [Parameter]
+    public int CaseId { get; set; }
+
+    [Parameter]
     public bool Busy { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -44,7 +42,7 @@
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
         if (Busy) return;
         Busy = true;
-        var hosts = await _hostRepository.GetHosts();
+        var hosts = await _hostRepository.GetHostsForCase(CaseId);
         if (hosts is not null)
         {
             HostRecords = hosts.ToList();
@@ -58,12 +56,12 @@
         NavigationManager.NavigateTo($"/hosts/edit-host/{id}", forceLoad: true);
     }
 
-    private async Task DeleteHost(HostRecord hostRecord)
+    private async Task EndInvolvement(HostRecord hostRecord)
     {
         if (Busy) return;
         Busy = true;
-        await _hostRepository.DeleteHost(hostRecord.Id);
-        var hosts = await _hostRepository.GetHosts();
+        await _hostRepository.EndInvolvement(CaseId, hostRecord.Id);
+        var hosts = await _hostRepository.GetHostsForCase(CaseId);
         if (hosts is not null)
         {
             HostRecords = hosts.ToList();

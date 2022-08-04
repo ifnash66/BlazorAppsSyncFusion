@@ -1,9 +1,8 @@
 @page "/cases/case-detail/{id:int}"
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Contexts
-@using Microsoft.EntityFrameworkCore
-@inject IDbContextFactory<AppDbContext> DbContextFactory
+@using BlazorServer.Data.Repositories
 @inject NavigationManager NavigationManager
+@inherits OwningComponentBase
 <h3>Case Detail Page</h3>
 
 <div class="row">
@@ -39,7 +38,7 @@
                         <TabHeader Text="Hosts"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <HostGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
+                        <HostInvolvementGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -47,7 +46,7 @@
                         <TabHeader Text="Guests"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <GuestGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
+                        <GuestInvolvementGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -79,6 +78,7 @@
 @code {
 
     private bool Busy { get; set; }
+    private CaseRepository? _caseRepository;
 
     [Parameter]
     public int Id { get; set; }
@@ -87,10 +87,10 @@
 
     protected override async Task OnInitializedAsync()
     {
+        _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        var caseRecord = await context.CaseRecords.FindAsync(Id);
+        var caseRecord = await _caseRepository.GetCase(Id);
         if (caseRecord is not null)
         {
             CaseRecord = caseRecord;

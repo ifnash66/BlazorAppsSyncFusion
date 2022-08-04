@@ -60,12 +60,17 @@
         if (Busy) return;
         Busy = true;
         await using var context = await DbContextFactory.CreateDbContextAsync();
-        CaseInvolvements = await context.CaseInvolvements.
+        var caseInvolvements = await context.CaseInvolvements.
             Include(x => x.HostRecord)
             .Include(x => x.GuestRecord)
             .Include(x => x.CaseRecord)
             .Where(x => x.CaseRecordId == Id)
             .ToListAsync();
+        
+        if (caseInvolvements is not null)
+        {
+            CaseInvolvements = caseInvolvements;
+        }
         
         foreach (var item in CaseInvolvements)
         {
@@ -104,12 +109,17 @@
         
         ModelItems.Clear();
         
-        CaseInvolvements = await context.CaseInvolvements.
+        var caseInvolvements = await context.CaseInvolvements.
             Include(x => x.HostRecord)
             .Include(x => x.GuestRecord)
             .Include(x => x.CaseRecord)
             .Where(x => x.CaseRecordId == Id)
             .ToListAsync();
+        
+        if (caseInvolvements is not null)
+        {
+            CaseInvolvements = caseInvolvements;
+        }
         
         foreach (var item in CaseInvolvements)
         {

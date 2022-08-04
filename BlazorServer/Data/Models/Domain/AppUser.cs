@@ -11,5 +11,5 @@ public class AppUser
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
-    public virtual  ICollection<CaseInvolvement> CaseInvolvements { get; set; }
+    public ICollection<CaseInvolvement> CaseInvolvements { get; set; }
 }

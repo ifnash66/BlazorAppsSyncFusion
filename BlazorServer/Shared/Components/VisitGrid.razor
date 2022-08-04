@@ -1,8 +1,9 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Contexts
+@using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
-@inject IDbContextFactory<AppDbContext> DbContextFactory
 @inject NavigationManager NavigationManager
+@inherits OwningComponentBase
 
 <p>
     <a href="/home-visits/create-visit">Create home visit</a>
@@ -34,19 +35,20 @@
 @code {
 
     private List<HomeVisitRecord> HomeVisitRecords { get; set; } = new();
-    
+    private VisitRepository? _visitRepository;
+
     [Parameter]
     public bool Busy { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        _visitRepository = ScopedServices.GetRequiredService<VisitRepository>();
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        var visits = await context.HomeVisitRecords.ToListAsync();
+        var visits = await _visitRepository.GetHomeVisits();
         if (visits is not null)
         {
-            HomeVisitRecords = visits;
+            HomeVisitRecords = visits.ToList();
         }
         Busy = false;
         await base.OnInitializedAsync();
@@ -61,16 +63,13 @@
     {
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        context.Attach(visit);
-        context.Entry(visit).State = EntityState.Deleted;
-        await context.SaveChangesAsync();
-        var visits = await context.HomeVisitRecords.ToListAsync();
+        await _visitRepository.DeleteHomeVisit(visit.Id);
+        var visits = await _visitRepository.GetHomeVisits();
         if (visits is not null)
         {
-            HomeVisitRecords = visits;
-            StateHasChanged();
+            HomeVisitRecords = visits.ToList();
         }
+        StateHasChanged();
         Busy = false;
     }
 }

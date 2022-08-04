@@ -1,5 +1,6 @@
 using AutoMapper;
 using BlazorServer.Data.Contexts;
+using BlazorServer.Data.Repositories;
 using BlazorServer.MappingProfiles;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
@@ -22,6 +23,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddDbContextFactory<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddTransient<HostRepository>();
+builder.Services.AddTransient<GuestRepository>();
+builder.Services.AddTransient<CaseRepository>();
+builder.Services.AddTransient<VisitRepository>();
 
 var app = builder.Build();
 

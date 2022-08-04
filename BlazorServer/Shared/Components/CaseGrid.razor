@@ -1,8 +1,9 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Contexts
+@using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
 @inject NavigationManager NavigationManager
-@inject IDbContextFactory<AppDbContext> DbContextFactory
+@inherits OwningComponentBase
 
 <p>
     <a href="/cases/create-case">Create case</a>
@@ -32,19 +33,21 @@
 @code {
 
     private List<CaseRecord> CaseRecords { get; set; } = new();
-    
+    private CaseRepository? _caseRepository;
+
     [Parameter]
     public bool Busy { get; set; }
 
+
     protected override async Task OnInitializedAsync()
     {
+        _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        var caseRecords = await context.CaseRecords.ToListAsync();
+        var caseRecords = await _caseRepository.GetCases();
         if (caseRecords is not null)
         {
-            CaseRecords = caseRecords;
+            CaseRecords = caseRecords.ToList();
         }
         Busy = false;
         await base.OnInitializedAsync();
@@ -64,16 +67,13 @@
     {
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        context.Attach(caseRecord);
-        context.Entry(caseRecord).State = EntityState.Deleted;
-        await context.SaveChangesAsync();
-        var caseRecords = await context.CaseRecords.ToListAsync();
+        await _caseRepository.DeleteCase(caseRecord.Id);
+        var caseRecords = await _caseRepository.GetCases();
         if (caseRecords is not null)
         {
-            CaseRecords = caseRecords;
-            StateHasChanged();
+            CaseRecords = caseRecords.ToList();
         }
+        StateHasChanged();
         Busy = false;
     }
 }
