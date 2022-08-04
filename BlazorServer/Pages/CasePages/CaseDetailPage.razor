@@ -6,23 +6,40 @@
 @inject NavigationManager NavigationManager
 <h3>Case Detail Page</h3>
 
-<p>Case reference: @CaseRecord.CaseReference</p>
-
-<div class="row">
-    <div class="col-lg-8">
-        <CaseInvolvementGrid Busy="@Busy" Id="@CaseRecord.Id"/>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-lg-8">
         <SfTab>
             <TabItems>
                 <TabItem>
                     <ChildContent>
+                        <TabHeader Text="Case Summary"></TabHeader>
+                    </ChildContent>
+                    <ContentTemplate>
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <dl class="row">
+                                    <dt class="col-lg-2">Case reference</dt>
+                                    <dd class="col-lg-10">@CaseRecord.CaseReference</dd>
+                                    <dt class="col-lg-2">Is active</dt>
+                                    <dd class="col-lg-10">@CaseRecord.IsActive</dd>
+                                    <dt class="col-lg-2">Date created</dt>
+                                    <dd class="col-lg-10">@CaseRecord.DateCreated.ToShortDateString()</dd>
+                                </dl>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <a href="@($"/cases/case-involvement/create/{Id}")" class="btn btn-primary">Add involvement</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </TabItem>
+                <TabItem>
+                    <ChildContent>
                         <TabHeader Text="Hosts"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
+                        <HostGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -30,6 +47,7 @@
                         <TabHeader Text="Guests"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
+                        <GuestGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -60,19 +78,23 @@
 
 @code {
 
-    public bool Busy { get; set; }
+    private bool Busy { get; set; }
 
     [Parameter]
     public int Id { get; set; }
 
-    public CaseRecord CaseRecord { get; set; } = new();
+    private CaseRecord CaseRecord { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         if (Busy) return;
         Busy = true;
         await using var context = await DbContextFactory.CreateDbContextAsync();
-        CaseRecord = await context.CaseRecords.FindAsync(Id);
+        var caseRecord = await context.CaseRecords.FindAsync(Id);
+        if (caseRecord is not null)
+        {
+            CaseRecord = caseRecord;
+        }
         Busy = false;
         await base.OnInitializedAsync();
     }
@@ -81,5 +103,4 @@
     {
         NavigationManager.NavigateTo($"/cases/case-involvement/create/{Id}");
     }
-
 }

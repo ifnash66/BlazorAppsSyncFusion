@@ -11,7 +11,6 @@
 <SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(HomeVisitRecord.Id) HeaderText="Visit Id" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(HomeVisitRecord.VisitorName) HeaderText="Visitor Name"></GridColumn>
         <GridColumn Field=@nameof(HomeVisitRecord.HostsVisited) HeaderText="Hosts Visited" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(HomeVisitRecord.GuestsVisited) HeaderText="Guests Visited" TextAlign="TextAlign.Right"></GridColumn>

@@ -11,13 +11,10 @@
 <SfGrid DataSource="@ModelItems" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(InvolvementItem.Id) HeaderText="Case Involvement Id" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(InvolvementItem.CaseReference) HeaderText="Case Reference"></GridColumn>
+        <GridColumn Field=@nameof(InvolvementItem.CaseReference) HeaderText="Case Ref"></GridColumn>
         <GridColumn Field=@nameof(InvolvementItem.HostName) HeaderText="Host"></GridColumn>
         <GridColumn Field=@nameof(InvolvementItem.GuestName) HeaderText="Guest"></GridColumn>
         <GridColumn Field=@nameof(InvolvementItem.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(InvolvementItem.FromDate) HeaderText="From Date" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(InvolvementItem.ToDate) HeaderText="To Date" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(InvolvementItem.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
             <Template>
@@ -34,6 +31,12 @@
 </SfGrid>
 
 @code {
+    
+    [Parameter]
+    public bool Busy { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
 
     private List<CaseInvolvement> CaseInvolvements { get; set; } = new();
     private List<InvolvementItem> ModelItems { get; set; } = new();
@@ -51,11 +54,6 @@
         public string HostName { get; set; }
         public string GuestName { get; set; }
     }
-
-    public bool Busy { get; set; }
-
-    [Parameter]
-    public int Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

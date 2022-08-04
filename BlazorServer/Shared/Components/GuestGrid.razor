@@ -4,14 +4,16 @@
 @inject NavigationManager NavigationManager
 @inject IDbContextFactory<AppDbContext> DbContextFactory
 
-<p>
-    <a href="/guests/create-guest">Create guest</a>
-</p>
+@if (CaseId is null)
+{
+    <p>
+        <a href="/guests/create-guest">Create guest</a>
+    </p>
+}
 
 <SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(GuestRecord.Id) HeaderText="Guest Id" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.FirstName) HeaderText="First Name"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.EmailAddress) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
@@ -23,7 +25,10 @@
                     var guestRecord = (context as GuestRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord))">Delete</button>
+                        @if (CaseId is null)
+                        {
+                            <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord))">Delete</button>
+                        }
                     </div>
                 }
             </Template>
@@ -34,19 +39,27 @@
 @code {
 
     private List<GuestRecord> GuestRecords { get; set; } = new();
-    
+
     [Parameter]
     public bool Busy { get; set; }
+
+    [Parameter]
+    public int? CaseId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         if (Busy) return;
         Busy = true;
         await using var context = await DbContextFactory.CreateDbContextAsync();
-        var guests = await context.GuestRecords.ToListAsync();
-        if (guests is not null)
+        if (CaseId is null)
         {
-            GuestRecords = guests;
+            GuestRecords = await context.GuestRecords.ToListAsync();
+        }
+        else
+        {
+            var guestIds = await context.CaseInvolvements.Where(x => x.CaseRecordId == CaseId)
+                .Select(x => x.GuestRecordId).ToListAsync();
+            GuestRecords = await context.GuestRecords.Where(x => guestIds.Contains(x.Id)).ToListAsync();
         }
         Busy = false;
         await base.OnInitializedAsync();
@@ -73,4 +86,5 @@
         }
         Busy = false;
     }
+
 }
