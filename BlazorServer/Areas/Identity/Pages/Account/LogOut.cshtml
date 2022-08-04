@@ -1,7 +1,8 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
+@using BlazorServer.Data.Models.Domain
 @attribute [IgnoreAntiforgeryToken]
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<AppUser> SignInManager
 
 @functions {
 
