@@ -6,7 +6,7 @@
 @inherits OwningComponentBase
 
 <p>
-    <a href="/home-visits/create-visit">Create home visit</a>
+    <a href="@($"/home-visits/create-visit/{CaseRecordId}")">Create home visit</a>
 </p>
 
 <SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
@@ -39,13 +39,16 @@
 
     [Parameter]
     public bool Busy { get; set; }
+    
+    [Parameter]
+    public int CaseRecordId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         _visitRepository = ScopedServices.GetRequiredService<VisitRepository>();
         if (Busy) return;
         Busy = true;
-        var visits = await _visitRepository.GetHomeVisits();
+        var visits = await _visitRepository.GetHomeVisitsForCase(CaseRecordId);
         if (visits is not null)
         {
             HomeVisitRecords = visits.ToList();
@@ -64,7 +67,7 @@
         if (Busy) return;
         Busy = true;
         await _visitRepository.DeleteHomeVisit(visit.Id);
-        var visits = await _visitRepository.GetHomeVisits();
+        var visits = await _visitRepository.GetHomeVisitsForCase(CaseRecordId);
         if (visits is not null)
         {
             HomeVisitRecords = visits.ToList();

@@ -1,4 +1,4 @@
-@page "/guests/view-guest/{guestId:int}"
+@page "/guests/view-guest/{id:int}"
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
@@ -21,7 +21,7 @@
             <dd class="col-lg-10">@GenderString</dd>
             <dt class="col-lg-2">Date of arrival in UK</dt>
             <dd class="col-lg-10">@GuestRecord.DateOfArrivalUk?.ToShortDateString()</dd>
-            <dt class="col-lg-2">Date of arrival at addresss</dt>
+            <dt class="col-lg-2">Date of arrival at address</dt>
             <dd class="col-lg-10">@GuestRecord.DateOfArrivalAtAddress?.ToShortDateString()</dd>
         </dl>
     </div>
@@ -29,7 +29,7 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <a href="@($"/guests/guest-children/create/{GuestId}")" class="btn btn-primary">Add child</a>
+        <a href="@($"/guests/guest-children/create/{Id}")" class="btn btn-primary">Add child</a>
         <a href="/guests/index" class="btn btn-secondary ml-2">Back to guest list</a>
     </div>
 </div>
@@ -37,7 +37,7 @@
 @code {
 
     [Parameter]
-    public int GuestId { get; set; }
+    public int Id { get; set; }
 
     private GuestRecord GuestRecord { get; set; } = new();
     private string GenderString { get; set; } = string.Empty;
@@ -49,7 +49,7 @@
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
         if (Busy) return;
         Busy = true;
-        var guest = await _guestRepository.GetGuest(GuestId);
+        var guest = await _guestRepository.GetGuest(Id);
         if (guest is not null)
         {
             GuestRecord = guest;

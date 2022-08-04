@@ -3,10 +3,11 @@
 @using BlazorServer.Data.Repositories
 @inject NavigationManager NavigationManager
 @inherits OwningComponentBase
-<h3>Case Detail Page</h3>
 
+<h3>Case Detail Page</h3>
+<hr/>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-10">
         <SfTab>
             <TabItems>
                 <TabItem>
@@ -38,7 +39,9 @@
                         <TabHeader Text="Hosts"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <HostInvolvementGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
+                        <div class="my-3">
+                            <HostInvolvementGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
+                        </div>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -46,7 +49,9 @@
                         <TabHeader Text="Guests"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
-                        <GuestInvolvementGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
+                        <div class="my-3">
+                            <GuestInvolvementGrid Busy="@Busy" CaseId="@CaseRecord.Id"/>
+                        </div>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -54,6 +59,8 @@
                         <TabHeader Text="Case Workers"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
+                        <div class="my-3">
+                        </div>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -61,6 +68,9 @@
                         <TabHeader Text="Home Visits"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
+                        <div class="my-3">
+                            <VisitGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id" />
+                        </div>
                     </ContentTemplate>
                 </TabItem>
                 <TabItem>
@@ -68,6 +78,8 @@
                         <TabHeader Text="Case Notes"></TabHeader>
                     </ChildContent>
                     <ContentTemplate>
+                        <div class="my-3">
+                        </div>
                     </ContentTemplate>
                 </TabItem>
             </TabItems>
@@ -103,4 +115,5 @@
     {
         NavigationManager.NavigateTo($"/cases/case-involvement/create/{Id}");
     }
+
 }

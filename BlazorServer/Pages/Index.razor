@@ -22,23 +22,12 @@
                         <GuestGrid Busy="@Busy"/>
                     </ContentTemplate>
                 </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Visits"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <VisitGrid Busy="@Busy"/>
-                    </ContentTemplate>
-                </TabItem>
-
             </TabItems>
         </SfTab>
     </div>
 </div>
 
 @code {
-    
-    public bool Busy { get; set; }
 
-
+    private bool Busy { get; set; }
 }

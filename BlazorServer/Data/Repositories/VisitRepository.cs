@@ -19,7 +19,7 @@ public class VisitRepository
         return await context.HomeVisitRecords.ToListAsync();
     }
 
-    public async Task<IEnumerable<HomeVisitRecord>> GetHomeVisits(int caseId)
+    public async Task<IEnumerable<HomeVisitRecord>> GetHomeVisitsForCase(int caseId)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
         var visits = await context.HomeVisitRecords
