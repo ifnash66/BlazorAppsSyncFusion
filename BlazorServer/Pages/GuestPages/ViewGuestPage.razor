@@ -1,0 +1,61 @@
+@page "/guests/view-guest/{guestId:int}"
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inherits OwningComponentBase
+<h1>View Guest</h1>
+<hr/>
+<div class="row">
+    <div class="col-lg-6">
+        <dl class="row">
+            <dt class="col-lg-2">First name</dt>
+            <dd class="col-lg-10">@GuestRecord.FirstName</dd>
+            <dt class="col-lg-2">Last name</dt>
+            <dd class="col-lg-10">@GuestRecord.LastName</dd>
+            <dt class="col-lg-2">Email</dt>
+            <dd class="col-lg-10">@GuestRecord.EmailAddress</dd>
+            <dt class="col-lg-2">Phone number</dt>
+            <dd class="col-lg-10">@GuestRecord.PhoneNumber</dd>
+            <dt class="col-lg-2">Date of birth</dt>
+            <dd class="col-lg-10">@GuestRecord.DateOfBirth?.ToShortDateString()</dd>
+            <dt class="col-lg-2">Gender</dt>
+            <dd class="col-lg-10">@GenderString</dd>
+            <dt class="col-lg-2">Date of arrival in UK</dt>
+            <dd class="col-lg-10">@GuestRecord.DateOfArrivalUk?.ToShortDateString()</dd>
+            <dt class="col-lg-2">Date of arrival at addresss</dt>
+            <dd class="col-lg-10">@GuestRecord.DateOfArrivalAtAddress?.ToShortDateString()</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <a href="@($"/guests/guest-children/create/{GuestId}")" class="btn btn-primary">Add child</a>
+        <a href="/guests/index" class="btn btn-secondary ml-2">Back to guest list</a>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int GuestId { get; set; }
+
+    private GuestRecord GuestRecord { get; set; } = new();
+    private string GenderString { get; set; } = string.Empty;
+    private bool Busy { get; set; }
+    private GuestRepository? _guestRepository;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
+        if (Busy) return;
+        Busy = true;
+        var guest = await _guestRepository.GetGuest(GuestId);
+        if (guest is not null)
+        {
+            GuestRecord = guest;
+        }
+        GenderString = guest.Gender.Title;
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+}

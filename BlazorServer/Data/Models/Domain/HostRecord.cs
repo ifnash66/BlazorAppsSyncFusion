@@ -20,7 +20,7 @@ public class HostRecord
     public bool BankDetailsConfirmed { get; set; }
     public bool ProformaSignedByCaiw { get; set; }
     public DateTime DateCreated { get; set; }
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = string.Empty;
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     

@@ -39,6 +39,7 @@
     {
         _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
         CaseModel.DateCreated = DateTime.Now;
+        CaseModel.CreatedBy = "System";
     }
 
     private async Task SubmitForm()

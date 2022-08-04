@@ -1,0 +1,110 @@
+@page "/guests/guest-children/create/{guestId:int}"
+@using Microsoft.AspNetCore.Components
+@using BlazorServer.Data.Models.DTOs
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@using AutoMapper
+@inherits OwningComponentBase
+@inject IMapper Mapper
+@inject NavigationManager Nav
+<h3>Guest Child Page</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@Model" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <label for="@Model.FirstName">First name</label>
+                <InputText @bind-Value="Model.FirstName" class="form-control"/>
+                <ValidationMessage For="@(() => Model.FirstName)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.LastName">Last name</label>
+                <InputText @bind-Value="Model.LastName" class="form-control"/>
+                <ValidationMessage For="@(() => Model.LastName)"/>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-lg-3">
+                    <label for="@Model.DateOfBirth">Date of birth</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@Model.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => Model.DateOfBirth)"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.GenderId">Gender</label>
+                <InputSelect @bind-Value="Model.GenderId" class="form-control form-select">
+                    <option value="">Please select a gender...</option>
+                    @foreach (var gender in GenderList)
+                    {
+                        <option value="@gender.Id">@gender.Title</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => Model.GenderId)"/>
+            </div>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="Model.EsolEnrolmentAtIwCollege" Label="ESOL enrolment at college" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => Model.EsolEnrolmentAtIwCollege)"/>
+            </div>
+            <p class="h2">Schools</p>
+            <div class="mb-3">
+                <SfCheckBox @bind-Checked="Model.SchoolPlace" Label="School place" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => Model.SchoolPlace)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.NameOfSchool">Name of school</label>
+                <InputText @bind-Value="Model.NameOfSchool" class="form-control"/>
+                <ValidationMessage For="@(() => Model.NameOfSchool)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.SchoolYearStartedSchool">School year started/school</label>
+                <InputNumber @bind-Value="Model.SchoolYearStartedSchool" class="form-control"/>
+                <ValidationMessage For="@(() => Model.SchoolYearStartedSchool)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.HomeToSchoolTransport">Home to school transport</label>
+                <InputText @bind-Value="Model.HomeToSchoolTransport" class="form-control"/>
+                <ValidationMessage For="@(() => Model.HomeToSchoolTransport)"/>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+                <a href="/guests/index" class="btn btn-secondary ml-2">Back to guest list</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int GuestId { get; set; }
+
+    private bool _busy = false;
+    private GuestChildDTO Model = new();
+    private List<Gender> GenderList { get; set; } = new();
+    private GuestRepository? _guestRepository;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
+        if (_busy) return;
+        _busy = true;
+        var genderList = await _guestRepository.GetGenderList();
+        if (genderList is not null)
+        {
+            GenderList = genderList.ToList();
+        }
+        _busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SubmitForm()
+    {
+        if (_busy) return;
+        _busy = true;
+        var guestChild = Mapper.Map<GuestChild>(Model);
+        await _guestRepository.AddGuestChild(GuestId, guestChild);
+        _busy = false;
+        Nav.NavigateTo("/guests/index");
+    }
+}

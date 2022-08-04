@@ -12,6 +12,7 @@ var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new HostMappingProfile());
     mc.AddProfile(new GuestMappingProfile());
+    mc.AddProfile(new GuestChildMappingProfile());
     mc.AddProfile(new HomeVisitMappingProfile());
     mc.AddProfile(new CaseRecordMappingProfile());
 });

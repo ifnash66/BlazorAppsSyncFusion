@@ -32,15 +32,8 @@ public class GuestRecord
     public bool GpApplicationSubmitted { get; set; }
 
     public string? NameOfSurgery { get; set; }
-    public bool EsolEnrolmentAtIwCollege { get; set; }
     public bool BiometricResidencePermitAppliedFor { get; set; }
     public bool BiometricResidencePermitReceived { get; set; }
-
-    // Schools.
-    public bool SchoolPlace { get; set; }
-    public string? NameOfSchool { get; set; }
-    public int? SchoolYearStartedSchool { get; set; }
-    public string? HomeToSchoolTransport { get; set; }
 
     // Permissions.
     public bool PermissionToShareDataWithOtherUkrainianArrivals { get; set; }
@@ -48,12 +41,14 @@ public class GuestRecord
     public bool PermissionToShareContactInformationWithFaithOrganisation { get; set; }
     public bool PermissionToShareEmailAddressWithSv { get; set; }
     public string? Notes { get; set; }
-    public DateTime? DateCreated { get; set; }
-    public string? CreatedBy { get; set; }
+    public DateTime DateCreated { get; set; }
+    public string CreatedBy { get; set; } = string.Empty;
     
     public Gender? Gender { get; set; }
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
     public  ICollection<CaseInvolvement> CaseInvolvements { get; set; }
+    public ICollection<GuestGuestChild> GuestGuestChildren { get; set; }
+
 }

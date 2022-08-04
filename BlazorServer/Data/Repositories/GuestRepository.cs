@@ -32,7 +32,8 @@ public class GuestRepository
     public async Task<GuestRecord?> GetGuest(int guestId)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        return await context.GuestRecords.FindAsync(guestId);
+        return await context.GuestRecords.Include(x => x.Gender)
+            .FirstOrDefaultAsync(x => x.Id == guestId);
     }
 
     public async Task AddGuest(GuestRecord guest)
@@ -71,5 +72,21 @@ public class GuestRepository
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
         return await context.Genders.ToListAsync();
+    }
+
+    public async Task AddGuestChild(int guestId, GuestChild child)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        await context.GuestChildren.AddAsync(child);
+        await context.SaveChangesAsync();
+        var guestGuestChild = new GuestGuestChild
+        {
+            GuestId = guestId,
+            GuestChildId = child.Id,
+            DateCreated = DateTime.Now,
+            CreatedBy = "System"
+        };
+        await context.GuestGuestChildren.AddAsync(guestGuestChild);
+        await context.SaveChangesAsync();
     }
 }

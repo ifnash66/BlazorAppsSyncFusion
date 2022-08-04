@@ -38,15 +38,8 @@ public class GuestRecordDTO
     public bool GpApplicationSubmitted { get; set; }
 
     public string? NameOfSurgery { get; set; }
-    public bool EsolEnrolmentAtIwCollege { get; set; }
     public bool BiometricResidencePermitAppliedFor { get; set; }
     public bool BiometricResidencePermitReceived { get; set; }
-
-    // Schools.
-    public bool SchoolPlace { get; set; }
-    public string? NameOfSchool { get; set; }
-    public int? SchoolYearStartedSchool { get; set; }
-    public string? HomeToSchoolTransport { get; set; }
 
     // Permissions.
     public bool PermissionToShareDataWithOtherUkrainianArrivals { get; set; }

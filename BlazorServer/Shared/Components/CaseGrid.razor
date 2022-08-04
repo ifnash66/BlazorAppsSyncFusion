@@ -15,6 +15,7 @@
         <GridColumn Field=@nameof(CaseRecord.CaseReference) HeaderText="Case Reference"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(CaseRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
             <Template>
                 @{

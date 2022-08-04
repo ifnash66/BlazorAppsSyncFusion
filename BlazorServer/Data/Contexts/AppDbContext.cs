@@ -1,4 +1,5 @@
 using BlazorServer.Data.Models.Domain;
+using BlazorServer.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServer.Data.Contexts;
@@ -18,6 +19,9 @@ public class AppDbContext: DbContext
     public virtual DbSet<CaseRecord> CaseRecords => Set<CaseRecord>();
     public virtual DbSet<CaseInvolvement> CaseInvolvements => Set<CaseInvolvement>();
     public virtual DbSet<AppUser> AppUsers => Set<AppUser>();
+    public virtual DbSet<GuestChild> GuestChildren => Set<GuestChild>();
+    public virtual DbSet<GuestGuestChild> GuestGuestChildren => Set<GuestGuestChild>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,6 +32,8 @@ public class AppDbContext: DbContext
         modelBuilder.Entity<CaseInvolvement>().ToTable(nameof(CaseInvolvement));
         modelBuilder.Entity<CaseRecord>().ToTable(nameof(CaseRecord));
         modelBuilder.Entity<AppUser>().ToTable(nameof(AppUser));
+        modelBuilder.Entity<GuestChild>().ToTable(nameof(GuestChild));
+        modelBuilder.Entity<GuestGuestChild>().ToTable(nameof(GuestGuestChild));
         
         modelBuilder.Entity<VisitStatus>().HasData(new List<VisitStatus>
         {

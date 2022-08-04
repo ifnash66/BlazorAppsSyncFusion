@@ -14,8 +14,8 @@ public class HomeVisitRecord
     public string? TranslationLanguage { get; set; }
     public string? TranslatorName { get; set; }
     public string? VisitNotes { get; set; }
-    public DateTime? DateCreated { get; set; }
-    public string? CreatedBy { get; set; }
+    public DateTime DateCreated { get; set; }
+    public string CreatedBy { get; set; } = string.Empty;
     
     public VisitStatus? VisitStatus { get; set; }
     public CaseRecord? CaseRecord { get; set; }

@@ -83,8 +83,8 @@
         }
         Model.CaseRecordId = Id;
         Model.DateCreated = DateTime.Now;
+        Model.CreatedBy = "System";
         Model.IsActive = true;
-        Model.FromDate = DateTime.Now;
         Busy = false;
         await base.OnInitializedAsync();
     }

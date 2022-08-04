@@ -26,5 +26,5 @@ public class HomeVisitRecordDTO
     [Required]
     public string? VisitNotes { get; set; }
     public DateTime DateCreated { get; set; }
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = string.Empty;
 }

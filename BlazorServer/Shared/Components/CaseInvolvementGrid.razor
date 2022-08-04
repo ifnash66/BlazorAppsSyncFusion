@@ -16,6 +16,7 @@
         <GridColumn Field=@nameof(InvolvementItem.GuestName) HeaderText="Guest"></GridColumn>
         <GridColumn Field=@nameof(InvolvementItem.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(InvolvementItem.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(InvolvementItem.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
             <Template>
                 @{
@@ -47,10 +48,8 @@
         public int CaseRecordId { get; set; }
         public string CaseReference { get; set; }
         public bool IsActive { get; set; }
-    
-        public DateTime FromDate { get; set; }
-        public DateTime? ToDate { get; set; }
         public DateTime DateCreated { get; set; }
+        public string CreatedBy { get; set; }
         public string HostName { get; set; }
         public string GuestName { get; set; }
     }
@@ -80,9 +79,8 @@
                 CaseRecordId = item.CaseRecordId,
                 CaseReference = item?.CaseRecord?.CaseReference ?? string.Empty,
                 IsActive = item.IsActive,
-                FromDate = item.FromDate,
-                ToDate = item?.ToDate,
                 DateCreated = item.DateCreated,
+                CreatedBy = item.CreatedBy,
                 HostName = item?.HostRecord?.FullName ?? string.Empty,
                 GuestName = item?.GuestRecord?.FullName ?? string.Empty
             });
@@ -129,9 +127,8 @@
                 CaseRecordId = item.CaseRecordId,
                 CaseReference = item?.CaseRecord?.CaseReference ?? string.Empty,
                 IsActive = item.IsActive,
-                FromDate = item.FromDate,
-                ToDate = item?.ToDate,
                 DateCreated = item.DateCreated,
+                CreatedBy = item.CreatedBy,
                 HostName = item?.HostRecord?.FullName ?? string.Empty,
                 GuestName = item?.GuestRecord?.FullName ?? string.Empty
             });

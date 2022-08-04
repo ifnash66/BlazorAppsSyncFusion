@@ -120,36 +120,12 @@
                 <ValidationMessage For="@(() => GuestModel.NameOfSurgery)"/>
             </div>
             <div class="mb-3">
-                <SfCheckBox @bind-Checked="GuestModel.EsolEnrolmentAtIwCollege" Label="ESOL enrolment at college" CssClass="e-success"></SfCheckBox><br/>
-                <ValidationMessage For="@(() => GuestModel.EsolEnrolmentAtIwCollege)"/>
-            </div>
-            <div class="mb-3">
                 <SfCheckBox @bind-Checked="GuestModel.BiometricResidencePermitAppliedFor" Label="Biometric residence permit applied for" CssClass="e-success"></SfCheckBox><br/>
                 <ValidationMessage For="@(() => GuestModel.BiometricResidencePermitAppliedFor)"/>
             </div>
             <div class="mb-3">
                 <SfCheckBox @bind-Checked="GuestModel.BiometricResidencePermitReceived" Label="Biometric residence permit received" CssClass="e-success"></SfCheckBox><br/>
                 <ValidationMessage For="@(() => GuestModel.BiometricResidencePermitReceived)"/>
-            </div>
-            <p class="h2">Schools</p>
-            <div class="mb-3">
-                <SfCheckBox @bind-Checked="GuestModel.SchoolPlace" Label="School place" CssClass="e-success"></SfCheckBox><br/>
-                <ValidationMessage For="@(() => GuestModel.SchoolPlace)"/>
-            </div>
-            <div class="mb-3">
-                <label for="@GuestModel.NameOfSchool">Name of school</label>
-                <InputText @bind-Value="GuestModel.NameOfSchool" class="form-control"/>
-                <ValidationMessage For="@(() => GuestModel.NameOfSchool)"/>
-            </div>
-            <div class="mb-3">
-                <label for="@GuestModel.SchoolYearStartedSchool">School year started/school</label>
-                <InputNumber @bind-Value="GuestModel.SchoolYearStartedSchool" class="form-control"/>
-                <ValidationMessage For="@(() => GuestModel.SchoolYearStartedSchool)"/>
-            </div>
-            <div class="mb-3">
-                <label for="@GuestModel.HomeToSchoolTransport">Home to school transport</label>
-                <InputText @bind-Value="GuestModel.HomeToSchoolTransport" class="form-control"/>
-                <ValidationMessage For="@(() => GuestModel.HomeToSchoolTransport)"/>
             </div>
             <p class="h2">Permissions</p>
             <hr/>

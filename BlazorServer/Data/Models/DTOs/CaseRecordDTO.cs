@@ -10,5 +10,6 @@ public class CaseRecordDTO
     public string? CaseReference { get; set; }
     public bool IsActive { get; set; }
     public DateTime DateCreated { get; set; }
+    public string CreatedBy { get; set; } = string.Empty;
     
 }

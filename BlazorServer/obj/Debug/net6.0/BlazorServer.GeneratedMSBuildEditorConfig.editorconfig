@@ -39,8 +39,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2FzZVBhZ2VzL0VkaXRDYXNlUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/GuestPages/GuestChildren/CreateGuestChildPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR3Vlc3RQYWdlcy9HdWVzdENoaWxkcmVuL0NyZWF0ZUd1ZXN0Q2hpbGRQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/GuestPages/GuestIndexPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR3Vlc3RQYWdlcy9HdWVzdEluZGV4UGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/GuestPages/ViewGuestPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR3Vlc3RQYWdlcy9WaWV3R3Vlc3RQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HomeVisitPages/HomeVisitIndexPage.razor]
