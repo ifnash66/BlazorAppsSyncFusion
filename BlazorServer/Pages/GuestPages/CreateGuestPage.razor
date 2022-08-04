@@ -1,17 +1,14 @@
 @page "/guests/create-guest"
-@inject NavigationManager NavigationManager
-@using AutoMapper
+@inject NavigationManager Nav
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Models.DTOs
 @using BlazorServer.Data.Repositories
-@inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Create Guest</h3>
 
 <div class="row">
     <div class="col-lg-6">
-        <EditForm Model="@GuestModel" OnValidSubmit="SubmitForm">
-            <DataAnnotationsValidator/>
+        <EditForm Model="@GuestModel" OnValidSubmit="@SubmitForm">
+            <FluentValidationValidator />
             <ValidationSummary/>
             <p class="h2">Personal details</p>
             <hr/>
@@ -160,7 +157,7 @@
 
 @code {
 
-    private GuestRecordDTO GuestModel { get; set; } = new();
+    private GuestRecord GuestModel { get; set; } = new();
     private List<Gender> GenderList { get; set; } = new();
     private bool Busy { get; set; }
     private GuestRepository? _guestRepository;
@@ -183,11 +180,10 @@
 
     private async Task SubmitForm()
     {
-        var guest = Mapper.Map<GuestRecord>(GuestModel);
         if (Busy) return;
         Busy = true;
-        await _guestRepository.AddGuest(guest);
+        await _guestRepository.AddGuest(GuestModel);
         Busy = false;
-        NavigationManager.NavigateTo("/guests/index");
+        Nav.NavigateTo("/guests/index");
     }
 }

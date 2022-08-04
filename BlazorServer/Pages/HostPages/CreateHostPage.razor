@@ -1,17 +1,14 @@
 @page "/hosts/create-host"
 @inject NavigationManager NavigationManager
-@using AutoMapper
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Models.DTOs
 @using BlazorServer.Data.Repositories
-@inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Create Host</h3>
 
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@HostModel" OnValidSubmit="SubmitForm">
-            <DataAnnotationsValidator/>
+            <FluentValidationValidator />
             <ValidationSummary/>
             <div class="mb-3">
                 <label for="@HostModel.FirstName">First name</label>
@@ -80,7 +77,7 @@
 
 @code {
 
-    private HostRecordDTO HostModel { get; set; } = new();
+    private HostRecord HostModel { get; set; } = new();
     private bool Busy { get; set; }
     private HostRepository? _hostRepository;
     
@@ -93,10 +90,9 @@
     private async Task SubmitForm()
     {
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
-        var host = Mapper.Map<HostRecord>(HostModel);
         if (Busy) return;
         Busy = true;
-        await _hostRepository.AddHost(host);
+        await _hostRepository.AddHost(HostModel);
         Busy = false;
         NavigationManager.NavigateTo("/hosts/index");
     }

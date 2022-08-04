@@ -1,24 +1,9 @@
-using AutoMapper;
 using BlazorServer.Data.Contexts;
 using BlazorServer.Data.Repositories;
-using BlazorServer.MappingProfiles;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Auto Mapper Configurations
-var mapperConfig = new MapperConfiguration(mc =>
-{
-    mc.AddProfile(new HostMappingProfile());
-    mc.AddProfile(new GuestMappingProfile());
-    mc.AddProfile(new GuestChildMappingProfile());
-    mc.AddProfile(new HomeVisitMappingProfile());
-    mc.AddProfile(new CaseRecordMappingProfile());
-});
-
-IMapper mapper = mapperConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -29,6 +14,7 @@ builder.Services.AddTransient<HostRepository>();
 builder.Services.AddTransient<GuestRepository>();
 builder.Services.AddTransient<CaseRepository>();
 builder.Services.AddTransient<VisitRepository>();
+builder.Services.AddTransient<CaseInvolvementRepository>();
 
 var app = builder.Build();
 

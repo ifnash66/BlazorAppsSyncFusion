@@ -1,17 +1,14 @@
 @page "/home-visits/create-visit"
-@inject NavigationManager NavigationManager
-@using AutoMapper
+@inject NavigationManager Nav
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Models.DTOs
 @using BlazorServer.Data.Repositories
-@inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Create Home Visit</h3>
 
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@HomeVisitModel" OnValidSubmit="SubmitForm">
-            <DataAnnotationsValidator/>
+            <FluentValidationValidator />
             <ValidationSummary/>
             <div class="mb-3">
                 <label for="@HomeVisitModel.VisitStatusId">Visit Status</label>
@@ -88,7 +85,7 @@
 
 @code {
 
-    private HomeVisitRecordDTO HomeVisitModel { get; set; } = new();
+    private HomeVisitRecord HomeVisitModel { get; set; } = new();
     private bool Busy { get; set; }
     private VisitRepository? _visitRepository;
     private HostRepository? _hostRepository;
@@ -124,7 +121,6 @@
 
     private async Task SubmitForm()
     {
-        var visit = Mapper.Map<HomeVisitRecord>(HomeVisitModel);
         var selectedHostNames = string.Empty;
         foreach (var id in _selectedHostIds)
         {
@@ -140,12 +136,12 @@
         }
         selectedHostNames.Trim().TrimEnd(',');
         selectedGuestNames.Trim().TrimEnd(',');
-        visit.HostsVisited = selectedHostNames;
-        visit.GuestsVisited = selectedGuestNames;
+        HomeVisitModel.HostsVisited = selectedHostNames;
+        HomeVisitModel.GuestsVisited = selectedGuestNames;
         if (Busy) return;
         Busy = true;
-        await _visitRepository.AddHomeVisit(visit);
+        await _visitRepository.AddHomeVisit(HomeVisitModel);
         Busy = false;
-        NavigationManager.NavigateTo("/home-visits/index");
+        Nav.NavigateTo("/home-visits/index");
     }
 }

@@ -38,13 +38,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "AutoMapper": {
+            "Blazored.FluentValidation": {
               "target": "Package",
-              "version": "[11.0.1, )"
+              "version": "[2.0.3, )"
             },
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+            "FluentValidation": {
               "target": "Package",
-              "version": "[11.0.0, )"
+              "version": "[10.4.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

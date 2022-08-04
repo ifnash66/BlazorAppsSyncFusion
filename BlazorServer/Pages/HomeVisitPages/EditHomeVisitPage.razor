@@ -1,10 +1,7 @@
 @page "/home-visits/edit-visit/{id:int}"
-@inject NavigationManager NavigationManager
-@using AutoMapper
+@inject NavigationManager Nav
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Models.DTOs
 @using BlazorServer.Data.Repositories
-@inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Edit Home Visit</h3>
 
@@ -92,7 +89,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private HomeVisitRecordDTO HomeVisitModel { get; set; } = new();
+    private HomeVisitRecord HomeVisitModel { get; set; } = new();
     private bool Busy { get; set; }
     private VisitRepository? _visitRepository;
     private HostRepository? _hostRepository;
@@ -118,7 +115,7 @@
         var visit = await _visitRepository.GetHomeVisit(Id);
         if (visit is not null)
         {
-            HomeVisitModel = Mapper.Map<HomeVisitRecordDTO>(visit);
+            HomeVisitModel = visit;
         }
 
         var guests = await _guestRepository.GetGuests();
@@ -131,7 +128,6 @@
 
     private async Task SubmitForm()
     {
-        var visit = Mapper.Map<HomeVisitRecord>(HomeVisitModel);
         var selectedHostNames = string.Empty;
         foreach (var id in _selectedHostIds)
         {
@@ -147,12 +143,12 @@
         }
         selectedHostNames.Trim().TrimEnd(',');
         selectedGuestNames.Trim().TrimEnd(',');
-        visit.HostsVisited = selectedHostNames;
-        visit.GuestsVisited = selectedGuestNames;
+        HomeVisitModel.HostsVisited = selectedHostNames;
+        HomeVisitModel.GuestsVisited = selectedGuestNames;
         if (Busy) return;
         Busy = true;
-        await _visitRepository.UpdateHomeVisit(visit);
+        await _visitRepository.UpdateHomeVisit(HomeVisitModel);
         Busy = false;
-        NavigationManager.NavigateTo("/home-visits/index");
+        Nav.NavigateTo("/home-visits/index");
     }
 }

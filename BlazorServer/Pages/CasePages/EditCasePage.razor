@@ -1,16 +1,14 @@
 @page "/cases/edit-case/{id:int}"
-@inject NavigationManager NavigationManager
+@inject NavigationManager Nav
 @using BlazorServer.Data.Models.Domain
-@using AutoMapper
 @using BlazorServer.Data.Repositories
-@inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Edit Case</h3>
 
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@CaseModel" OnValidSubmit="SubmitForm">
-            <DataAnnotationsValidator/>
+            <FluentValidationValidator />
             <ValidationSummary/>
             <div class="mb-3">
                 <label for="@CaseModel.CaseReference">Case reference</label>
@@ -34,7 +32,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private CaseRecordDTO CaseModel { get; set; } = new();
+    private CaseRecord CaseModel { get; set; } = new();
     private bool Busy { get; set; }
     private CaseRepository? _caseRepository;
 
@@ -46,7 +44,7 @@
         var caseRecord = await _caseRepository.GetCase(Id);
         if (caseRecord is not null)
         {
-            CaseModel = Mapper.Map<CaseRecordDTO>(caseRecord);
+            CaseModel = caseRecord;
         }
         Busy = false;
         await base.OnInitializedAsync();
@@ -54,11 +52,10 @@
 
     private async Task SubmitForm()
     {
-        var caseRecord = Mapper.Map<CaseRecord>(CaseModel);
         if (Busy) return;
         Busy = true;
-        await _caseRepository.UpdateCase(caseRecord);
+        await _caseRepository.UpdateCase(CaseModel);
         Busy = false;
-        NavigationManager.NavigateTo("/cases/index");
+        Nav.NavigateTo("/cases/index");
     }
 }

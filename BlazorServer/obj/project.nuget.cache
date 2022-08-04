@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oqffnyPM8H4mmDt/AUYpqY+zC8I4intpgerKtKfXGri3yDdNQpPEZQWQeBj0gkpCt1sVqPBepQ3NkDsrh3c2AQ==",
+  "dgSpecHash": "U2f//gjRA+Ini9Xr5jPdmR4yjz4EqRhEUU6Qxnksm+sQzzXYjDW/DMTfiyRF1ScKURjB3uOW18C/YNj9p/lNBA==",
   "success": true,
   "projectFilePath": "/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/BlazorServer.csproj",
   "expectedPackageFiles": [
-    "/Users/iannash/.nuget/packages/automapper/11.0.1/automapper.11.0.1.nupkg.sha512",
-    "/Users/iannash/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/11.0.0/automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "/Users/iannash/.nuget/packages/blazored.fluentvalidation/2.0.3/blazored.fluentvalidation.2.0.3.nupkg.sha512",
+    "/Users/iannash/.nuget/packages/fluentvalidation/10.4.0/fluentvalidation.10.4.0.nupkg.sha512",
     "/Users/iannash/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/iannash/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
     "/Users/iannash/.nuget/packages/messagepack.annotations/2.1.152/messagepack.annotations.2.1.152.nupkg.sha512",

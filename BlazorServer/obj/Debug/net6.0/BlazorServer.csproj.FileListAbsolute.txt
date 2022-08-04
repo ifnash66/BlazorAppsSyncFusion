@@ -326,8 +326,6 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/BlazorServer.runtimeconfig.json
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/BlazorServer.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/AutoMapper.dll
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Humanizer.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/MessagePack.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/MessagePack.Annotations.dll
@@ -616,3 +614,5 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.genruntimeconfig.cache
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Blazored.FluentValidation.dll
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/FluentValidation.dll

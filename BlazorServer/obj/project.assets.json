@@ -2,29 +2,27 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "AutoMapper/11.0.1": {
+      "Blazored.FluentValidation/2.0.3": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CSharp": "4.7.0"
+          "FluentValidation": "[10.2.1, 11.0.0)",
+          "Microsoft.AspNetCore.Components": "3.1.14",
+          "Microsoft.AspNetCore.Components.Web": "3.1.14"
         },
         "compile": {
-          "lib/netstandard2.1/AutoMapper.dll": {}
+          "lib/netstandard2.1/Blazored.FluentValidation.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/AutoMapper.dll": {}
+          "lib/netstandard2.1/Blazored.FluentValidation.dll": {}
         }
       },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/11.0.0": {
+      "FluentValidation/10.4.0": {
         "type": "package",
-        "dependencies": {
-          "AutoMapper": "11.0.0",
-          "Microsoft.Extensions.Options": "6.0.0"
-        },
         "compile": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+          "lib/net6.0/FluentValidation.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+          "lib/net6.0/FluentValidation.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -3143,33 +3141,38 @@
     }
   },
   "libraries": {
-    "AutoMapper/11.0.1": {
-      "sha512": "WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
+    "Blazored.FluentValidation/2.0.3": {
+      "sha512": "YL+E/JGoyVODn0azRJtmfK48iZXpD9Jy6fQOyofAl6F++ELMqupKygN/aG0QZd92j9eCV5syUmz0QYDwmS+3qA==",
       "type": "package",
-      "path": "automapper/11.0.1",
+      "path": "blazored.fluentvalidation/2.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
-        "automapper.11.0.1.nupkg.sha512",
-        "automapper.nuspec",
+        "blazored.fluentvalidation.2.0.3.nupkg.sha512",
+        "blazored.fluentvalidation.nuspec",
         "icon.png",
-        "lib/netstandard2.1/AutoMapper.dll",
-        "lib/netstandard2.1/AutoMapper.xml"
+        "lib/netstandard2.1/Blazored.FluentValidation.dll"
       ]
     },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/11.0.0": {
-      "sha512": "0asw5WxdCFh2OTi9Gv+oKyH9SzxwYQSnO8TV5Dd0GggovILzJW4UimP26JAcxc3yB5NnC5urooZ1BBs8ElpiBw==",
+    "FluentValidation/10.4.0": {
+      "sha512": "rVI1b5L3pq3layrRKIo3N7AT3PWey8ocPZhf6zeHYf6LBBvnP1KzW3bm7KmeazOWW8m1KXMD+shfviIcKSgQ0g==",
       "type": "package",
-      "path": "automapper.extensions.microsoft.dependencyinjection/11.0.0",
+      "path": "fluentvalidation/10.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
-        "automapper.extensions.microsoft.dependencyinjection.nuspec",
-        "icon.png",
-        "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+        "fluent-validation-icon.png",
+        "fluentvalidation.10.4.0.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net5.0/FluentValidation.dll",
+        "lib/net5.0/FluentValidation.xml",
+        "lib/net6.0/FluentValidation.dll",
+        "lib/net6.0/FluentValidation.xml",
+        "lib/netstandard2.0/FluentValidation.dll",
+        "lib/netstandard2.0/FluentValidation.xml",
+        "lib/netstandard2.1/FluentValidation.dll",
+        "lib/netstandard2.1/FluentValidation.xml"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -9222,8 +9225,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "AutoMapper >= 11.0.1",
-      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
+      "Blazored.FluentValidation >= 2.0.3",
+      "FluentValidation >= 10.4.0",
       "Microsoft.EntityFrameworkCore >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.7",
@@ -9274,13 +9277,13 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
-          "AutoMapper": {
+          "Blazored.FluentValidation": {
             "target": "Package",
-            "version": "[11.0.1, )"
+            "version": "[2.0.3, )"
           },
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+          "FluentValidation": {
             "target": "Package",
-            "version": "[11.0.0, )"
+            "version": "[10.4.0, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",

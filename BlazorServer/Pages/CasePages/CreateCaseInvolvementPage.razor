@@ -1,14 +1,12 @@
 @page "/cases/case-involvement/create/{id:int}"
-@using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
-@using Microsoft.EntityFrameworkCore
 @using ChangeEventArgs = Microsoft.AspNetCore.Components.ChangeEventArgs
-@inject IDbContextFactory<AppDbContext> DbContextFactory
-@inject NavigationManager NavigationManager
+@inject NavigationManager Nav
+@inherits OwningComponentBase
 
 <EditForm Model="@Model" OnValidSubmit="SubmitForm">
-    <DataAnnotationsValidator/>
+    <FluentValidationValidator />
     <ValidationSummary/>
     <div class="mb-3">
         <label>Involvement type</label>
@@ -54,6 +52,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    private CaseInvolvementRepository? _caseInvolvementRepository;
+    private HostRepository? _hostRepository;
+    private GuestRepository? _guestRepository;
+
     private string HostToggle { get; set; } = "d-none";
     private string GuestToggle { get; set; } = "d-none";
     
@@ -66,20 +68,23 @@
 
     protected override async Task OnInitializedAsync()
     {
+        _caseInvolvementRepository = ScopedServices.GetRequiredService<CaseInvolvementRepository>();
+        _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
+        
         InvolvementTypes.AddRange(new[] {"Host", "Guest", "CaseWorker"});
 
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        var hosts = await context.HostRecords.ToListAsync();
+        var hosts = await _hostRepository.GetHosts();
         if (hosts is not null)
         {
             HostRecords = hosts.ToList();
         }
-        var guests = await context.GuestRecords.ToListAsync();
+        var guests = await _guestRepository.GetGuests();
         if (guests is not null)
         {
-            GuestRecords = guests;
+            GuestRecords = guests.ToList();
         }
         Model.CaseRecordId = Id;
         Model.DateCreated = DateTime.Now;
@@ -112,18 +117,16 @@
 
     private void ReloadCaseSummary()
     {
-        NavigationManager.NavigateTo($"/cases/case-detail/{Id}", forceLoad:true);
+        Nav.NavigateTo($"/cases/case-detail/{Id}", forceLoad:true);
     }
 
     private async Task SubmitForm()
     {
         if (Busy) return;
         Busy = true;
-        await using var context = await DbContextFactory.CreateDbContextAsync();
-        await context.CaseInvolvements.AddAsync(Model);
-        await context.SaveChangesAsync();
+        await _caseInvolvementRepository.AddCaseInvolvement(Model);
         Busy = false;
         Model = new CaseInvolvement();
-        NavigationManager.NavigateTo($"/cases/case-detail/{Id}", forceLoad:true);  
+        Nav.NavigateTo($"/cases/case-detail/{Id}", forceLoad:true);  
     }
 }

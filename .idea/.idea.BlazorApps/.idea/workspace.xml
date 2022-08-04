@@ -11,48 +11,61 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="fixed null ref errors in repos">
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/GuestChildDTO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/GuestChild.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/GuestGuestChild.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/MappingProfiles/GuestChildMappingProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220804120554_guestChild.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220804120554_guestChild.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/GuestChildren/CreateGuestChildPage.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/ViewGuestPage.razor" afterDir="false" />
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="added guest child pages">
+      <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-shm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-wal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Data/Repositories/CaseInvolvementRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/CaseInvolvementValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/CaseValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/GuestChildValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/GuestValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/HomeVisitValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/HostValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/Blazored.FluentValidation.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/FluentValidation.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Contexts/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Contexts/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/CaseRecordDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/CaseRecordDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/GuestRecordDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/GuestRecordDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/HomeVisitRecordDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/HomeVisitRecordDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/HostRecordDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/HostRecordDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/AppUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/AppUser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseInvolvement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseInvolvement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/Gender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/Gender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/GuestRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/GuestRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HomeVisitRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HomeVisitRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HostRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HostRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/VisitStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/VisitStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Repositories/GuestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Repositories/GuestRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/BlazorServer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/BlazorServer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/CaseRecordDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/GuestChildDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/GuestRecordDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/HomeVisitRecordDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/DTOs/HostRecordDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/MappingProfiles/CaseRecordMappingProfile.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/MappingProfiles/GuestChildMappingProfile.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/MappingProfiles/GuestMappingProfile.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/MappingProfiles/HomeVisitMappingProfile.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/MappingProfiles/HostMappingProfile.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCaseInvolvementPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCaseInvolvementPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCasePage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCasePage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/EditCasePage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/EditCasePage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/CreateGuestPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/CreateGuestPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/EditGuestPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/EditGuestPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/GuestChildren/CreateGuestChildPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/GuestChildren/CreateGuestChildPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HomeVisitPages/CreateHomeVisitPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HomeVisitPages/CreateHomeVisitPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HomeVisitPages/EditHomeVisitPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HomeVisitPages/EditHomeVisitPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/CreateHostPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/CreateHostPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/EditHostPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/EditHostPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseGrid.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseInvolvementGrid.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/SurveyPrompt.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/_Imports.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/AutoMapper.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/BlazorServer.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/BlazorServer.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/refint/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/refint/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,6 +98,20 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5330988bfaacf93f15e30f9b3dd6018a768f89da3b38d874fda77299c62164/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6f2c3a317ee06bc1b0766b94d4e6a045ea25c9a3da49cb9075bcee751250d4/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
@@ -177,7 +204,7 @@
       <workItem from="1659528107078" duration="120000" />
       <workItem from="1659528240177" duration="7946000" />
       <workItem from="1659545976084" duration="11467000" />
-      <workItem from="1659599011028" duration="12419000" />
+      <workItem from="1659599011028" duration="16401000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -319,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659611797262</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="added guest child pages">
+      <created>1659615372200</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1659615372200</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +398,8 @@
     <MESSAGE value="updated grid for involvements" />
     <MESSAGE value="updated case detail page" />
     <MESSAGE value="fixed null ref errors in repos" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed null ref errors in repos" />
+    <MESSAGE value="added guest child pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="added guest child pages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -377,11 +412,39 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCaseInvolvementPage.razor</url>
-          <line>118</line>
+          <line>123</line>
           <properties documentPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseInvolvementForm.razor" initialLine="104" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
           </properties>
           <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Pages/GuestPages/CreateGuestPage.razor</url>
+          <line>181</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/CreateGuestPage.razor" initialLine="184" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Pages/GuestPages/GuestChildren/CreateGuestChildPage.razor</url>
+          <line>98</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/GuestChildren/CreateGuestChildPage.razor" initialLine="98" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

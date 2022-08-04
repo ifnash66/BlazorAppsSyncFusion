@@ -1,10 +1,7 @@
 @page "/hosts/edit-host/{id:int}"
 @inject NavigationManager NavigationManager
-@using AutoMapper
 @using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Models.DTOs
 @using BlazorServer.Data.Repositories
-@inject IMapper Mapper
 @inherits OwningComponentBase
 <h3>Edit Host</h3>
 
@@ -83,7 +80,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private HostRecordDTO HostModel { get; set; } = new();
+    private HostRecord HostModel { get; set; } = new();
     private bool Busy { get; set; }
     private HostRepository? _hostRepository;
 
@@ -95,19 +92,17 @@
         var host = await _hostRepository.GetHost(Id);
         if (host is not null)
         {
-            HostModel = Mapper.Map<HostRecordDTO>(host);
-
-            Busy = false;
+            HostModel = host;
             await base.OnInitializedAsync();
         }
+        Busy = false;
     }
 
     private async Task SubmitForm()
     {
-        var host = Mapper.Map<HostRecord>(HostModel);
         if (Busy) return;
         Busy = true;
-        await _hostRepository.UpdateHost(host);
+        await _hostRepository.UpdateHost(HostModel);
         Busy = false;
         NavigationManager.NavigateTo("/hosts/index");
     }
