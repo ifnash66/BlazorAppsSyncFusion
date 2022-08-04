@@ -2,7 +2,7 @@
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
-@inject NavigationManager NavigationManager
+@inject NavigationManager Nav
 @inherits OwningComponentBase
 
 <SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
@@ -19,7 +19,7 @@
                     var hostRecord = (context as HostRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => ViewHost(hostRecord.Id))">View</button>
-                        <button class="btn btn-primary ml-2" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
+                        <button class="btn btn-warning ml-2" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
                         <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(hostRecord))">End</button>
                     </div>
                 }
@@ -55,12 +55,12 @@
     
     private void ViewHost(int id)
     {
-        NavigationManager.NavigateTo($"/hosts/view-host/{id}");
+        Nav.NavigateTo($"/hosts/view-host/{id}");
     }
 
     private void EditHost(int id)
     {
-        NavigationManager.NavigateTo($"/hosts/edit-host/{id}");
+        Nav.NavigateTo($"/hosts/edit-host/{id}");
     }
 
     private async Task EndInvolvement(HostRecord hostRecord)
@@ -76,5 +76,4 @@
         StateHasChanged();
         Busy = false;
     }
-
 }

@@ -9,6 +9,10 @@
 <div class="row">
     <div class="col-lg-10">
         <SfTab>
+               <TabAnimationSettings> 
+                    <TabAnimationPrevious Effect="AnimationEffect.None"></TabAnimationPrevious> 
+                    <TabAnimationNext Effect="AnimationEffect.None"></TabAnimationNext> 
+                </TabAnimationSettings> 
             <TabItems>
                 <TabItem>
                     <ChildContent>
@@ -69,7 +73,7 @@
                     </ChildContent>
                     <ContentTemplate>
                         <div class="my-3">
-                            <VisitGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id" />
+                            <VisitGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
                         </div>
                     </ContentTemplate>
                 </TabItem>

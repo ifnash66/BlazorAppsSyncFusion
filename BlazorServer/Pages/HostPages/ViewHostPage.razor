@@ -2,6 +2,7 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
+@inject NavigationManager Nav
 <h1>View Host</h1>
 <hr/>
 <div class="row">
@@ -33,14 +34,16 @@
 
     [Parameter]
     public int Id { get; set; }
-
+    
     private HostRecord HostRecord { get; set; } = new();
     private bool _busy = false;
     private HostRepository? _hostRepository;
+    //private int _hostId;
 
     protected override async Task OnInitializedAsync()
     {
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        //GetQueryStringValues();
         if (_busy) return;
         _busy = true;
         var hostRecord = await _hostRepository.GetHost(Id);
@@ -51,4 +54,9 @@
         _busy = false;
         await base.OnInitializedAsync();
     }
+    
+    /*void GetQueryStringValues()
+    {
+        Nav.TryGetQueryString("id", out _hostId);
+    }*/
 }

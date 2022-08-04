@@ -19,7 +19,7 @@
                     var guestRecord = (context as GuestRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => ViewGuest(guestRecord.Id))">View</button>
-                        <button class="btn btn-primary ml-2" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
+                        <button class="btn btn-warning ml-2" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
                         <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(guestRecord))">End</button>
                     </div>
                 }

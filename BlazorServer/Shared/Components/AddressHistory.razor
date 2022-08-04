@@ -22,7 +22,7 @@
                 @{
                     var addressRecord = (context as AddressRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => EditAddress(addressRecord.Id))">Edit</button>
+                        <button class="btn btn-warning" @onclick="@(() => EditAddress(addressRecord.Id))">Edit</button>
                     </div>
                 }
             </Template>
