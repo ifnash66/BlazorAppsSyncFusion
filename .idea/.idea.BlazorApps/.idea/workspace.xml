@@ -11,41 +11,9 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="removed automapper and added fluent validation and validator classes">
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/AddressRecord.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162206_hostDob.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162206_hostDob.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162926_addressRecord.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162926_addressRecord.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddressRecordPage.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHostPage.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Validation/AddressValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db-wal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Contexts/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Contexts/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HostRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HostRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Repositories/HostRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Repositories/HostRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/CreateGuestPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/CreateGuestPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/EditGuestPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/EditGuestPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/CreateHostPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/CreateHostPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/EditHostPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/EditHostPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" afterDir="false" />
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="added address page">
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestInvolvementGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostInvolvementGrid.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Validation/GuestValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Validation/GuestValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Validation/HostValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Validation/HostValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/refint/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/refint/BlazorServer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +155,7 @@
       <workItem from="1659528107078" duration="120000" />
       <workItem from="1659528240177" duration="7946000" />
       <workItem from="1659545976084" duration="11467000" />
-      <workItem from="1659599011028" duration="20844000" />
+      <workItem from="1659599011028" duration="21291000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -343,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659627217398</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="added address page">
+      <created>1659633213742</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1659633213742</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +365,8 @@
     <MESSAGE value="fixed null ref errors in repos" />
     <MESSAGE value="added guest child pages" />
     <MESSAGE value="removed automapper and added fluent validation and validator classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed automapper and added fluent validation and validator classes" />
+    <MESSAGE value="added address page" />
+    <option name="LAST_COMMIT_MESSAGE" value="added address page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

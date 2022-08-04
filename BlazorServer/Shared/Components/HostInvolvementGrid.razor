@@ -18,7 +18,8 @@
                 @{
                     var hostRecord = (context as HostRecord);
                     <div>
-                        <button class="btn btn-danger" @onclick="@(() => EndInvolvement(hostRecord))">End</button>
+                        <button class="btn btn-primary" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(hostRecord))">End</button>
                     </div>
                 }
             </Template>
@@ -53,7 +54,7 @@
 
     private void EditHost(int id)
     {
-        NavigationManager.NavigateTo($"/hosts/edit-host/{id}", forceLoad: true);
+        NavigationManager.NavigateTo($"/hosts/edit-host/{id}");
     }
 
     private async Task EndInvolvement(HostRecord hostRecord)

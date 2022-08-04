@@ -18,6 +18,7 @@
                 @{
                     var guestRecord = (context as GuestRecord);
                     <div>
+                        <button class="btn btn-primary" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
                         <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(guestRecord))">End</button>
                     </div>
                 }
