@@ -1,14 +1,24 @@
+using BlazorServer.Areas.Identity;
 using BlazorServer.Data.Contexts;
 using BlazorServer.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
+using BlazorServer.Data.Models.Domain;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services
+    .AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddDbContextFactory<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddTransient<HostRepository>();
 builder.Services.AddTransient<GuestRepository>();
@@ -34,6 +44,7 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-app.UseAuthentication();;
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

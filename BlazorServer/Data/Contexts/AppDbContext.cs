@@ -1,10 +1,11 @@
 using BlazorServer.Data.Models.Domain;
 using BlazorServer.Data.Repositories;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServer.Data.Contexts;
 
-public class AppDbContext: DbContext
+public class AppDbContext: IdentityDbContext<AppUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
     {
@@ -25,6 +26,8 @@ public class AppDbContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder.Entity<HostRecord>().ToTable(nameof(HostRecord));
         modelBuilder.Entity<GuestRecord>().ToTable(nameof(GuestRecord));
         modelBuilder.Entity<HomeVisitRecord>().ToTable(nameof(HomeVisitRecord));
@@ -49,7 +52,5 @@ public class AppDbContext: DbContext
             new Gender { Id = 2, Title = "Female"},
             new Gender { Id = 3, Title = "Other/not specified"}
         });
-
-        base.OnModelCreating(modelBuilder);
     }
 }

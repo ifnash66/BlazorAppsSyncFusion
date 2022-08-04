@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace BlazorServer.Data.Models.Domain;
 
-public class AppUser
+public class AppUser: IdentityUser
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;

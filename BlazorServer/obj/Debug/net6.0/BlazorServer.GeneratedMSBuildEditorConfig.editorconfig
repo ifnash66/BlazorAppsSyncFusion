@@ -15,6 +15,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Areas/Identity/Pages/Account/LogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9Mb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvU2hhcmVkL19Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -101,6 +113,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/VisitGrid.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NvbXBvbmVudHMvVmlzaXRHcmlkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/LoginDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0xvZ2luRGlzcGxheS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/_Imports.razor]

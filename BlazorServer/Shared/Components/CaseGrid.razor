@@ -39,7 +39,6 @@
     [Parameter]
     public bool Busy { get; set; }
 
-
     protected override async Task OnInitializedAsync()
     {
         _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
