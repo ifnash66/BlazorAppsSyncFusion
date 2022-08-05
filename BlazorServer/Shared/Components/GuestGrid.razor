@@ -2,8 +2,11 @@
 @using Microsoft.EntityFrameworkCore
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
+@using System.Security.Claims
+@using BlazorServer.Constants
 @inject NavigationManager Nav
 @inherits OwningComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <p>
     <a href="/guests/create-guest">Create guest</a>
@@ -36,6 +39,7 @@
 
     private List<GuestRecord> GuestRecords { get; set; } = new();
     private GuestRepository? _guestRepository;
+    private CaseRepository? _caseRepository;
 
     [Parameter]
     public bool Busy { get; set; }
@@ -43,13 +47,14 @@
     protected override async Task OnInitializedAsync()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
+        _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
+
         if (Busy) return;
         Busy = true;
-        var guests = await _guestRepository.GetGuests();
-        if (guests is not null)
-        {
-            GuestRecords = guests.ToList();
-        }
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userRole = user.FindFirstValue(ClaimTypes.Role);
+        await PopulateGuests(userRole, user);
         Busy = false;
         await base.OnInitializedAsync();
     }
@@ -69,12 +74,32 @@
         if (Busy) return;
         Busy = true;
         await _guestRepository.DeleteGuest(guest.Id);
-        var guests = await _guestRepository.GetGuests();
-        if (guests is not null)
-        {
-            GuestRecords = guests.ToList();
-        }
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userRole = user.FindFirstValue(ClaimTypes.Role);
+        await PopulateGuests(userRole, user);
         StateHasChanged();
         Busy = false;
+    }
+
+    private async Task PopulateGuests(string userRole, ClaimsPrincipal user)
+    {
+        if (userRole == ApplicationRoles.Admin)
+        {
+            var guests = await _guestRepository.GetGuests();
+            if (guests is not null)
+            {
+                GuestRecords = guests.ToList();
+            }
+        }
+        else
+        {
+            var involvedCases = await _caseRepository.GetAssignedCases(user.FindFirstValue(ClaimTypes.NameIdentifier));
+            foreach (var caseRecord in involvedCases)
+            {
+                var guestsForCase = await _caseRepository.GetInvolvedGuests(caseRecord.Id);
+                GuestRecords.AddRange(guestsForCase);
+            }
+        }
     }
 }
