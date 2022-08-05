@@ -83,7 +83,7 @@
     
     private async Task PopulateHosts(string userRole, ClaimsPrincipal user)
     {
-        if (userRole == ApplicationRoles.Admin)
+        if (userRole == ApplicationConstants.Admin)
         {
             var hosts = await _hostRepository.GetHosts();
             if (hosts is not null)

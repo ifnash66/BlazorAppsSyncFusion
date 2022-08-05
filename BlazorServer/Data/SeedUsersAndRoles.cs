@@ -3,41 +3,71 @@ using BlazorServer.Constants;
 
 namespace BlazorServer.Data;
 
-public class SeedUsersAndRoles
+public static class SeedUsersAndRoles
 {
     public static void SeedRoles(RoleManager<IdentityRole> roleManager)
     {
-        if (!roleManager.RoleExistsAsync(ApplicationRoles.Admin).Result)
+        if (!roleManager.RoleExistsAsync(ApplicationConstants.Admin).Result)
         {
-            IdentityRole role = new IdentityRole
+            IdentityRole adminRole = new IdentityRole
             {
-                Name = ApplicationRoles.Admin
+                Name = ApplicationConstants.Admin
             };
-            
-            IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+
+            IdentityResult roleResult = roleManager.CreateAsync(adminRole).Result;
+            if (roleResult.Succeeded)
+            {
+                // Add role claims here.
+                var adminPermissions = ApplicationPermissions.GetAdminPermissions();
+                foreach (var permission in adminPermissions)
+                {
+                    IdentityResult addPermissionResult = roleManager.AddClaimAsync(adminRole,
+                        new Claim(ApplicationConstants.PermissionClaim, permission)).Result;
+                }
+            }
         }
 
-        if (!roleManager.RoleExistsAsync(ApplicationRoles.CaseWorker).Result)
+        if (!roleManager.RoleExistsAsync(ApplicationConstants.CaseWorker).Result)
         {
-            IdentityRole role = new IdentityRole
+            IdentityRole caseWorkerRole = new IdentityRole
             {
-                Name = ApplicationRoles.CaseWorker
+                Name = ApplicationConstants.CaseWorker
             };
-            
-            IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+
+            IdentityResult roleResult = roleManager.CreateAsync(caseWorkerRole).Result;
+            if (roleResult.Succeeded)
+            {
+                // Add role claims here.
+                var caseWorkerPermissions = ApplicationPermissions.GetCaseWorkerPermissions();
+                foreach (var permission in caseWorkerPermissions)
+                {
+                    IdentityResult addPermissionResult = roleManager.AddClaimAsync(caseWorkerRole,
+                        new Claim(ApplicationConstants.PermissionClaim, permission)).Result;
+                }
+            }
         }
-        
-        if (!roleManager.RoleExistsAsync(ApplicationRoles.ReadOnly).Result)
+
+        if (!roleManager.RoleExistsAsync(ApplicationConstants.ReadOnly).Result)
         {
-            IdentityRole role = new IdentityRole
+            IdentityRole readOnlyRole = new IdentityRole
             {
-                Name = ApplicationRoles.ReadOnly
+                Name = ApplicationConstants.ReadOnly
             };
-            
-            IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+
+            IdentityResult roleResult = roleManager.CreateAsync(readOnlyRole).Result;
+            if (roleResult.Succeeded)
+            {
+                // Add role claims here.
+                var readOnlyPermissions = ApplicationPermissions.GetReadOnlyPermissions();
+                foreach (var permission in readOnlyPermissions)
+                {
+                    IdentityResult addPermissionResult = roleManager.AddClaimAsync(readOnlyRole,
+                        new Claim(ApplicationConstants.PermissionClaim, permission)).Result;
+                }
+            }
         }
     }
-    
+
     public static void SeedUsers(UserManager<IdentityUser> userManager)
     {
         if (userManager.FindByNameAsync("inash@live.co.uk").Result == null)
@@ -52,7 +82,10 @@ public class SeedUsersAndRoles
 
             if (result.Succeeded)
             {
-                userManager.AddToRoleAsync(user, ApplicationRoles.Admin).Wait();
+                userManager.AddToRoleAsync(user, ApplicationConstants.Admin).Wait();
+                
+                IdentityResult fullNameResult = userManager
+                    .AddClaimAsync(user, new Claim(ApplicationConstants.FullNameClaim, "Ian Nash")).Result;
             }
         }
     }

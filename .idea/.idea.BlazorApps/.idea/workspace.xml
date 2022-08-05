@@ -13,12 +13,15 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="added methods to case repo">
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Constants/ApplicationRoles.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Data/SeedUsersAndRoles.cs" afterDir="false" />
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="added seed users and roles method">
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Constants/ApplicationPermissions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/App.db" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db-shm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Constants/ApplicationRoles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Constants/ApplicationConstants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/SeedUsersAndRoles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/SeedUsersAndRoles.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
@@ -64,6 +67,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6f2c3a317ee06bc1b0766b94d4e6a045ea25c9a3da49cb9075bcee751250d4/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7262732eee179af215faab36a7f3c3cfac93ba12af52a3888d839fe7e53420/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/883b71c25ac209a55cec616a5fb996ceca2779a441fba38b8d1b0c75b75c9/BindConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9156f7f7d7fe31ecb86103c74e89e22a5242a153d4ccf14e354685cb3fb7b5/Task.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bebd253e21dcf766929bfdfd74615bfe46e6e1693b289273dbdb82152893/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/AddressHistory.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
@@ -186,7 +190,7 @@
       <workItem from="1659545976084" duration="11467000" />
       <workItem from="1659599011028" duration="30763000" />
       <workItem from="1659645070168" duration="810000" />
-      <workItem from="1659691567465" duration="16423000" />
+      <workItem from="1659691567465" duration="18632000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -419,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659709009187</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="added seed users and roles method">
+      <created>1659713470974</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1659713470974</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,7 +455,6 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="updated various pages" />
     <MESSAGE value="updated all pages" />
     <MESSAGE value="updated data model" />
     <MESSAGE value="fixed bug in guest page" />
@@ -469,7 +479,8 @@
     <MESSAGE value="updated identity" />
     <MESSAGE value="updated case pages" />
     <MESSAGE value="added methods to case repo" />
-    <option name="LAST_COMMIT_MESSAGE" value="added methods to case repo" />
+    <MESSAGE value="added seed users and roles method" />
+    <option name="LAST_COMMIT_MESSAGE" value="added seed users and roles method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -518,29 +529,16 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs</url>
-          <line>114</line>
+          <line>115</line>
           <properties documentPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" initialLine="116" containingFunctionPresentation="method 'OnPostAsync'">
             <startOffsets>
-              <option value="4926" />
+              <option value="4956" />
             </startOffsets>
             <endOffsets>
-              <option value="4927" />
+              <option value="4957" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BlazorServer/Data/SeedUsersAndRoles.cs</url>
-          <line>8</line>
-          <properties documentPath="$PROJECT_DIR$/BlazorServer/Data/SeedUsers.cs" initialLine="7" containingFunctionPresentation="method 'Start'">
-            <startOffsets>
-              <option value="1239" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1240" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor</url>

@@ -84,7 +84,7 @@
 
     private async Task PopulateGuests(string userRole, ClaimsPrincipal user)
     {
-        if (userRole == ApplicationRoles.Admin)
+        if (userRole == ApplicationConstants.Admin)
         {
             var guests = await _guestRepository.GetGuests();
             if (guests is not null)

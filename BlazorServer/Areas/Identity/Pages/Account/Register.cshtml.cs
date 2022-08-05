@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using BlazorServer.Constants;
 using BlazorServer.Data.Models.Domain;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -125,7 +126,7 @@ namespace BlazorServer.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddClaimAsync(user, new Claim("FullName", Input.FullName));
+                    await _userManager.AddClaimAsync(user, new Claim(ApplicationConstants.FullNameClaim, Input.FullName));
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
