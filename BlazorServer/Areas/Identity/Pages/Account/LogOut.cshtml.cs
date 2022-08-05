@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlazorServer.Areas.Identity.Pages.Account
 {
+    [IgnoreAntiforgeryToken]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
