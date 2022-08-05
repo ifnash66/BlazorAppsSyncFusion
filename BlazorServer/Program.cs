@@ -8,7 +8,10 @@ global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using BlazorServer.Constants;
 using BlazorServer.Data;
+using BlazorServer.SecurityClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +25,9 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddEntityFrameworkStores<AppDbContext>().AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>();
+
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AppClaimsPrincipalFactory>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -67,6 +72,8 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
+    
+    options.AddPolicy("IsAdmin", policy => policy.RequireRole(ApplicationConstants.Admin));
 });
 
 builder.Services.Configure<PasswordHasherOptions>(option =>
