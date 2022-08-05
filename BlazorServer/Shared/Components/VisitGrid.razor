@@ -39,7 +39,7 @@
 
     [Parameter]
     public bool Busy { get; set; }
-    
+
     [Parameter]
     public int CaseRecordId { get; set; }
 
@@ -49,10 +49,7 @@
         if (Busy) return;
         Busy = true;
         var visits = await _visitRepository.GetHomeVisitsForCase(CaseRecordId);
-        if (visits is not null)
-        {
-            HomeVisitRecords = visits.ToList();
-        }
+        HomeVisitRecords = visits.ToList();
         Busy = false;
         await base.OnInitializedAsync();
     }
@@ -66,13 +63,16 @@
     {
         if (Busy) return;
         Busy = true;
-        await _visitRepository.DeleteHomeVisit(visit.Id);
-        var visits = await _visitRepository.GetHomeVisitsForCase(CaseRecordId);
-        if (visits is not null)
+        if (_visitRepository is not null)
         {
-            HomeVisitRecords = visits.ToList();
+            await _visitRepository.DeleteHomeVisit(visit.Id);
+            var visits = await _visitRepository.GetHomeVisitsForCase(CaseRecordId);
+            if (visits is not null)
+            {
+                HomeVisitRecords = visits.ToList();
+            }
+            StateHasChanged();
         }
-        StateHasChanged();
         Busy = false;
     }
 }

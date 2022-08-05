@@ -55,14 +55,16 @@
     {
         if (Busy) return;
         Busy = true;
-        await _guestRepository.EndInvolvement(CaseId, guest.Id);
-        var guests = await _guestRepository.GetGuestsForCase(CaseId);
-        if (guests is not null)
+        if (_guestRepository is not null)
         {
-            GuestRecords = guests.ToList();
+            await _guestRepository.EndInvolvement(CaseId, guest.Id);
+            var guests = await _guestRepository.GetGuestsForCase(CaseId);
+            if (guests is not null)
+            {
+                GuestRecords = guests.ToList();
+                StateHasChanged();
+            }
         }
-        StateHasChanged();
         Busy = false;
     }
-
 }

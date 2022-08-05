@@ -40,16 +40,9 @@
                 <SfCheckBox @bind-Checked="AddressModel.IsCurrentAddress" Label="Is current address" CssClass="e-success"></SfCheckBox><br/>
                 <ValidationMessage For="@(() => AddressModel.IsCurrentAddress)"/>
             </div>
-            <div class="mb-3 row">
-                <div class="col-lg-3">
-                    <label for="@AddressModel.MoveOutDate">Move out date</label>
-                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@AddressModel.MoveOutDate" Format="dd/MM/yyyy"></SfDatePicker>
-                    <ValidationMessage For="@(() => AddressModel.MoveOutDate)"/>
-                </div>
-            </div>
             <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary"/>
-                <a href="@_returnUrl" class="btn btn-secondary">Back to host</a>
+                <a href="@($"/hosts/view-host?id={AddressModel.HostRecordId}")" class="btn btn-secondary">Back to host</a>
             </div>
         </EditForm>
     </div>
@@ -61,7 +54,6 @@
     private HostRepository? _hostRepository;
     private bool _busy = false;
     private int _addressId;
-    private string _returnUrl;
 
     protected override async Task OnInitializedAsync()
     {
@@ -82,14 +74,16 @@
     {
         if (_busy) return;
         _busy = true;
-        await _hostRepository.UpdateAddress(AddressModel);
+        if (_hostRepository is not null)
+        {
+            await _hostRepository.UpdateAddress(AddressModel);
+        }
         _busy = false;
         Nav.NavigateTo($"/hosts/view-host/{AddressModel.HostRecordId}");
     }
-    
+
     void GetQueryStringValues()
     {
         Nav.TryGetQueryString("id", out _addressId);
-        Nav.TryGetQueryString("returnUrl", out _returnUrl);
     }
 }

@@ -67,13 +67,16 @@
     {
         if (Busy) return;
         Busy = true;
-        await _caseRepository.DeleteCase(caseRecord.Id);
-        var caseRecords = await _caseRepository.GetCases();
-        if (caseRecords is not null)
+        if (_caseRepository is not null)
         {
-            CaseRecords = caseRecords.ToList();
+            await _caseRepository.DeleteCase(caseRecord.Id);
+            var caseRecords = await _caseRepository.GetCases();
+            if (caseRecords is not null)
+            {
+                CaseRecords = caseRecords.ToList();
+            }
+            StateHasChanged();
         }
-        StateHasChanged();
         Busy = false;
     }
 }

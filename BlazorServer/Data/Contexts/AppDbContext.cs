@@ -2,7 +2,7 @@ using BlazorServer.Data.Models.Domain;
 using BlazorServer.Data.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+#nullable disable
 namespace BlazorServer.Data.Contexts;
 
 public class AppDbContext: IdentityDbContext

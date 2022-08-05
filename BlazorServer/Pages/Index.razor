@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h1>Index page</h1>
 
@@ -30,4 +31,11 @@
 @code {
 
     private bool Busy { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        await base.OnInitializedAsync();
+    }
 }

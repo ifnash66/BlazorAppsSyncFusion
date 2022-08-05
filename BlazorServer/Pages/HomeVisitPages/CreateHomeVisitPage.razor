@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@HomeVisitModel" OnValidSubmit="SubmitForm">
-            <FluentValidationValidator />
+            <FluentValidationValidator/>
             <ValidationSummary/>
             <div class="mb-3">
                 <label for="@HomeVisitModel.VisitStatusId">Visit Status</label>
@@ -87,13 +87,13 @@
 
     [Parameter]
     public int CaseRecordId { get; set; }
-    
+
     private HomeVisitRecord HomeVisitModel { get; set; } = new();
     private bool Busy { get; set; }
     private VisitRepository? _visitRepository;
     private HostRepository? _hostRepository;
     private GuestRepository? _guestRepository;
-    
+
     private string[] _selectedHostIds = Array.Empty<string>();
     private string[] _selectedGuestIds = Array.Empty<string>();
 
@@ -106,7 +106,7 @@
         _visitRepository = ScopedServices.GetRequiredService<VisitRepository>();
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
-        
+
         HomeVisitModel.DateCreated = DateTime.Now;
         HomeVisitModel.CreatedBy = "System";
         HomeVisitModel.VisitDate = DateTime.Now;
@@ -144,7 +144,10 @@
         HomeVisitModel.GuestsVisited = selectedGuestNames;
         if (Busy) return;
         Busy = true;
-        await _visitRepository.AddHomeVisit(HomeVisitModel);
+        if (_visitRepository is not null)
+        {
+            await _visitRepository.AddHomeVisit(HomeVisitModel);
+        }
         Busy = false;
         Nav.NavigateTo($"/cases/case-detail/{HomeVisitModel.CaseRecordId}");
     }

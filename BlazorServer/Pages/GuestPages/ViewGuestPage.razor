@@ -53,12 +53,12 @@
         if (guest is not null)
         {
             GuestRecord = guest;
+            GenderString = guest.Gender.Title;
         }
-        GenderString = guest.Gender.Title;
         Busy = false;
         await base.OnInitializedAsync();
     }
-    
+
     void GetQueryStringValues()
     {
         Nav.TryGetQueryString("id", out _guestId);

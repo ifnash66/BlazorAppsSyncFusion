@@ -58,7 +58,6 @@
 
     private void EditAddress(int addressRecordId)
     {
-        var returnUrl = $"/hosts/view-host?id={HostRecordId}";
-        Nav.NavigateTo($"/hosts/addresses/edit-address?id={addressRecordId}&returnUrl={returnUrl}");
+        Nav.NavigateTo($"/hosts/addresses/edit-address?id={addressRecordId}");
     }
 }

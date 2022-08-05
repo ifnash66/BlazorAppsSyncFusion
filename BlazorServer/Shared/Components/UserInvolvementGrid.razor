@@ -30,8 +30,8 @@
     
     public class GridUser
     {
-        public string FullName { get; set; }
-        public string Email { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
     }
 
     private List<GridUser> Users { get; set; } = new();
@@ -87,7 +87,7 @@
             foreach (var appUser in users)
             {
                 var fullNameClaim = await context.UserClaims.Where(x => x.UserId == appUser.Id && x.ClaimType == "FullName").FirstOrDefaultAsync();
-                Users.Add(new GridUser{ FullName = fullNameClaim.ClaimValue, Email = appUser.Email });
+                Users.Add(new GridUser{ FullName = fullNameClaim?.ClaimValue ?? string.Empty, Email = appUser.Email });
             }
         }
         StateHasChanged();

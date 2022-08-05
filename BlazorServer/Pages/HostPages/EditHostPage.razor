@@ -20,7 +20,7 @@
                 <InputText @bind-Value="HostModel.LastName" class="form-control"/>
                 <ValidationMessage For="@(() => HostModel.LastName)"/>
             </div>
-          <div class="mb-3 row">
+            <div class="mb-3 row">
                 <div class="col-lg-3">
                     <label for="@HostModel.DateOfBirth">Date of birth</label>
                     <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@HostModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
@@ -103,11 +103,14 @@
     {
         if (Busy) return;
         Busy = true;
-        await _hostRepository.UpdateHost(HostModel);
+        if (_hostRepository is not null)
+        {
+            await _hostRepository.UpdateHost(HostModel);
+        }
         Busy = false;
         Nav.NavigateTo("/hosts/index");
     }
-    
+
     void GetQueryStringValues()
     {
         Nav.TryGetQueryString("id", out _hostId);

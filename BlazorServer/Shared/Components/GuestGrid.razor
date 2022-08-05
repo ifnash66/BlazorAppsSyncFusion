@@ -58,7 +58,7 @@
         Busy = false;
         await base.OnInitializedAsync();
     }
-    
+
     private void ViewGuest(int id)
     {
         Nav.NavigateTo($"/guests/view-guest?id={id}");
@@ -73,7 +73,10 @@
     {
         if (Busy) return;
         Busy = true;
-        await _guestRepository.DeleteGuest(guest.Id);
+        if (_guestRepository is not null)
+        {
+            await _guestRepository.DeleteGuest(guest.Id);
+        }
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         var userRole = user.FindFirstValue(ClaimTypes.Role);
@@ -84,21 +87,24 @@
 
     private async Task PopulateGuests(string userRole, ClaimsPrincipal user)
     {
-        if (userRole == ApplicationConstants.Admin)
+        if (_guestRepository is not null && _caseRepository is not null)
         {
-            var guests = await _guestRepository.GetGuests();
-            if (guests is not null)
+            if (userRole == ApplicationConstants.Admin)
             {
-                GuestRecords = guests.ToList();
+                var guests = await _guestRepository.GetGuests();
+                if (guests is not null)
+                {
+                    GuestRecords = guests.ToList();
+                }
             }
-        }
-        else
-        {
-            var involvedCases = await _caseRepository.GetAssignedCases(user.FindFirstValue(ClaimTypes.NameIdentifier));
-            foreach (var caseRecord in involvedCases)
+            else
             {
-                var guestsForCase = await _caseRepository.GetInvolvedGuests(caseRecord.Id);
-                GuestRecords.AddRange(guestsForCase);
+                var involvedCases = await _caseRepository.GetAssignedCases(user.FindFirstValue(ClaimTypes.NameIdentifier));
+                foreach (var caseRecord in involvedCases)
+                {
+                    var guestsForCase = await _caseRepository.GetInvolvedGuests(caseRecord.Id);
+                    GuestRecords.AddRange(guestsForCase);
+                }
             }
         }
     }

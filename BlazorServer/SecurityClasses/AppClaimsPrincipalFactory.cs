@@ -16,24 +16,63 @@ public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<IdentityUser
     protected override async Task<ClaimsIdentity> GenerateClaimsAsync(IdentityUser user)
     {
         ClaimsIdentity claimsIdentity = await base.GenerateClaimsAsync(user);
+        var userClaims = await UserManager.GetClaimsAsync(user);
+        var fullNameClaim = userClaims?.FirstOrDefault(x => x.Type == ApplicationConstants.FullNameClaim);
+        if (fullNameClaim != null)
+        {
+            if (!claimsIdentity.HasClaim(x => x.Type == ApplicationConstants.FullNameClaim))
+            {
+                claimsIdentity.AddClaim(new Claim(ApplicationConstants.FullNameClaim, fullNameClaim.Value));
+            }
+        }
+
         // Get roleClaims and add to user.
-        if (await UserManager.IsInRoleAsync(user, ApplicationConstants.Admin))
+        if (await RoleManager.RoleExistsAsync(ApplicationConstants.Admin))
         {
-            var adminRole = await RoleManager.FindByNameAsync(ApplicationConstants.Admin);
-            var roleClaims = await RoleManager.GetClaimsAsync(adminRole);
-            claimsIdentity.AddClaims(roleClaims);
+            if (await UserManager.IsInRoleAsync(user, ApplicationConstants.Admin))
+            {
+                var adminRole = await RoleManager.FindByNameAsync(ApplicationConstants.Admin);
+                var roleClaims = await RoleManager.GetClaimsAsync(adminRole);
+                foreach (var claim in roleClaims)
+                {
+                    if (!claimsIdentity.HasClaim(x => x.Type == claim.Type && x.Value == claim.Value))
+                    {
+                        claimsIdentity.AddClaim(claim);
+                    }
+                }
+            }
         }
-        if (await UserManager.IsInRoleAsync(user, ApplicationConstants.CaseWorker))
+
+        if (await RoleManager.RoleExistsAsync(ApplicationConstants.CaseWorker))
         {
-            var caseWorkerRole = await RoleManager.FindByNameAsync(ApplicationConstants.CaseWorker);
-            var roleClaims = await RoleManager.GetClaimsAsync(caseWorkerRole);
-            claimsIdentity.AddClaims(roleClaims);
+            if (await UserManager.IsInRoleAsync(user, ApplicationConstants.CaseWorker))
+            {
+                var caseWorkerRole = await RoleManager.FindByNameAsync(ApplicationConstants.CaseWorker);
+                var roleClaims = await RoleManager.GetClaimsAsync(caseWorkerRole);
+                foreach (var claim in roleClaims)
+                {
+                    if (!claimsIdentity.HasClaim(x => x.Type == claim.Type && x.Value == claim.Value))
+                    {
+                        claimsIdentity.AddClaim(claim);
+                    }
+                }
+            }
         }
-        if (await UserManager.IsInRoleAsync(user, ApplicationConstants.ReadOnly))
+
+        if (await RoleManager.RoleExistsAsync(ApplicationConstants.ReadOnly))
         {
-            var readOnlyRole = await RoleManager.FindByNameAsync(ApplicationConstants.ReadOnly);
-            var roleClaims = await RoleManager.GetClaimsAsync(readOnlyRole);
-            claimsIdentity.AddClaims(roleClaims);
+            if (await UserManager.IsInRoleAsync(user, ApplicationConstants.ReadOnly))
+            {
+                var readOnlyRole = await RoleManager.FindByNameAsync(ApplicationConstants.ReadOnly);
+                var roleClaims = await RoleManager.GetClaimsAsync(readOnlyRole);
+                foreach (var claim in roleClaims)
+                {
+                    if (!claimsIdentity.HasClaim(x => x.Type == claim.Type && x.Value == claim.Value))
+                    {
+                        claimsIdentity.AddClaim(claim);
+                    }
+                }
+            }
         }
 
         return claimsIdentity;

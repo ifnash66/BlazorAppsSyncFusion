@@ -72,7 +72,10 @@
     {
         if (Busy) return;
         Busy = true;
-        await _hostRepository.DeleteHost(hostRecord.Id);
+        if (_hostRepository is not null)
+        {
+            await _hostRepository.DeleteHost(hostRecord.Id);
+        }
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         var userRole = user.FindFirstValue(ClaimTypes.Role);
@@ -80,24 +83,27 @@
         StateHasChanged();
         Busy = false;
     }
-    
+
     private async Task PopulateHosts(string userRole, ClaimsPrincipal user)
     {
-        if (userRole == ApplicationConstants.Admin)
+        if (_hostRepository is not null && _caseRepository is not null)
         {
-            var hosts = await _hostRepository.GetHosts();
-            if (hosts is not null)
+            if (userRole == ApplicationConstants.Admin)
             {
-                HostRecords = hosts.ToList();
+                var hosts = await _hostRepository.GetHosts();
+                if (hosts is not null)
+                {
+                    HostRecords = hosts.ToList();
+                }
             }
-        }
-        else
-        {
-            var involvedCases = await _caseRepository.GetAssignedCases(user.FindFirstValue(ClaimTypes.NameIdentifier));
-            foreach (var caseRecord in involvedCases)
+            else
             {
-                var hostsForCase = await _caseRepository.GetInvolvedHosts(caseRecord.Id);
-                HostRecords.AddRange(hostsForCase);
+                var involvedCases = await _caseRepository.GetAssignedCases(user.FindFirstValue(ClaimTypes.NameIdentifier));
+                foreach (var caseRecord in involvedCases)
+                {
+                    var hostsForCase = await _caseRepository.GetInvolvedHosts(caseRecord.Id);
+                    HostRecords.AddRange(hostsForCase);
+                }
             }
         }
     }

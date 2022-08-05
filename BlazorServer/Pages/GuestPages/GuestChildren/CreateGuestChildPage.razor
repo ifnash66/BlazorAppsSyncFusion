@@ -8,60 +8,60 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <EditForm Model="@GuestChildModel" OnValidSubmit="SubmitForm">
-            <FluentValidationValidator />
+        <EditForm Model="@_guestChildModel" OnValidSubmit="SubmitForm">
+            <FluentValidationValidator/>
             <ValidationSummary/>
             <div class="mb-3">
-                <label for="@GuestChildModel.FirstName">First name</label>
-                <InputText @bind-Value="GuestChildModel.FirstName" class="form-control"/>
-                <ValidationMessage For="@(() => GuestChildModel.FirstName)"/>
+                <label for="@_guestChildModel.FirstName">First name</label>
+                <InputText @bind-Value="_guestChildModel.FirstName" class="form-control"/>
+                <ValidationMessage For="@(() => _guestChildModel.FirstName)"/>
             </div>
             <div class="mb-3">
-                <label for="@GuestChildModel.LastName">Last name</label>
-                <InputText @bind-Value="GuestChildModel.LastName" class="form-control"/>
-                <ValidationMessage For="@(() => GuestChildModel.LastName)"/>
+                <label for="@_guestChildModel.LastName">Last name</label>
+                <InputText @bind-Value="_guestChildModel.LastName" class="form-control"/>
+                <ValidationMessage For="@(() => _guestChildModel.LastName)"/>
             </div>
             <div class="mb-3 row">
                 <div class="col-lg-3">
-                    <label for="@GuestChildModel.DateOfBirth">Date of birth</label>
-                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@GuestChildModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
-                    <ValidationMessage For="@(() => GuestChildModel.DateOfBirth)"/>
+                    <label for="@_guestChildModel.DateOfBirth">Date of birth</label>
+                    <SfDatePicker TValue="DateTime?" StrictMode=true Placeholder='Please enter a date' @bind-Value="@_guestChildModel.DateOfBirth" Format="dd/MM/yyyy"></SfDatePicker>
+                    <ValidationMessage For="@(() => _guestChildModel.DateOfBirth)"/>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="@GuestChildModel.GenderId">Gender</label>
-                <InputSelect @bind-Value="GuestChildModel.GenderId" class="form-control form-select">
+                <label for="@_guestChildModel.GenderId">Gender</label>
+                <InputSelect @bind-Value="_guestChildModel.GenderId" class="form-control form-select">
                     <option value="">Please select a gender...</option>
                     @foreach (var gender in GenderList)
                     {
                         <option value="@gender.Id">@gender.Title</option>
                     }
                 </InputSelect>
-                <ValidationMessage For="@(() => GuestChildModel.GenderId)"/>
+                <ValidationMessage For="@(() => _guestChildModel.GenderId)"/>
             </div>
             <div class="mb-3">
-                <SfCheckBox @bind-Checked="GuestChildModel.EsolEnrolmentAtIwCollege" Label="ESOL enrolment at college" CssClass="e-success"></SfCheckBox><br/>
-                <ValidationMessage For="@(() => GuestChildModel.EsolEnrolmentAtIwCollege)"/>
+                <SfCheckBox @bind-Checked="_guestChildModel.EsolEnrolmentAtIwCollege" Label="ESOL enrolment at college" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => _guestChildModel.EsolEnrolmentAtIwCollege)"/>
             </div>
             <p class="h2">Schools</p>
             <div class="mb-3">
-                <SfCheckBox @bind-Checked="GuestChildModel.SchoolPlace" Label="School place" CssClass="e-success"></SfCheckBox><br/>
-                <ValidationMessage For="@(() => GuestChildModel.SchoolPlace)"/>
+                <SfCheckBox @bind-Checked="_guestChildModel.SchoolPlace" Label="School place" CssClass="e-success"></SfCheckBox><br/>
+                <ValidationMessage For="@(() => _guestChildModel.SchoolPlace)"/>
             </div>
             <div class="mb-3">
-                <label for="@GuestChildModel.NameOfSchool">Name of school</label>
-                <InputText @bind-Value="GuestChildModel.NameOfSchool" class="form-control"/>
-                <ValidationMessage For="@(() => GuestChildModel.NameOfSchool)"/>
+                <label for="@_guestChildModel.NameOfSchool">Name of school</label>
+                <InputText @bind-Value="_guestChildModel.NameOfSchool" class="form-control"/>
+                <ValidationMessage For="@(() => _guestChildModel.NameOfSchool)"/>
             </div>
             <div class="mb-3">
-                <label for="@GuestChildModel.SchoolYearStartedSchool">School year started/school</label>
-                <InputNumber @bind-Value="GuestChildModel.SchoolYearStartedSchool" class="form-control"/>
-                <ValidationMessage For="@(() => GuestChildModel.SchoolYearStartedSchool)"/>
+                <label for="@_guestChildModel.SchoolYearStartedSchool">School year started/school</label>
+                <InputNumber @bind-Value="_guestChildModel.SchoolYearStartedSchool" class="form-control"/>
+                <ValidationMessage For="@(() => _guestChildModel.SchoolYearStartedSchool)"/>
             </div>
             <div class="mb-3">
-                <label for="@GuestChildModel.HomeToSchoolTransport">Home to school transport</label>
-                <InputText @bind-Value="GuestChildModel.HomeToSchoolTransport" class="form-control"/>
-                <ValidationMessage For="@(() => GuestChildModel.HomeToSchoolTransport)"/>
+                <label for="@_guestChildModel.HomeToSchoolTransport">Home to school transport</label>
+                <InputText @bind-Value="_guestChildModel.HomeToSchoolTransport" class="form-control"/>
+                <ValidationMessage For="@(() => _guestChildModel.HomeToSchoolTransport)"/>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary"/>
@@ -77,7 +77,7 @@
     public int GuestId { get; set; }
 
     private bool _busy = false;
-    private GuestChild GuestChildModel = new();
+    private GuestChild _guestChildModel = new();
     private List<Gender> GenderList { get; set; } = new();
     private GuestRepository? _guestRepository;
 
@@ -99,7 +99,10 @@
     {
         if (_busy) return;
         _busy = true;
-        await _guestRepository.AddGuestChild(GuestId, GuestChildModel);
+        if (_guestRepository is not null)
+        {
+            await _guestRepository.AddGuestChild(GuestId, _guestChildModel);
+        }
         _busy = false;
         Nav.NavigateTo("/guests/index");
     }

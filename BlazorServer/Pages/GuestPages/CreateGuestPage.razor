@@ -177,9 +177,11 @@
     {
         if (Busy) return;
         Busy = true;
-        await _guestRepository.AddGuest(GuestModel);
+        if (_guestRepository is not null)
+        {
+            await _guestRepository.AddGuest(GuestModel);
+        }
         Busy = false;
         Nav.NavigateTo("/guests/index");
     }
-
 }
