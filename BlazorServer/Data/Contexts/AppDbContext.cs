@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServer.Data.Contexts;
 
-public class AppDbContext: IdentityDbContext<AppUser>
+public class AppDbContext: IdentityDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
     {
@@ -19,7 +19,6 @@ public class AppDbContext: IdentityDbContext<AppUser>
     public virtual DbSet<Gender> Genders => Set<Gender>();
     public virtual DbSet<CaseRecord> CaseRecords => Set<CaseRecord>();
     public virtual DbSet<CaseInvolvement> CaseInvolvements => Set<CaseInvolvement>();
-    public virtual DbSet<AppUser> AppUsers => Set<AppUser>();
     public virtual DbSet<GuestChild> GuestChildren => Set<GuestChild>();
     public virtual DbSet<GuestGuestChild> GuestGuestChildren => Set<GuestGuestChild>();
     public virtual DbSet<AddressRecord> AddressRecords => Set<AddressRecord>();
@@ -34,7 +33,6 @@ public class AppDbContext: IdentityDbContext<AppUser>
         modelBuilder.Entity<VisitStatus>().ToTable(nameof(VisitStatus));
         modelBuilder.Entity<CaseInvolvement>().ToTable(nameof(CaseInvolvement));
         modelBuilder.Entity<CaseRecord>().ToTable(nameof(CaseRecord));
-        modelBuilder.Entity<AppUser>().ToTable(nameof(AppUser));
         modelBuilder.Entity<GuestChild>().ToTable(nameof(GuestChild));
         modelBuilder.Entity<GuestGuestChild>().ToTable(nameof(GuestGuestChild));
         modelBuilder.Entity<AddressRecord>().ToTable(nameof(AddressRecord));

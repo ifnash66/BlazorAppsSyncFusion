@@ -1,13 +1,13 @@
-using BlazorServer.Areas.Identity;
-using BlazorServer.Data.Contexts;
-using BlazorServer.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Syncfusion.Blazor;
-using BlazorServer.Data.Models.Domain;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
+global using BlazorServer.Data.Models.Domain;
+global using BlazorServer.Areas.Identity;
+global using BlazorServer.Data.Contexts;
+global using BlazorServer.Data.Repositories;
+global using Microsoft.EntityFrameworkCore;
+global using Syncfusion.Blazor;
+global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +21,7 @@ builder.Services.AddSyncfusionBlazor();
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -39,6 +38,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 6;
 
     // Default SignIn settings.
+    options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
 

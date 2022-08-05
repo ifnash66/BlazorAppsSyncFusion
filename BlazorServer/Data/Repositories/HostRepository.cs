@@ -1,6 +1,5 @@
 using BlazorServer.Data.Contexts;
 using BlazorServer.Data.Models.Domain;
-using BlazorServer.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServer.Data.Repositories;

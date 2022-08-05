@@ -10,6 +10,5 @@ public class CaseRecord
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public ICollection<CaseInvolvement> CaseInvolvements { get; set; }
     public ICollection<HomeVisitRecord> HomeVisitRecords { get; set; }
 }

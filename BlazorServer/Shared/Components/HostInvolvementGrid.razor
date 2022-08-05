@@ -5,6 +5,10 @@
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 
+<p>
+    <a href="@($"/cases/case-involvement/create/{CaseId}")">Create involvement</a>
+</p>
+
 <SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>

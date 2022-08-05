@@ -64,99 +64,11 @@ namespace BlazorServer.Migrations
                     b.ToTable("AddressRecord", (string)null);
                 });
 
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.AppUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AppUser", (string)null);
-                });
-
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseInvolvement", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AppUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AppUserId1")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("CaseRecordId")
                         .HasColumnType("INTEGER");
@@ -177,15 +89,10 @@ namespace BlazorServer.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId1");
-
-                    b.HasIndex("CaseRecordId");
-
-                    b.HasIndex("GuestRecordId");
-
-                    b.HasIndex("HostRecordId");
 
                     b.ToTable("CaseInvolvement", (string)null);
                 });
@@ -644,6 +551,70 @@ namespace BlazorServer.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -738,35 +709,6 @@ namespace BlazorServer.Migrations
                     b.Navigation("HostRecord");
                 });
 
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseInvolvement", b =>
-                {
-                    b.HasOne("BlazorServer.Data.Models.Domain.AppUser", "AppUser")
-                        .WithMany("CaseInvolvements")
-                        .HasForeignKey("AppUserId1");
-
-                    b.HasOne("BlazorServer.Data.Models.Domain.CaseRecord", "CaseRecord")
-                        .WithMany("CaseInvolvements")
-                        .HasForeignKey("CaseRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlazorServer.Data.Models.Domain.GuestRecord", "GuestRecord")
-                        .WithMany("CaseInvolvements")
-                        .HasForeignKey("GuestRecordId");
-
-                    b.HasOne("BlazorServer.Data.Models.Domain.HostRecord", "HostRecord")
-                        .WithMany("CaseInvolvements")
-                        .HasForeignKey("HostRecordId");
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("CaseRecord");
-
-                    b.Navigation("GuestRecord");
-
-                    b.Navigation("HostRecord");
-                });
-
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestChild", b =>
                 {
                     b.HasOne("BlazorServer.Data.Models.Domain.Gender", "Gender")
@@ -828,7 +770,7 @@ namespace BlazorServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BlazorServer.Data.Models.Domain.AppUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -837,7 +779,7 @@ namespace BlazorServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BlazorServer.Data.Models.Domain.AppUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -852,7 +794,7 @@ namespace BlazorServer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BlazorServer.Data.Models.Domain.AppUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -861,22 +803,15 @@ namespace BlazorServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BlazorServer.Data.Models.Domain.AppUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.AppUser", b =>
-                {
-                    b.Navigation("CaseInvolvements");
-                });
-
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseRecord", b =>
                 {
-                    b.Navigation("CaseInvolvements");
-
                     b.Navigation("HomeVisitRecords");
                 });
 
@@ -894,16 +829,12 @@ namespace BlazorServer.Migrations
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestRecord", b =>
                 {
-                    b.Navigation("CaseInvolvements");
-
                     b.Navigation("GuestGuestChildren");
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.HostRecord", b =>
                 {
                     b.Navigation("AddressRecords");
-
-                    b.Navigation("CaseInvolvements");
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.VisitStatus", b =>

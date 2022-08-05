@@ -24,7 +24,6 @@ public class HostRecord
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
-    public ICollection<CaseInvolvement> CaseInvolvements { get; set; }
     
     public ICollection<AddressRecord> AddressRecords { get; set; }
 }

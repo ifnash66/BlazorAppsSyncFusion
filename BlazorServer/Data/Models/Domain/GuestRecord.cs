@@ -48,7 +48,6 @@ public class GuestRecord
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
-    public  ICollection<CaseInvolvement> CaseInvolvements { get; set; }
     public ICollection<GuestGuestChild> GuestGuestChildren { get; set; }
 
 }

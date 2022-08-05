@@ -1,0 +1,73 @@
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Contexts
+@using BlazorServer.Data.Repositories
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Nav
+@inject IDbContextFactory<AppDbContext> DbContextFactory
+
+<p>
+    <a href="@($"/cases/case-involvement/create/{CaseId}")">Create involvement</a>
+</p>
+
+<SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(IdentityUser.UserName) HeaderText="User Name"></GridColumn>
+        <GridColumn Field=@nameof(IdentityUser.Email) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+            <Template>
+                @{
+                    var userRecord = (context as IdentityUser);
+                    <div>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(userRecord))">End</button>
+                    </div>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+
+    private List<IdentityUser> Users { get; set; } = new();
+
+    [Parameter]
+    public int CaseId { get; set; }
+
+    [Parameter]
+    public bool Busy { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var users = await context.Users.ToListAsync();
+        if (users is not null)
+        {
+            Users = users;
+        }
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private async Task EndInvolvement(IdentityUser userRecord)
+    {
+        if (Busy) return;
+        Busy = true;
+        await using var context = await DbContextFactory.CreateDbContextAsync();
+        var userInvolvements = await context.CaseInvolvements
+            .Where(x => x.CaseRecordId == CaseId && x.UserId == userRecord.Id && x.IsActive)
+            .ToListAsync();
+        
+        context.CaseInvolvements.RemoveRange(userInvolvements);
+        await context.SaveChangesAsync();
+        var users = await context.Users.ToListAsync();
+        if (users is not null)
+        {
+            Users = users;
+        }
+        StateHasChanged();
+        Busy = false;
+    }
+}
