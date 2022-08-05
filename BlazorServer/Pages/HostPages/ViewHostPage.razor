@@ -1,4 +1,4 @@
-@page "/hosts/view-host/{id:int}"
+@page "/hosts/view-host"
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
@@ -20,7 +20,7 @@
 
 <div class="row">
     <div class="col-lg-8">
-        <AddressHistory HostRecordId="@Id" Busy="@_busy" />
+        <AddressHistory HostRecordId="@_hostId" Busy="@_busy" />
     </div>
 </div>
 
@@ -32,21 +32,18 @@
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
-    
     private HostRecord HostRecord { get; set; } = new();
     private bool _busy = false;
     private HostRepository? _hostRepository;
-    //private int _hostId;
+    private int _hostId;
 
     protected override async Task OnInitializedAsync()
     {
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
-        //GetQueryStringValues();
+        GetQueryStringValues();
         if (_busy) return;
         _busy = true;
-        var hostRecord = await _hostRepository.GetHost(Id);
+        var hostRecord = await _hostRepository.GetHost(_hostId);
         if (hostRecord is not null)
         {
             HostRecord = hostRecord;
@@ -55,8 +52,8 @@
         await base.OnInitializedAsync();
     }
     
-    /*void GetQueryStringValues()
+    void GetQueryStringValues()
     {
         Nav.TryGetQueryString("id", out _hostId);
-    }*/
+    }
 }

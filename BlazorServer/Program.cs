@@ -12,7 +12,6 @@ global using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-
 builder.Services.AddServerSideBlazor();
 builder.Services
     .AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
@@ -97,9 +96,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 app.Run();

@@ -1,4 +1,4 @@
-@page "/guests/edit-guest/{id:int}"
+@page "/guests/edit-guest"
 @inject NavigationManager Nav
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
@@ -152,20 +152,19 @@
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
-
     private GuestRecord GuestModel { get; set; } = new();
     private IEnumerable<Gender> GenderList { get; set; } = null!;
     private bool Busy { get; set; }
     private GuestRepository? _guestRepository;
+    private int _guestId;
 
     protected override async Task OnInitializedAsync()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
+        GetQueryStringValues();
         if (Busy) return;
         Busy = true;
-        var guest = await _guestRepository.GetGuest(Id);
+        var guest = await _guestRepository.GetGuest(_guestId);
         if (guest is not null)
         {
             GuestModel = guest;
@@ -183,5 +182,10 @@
         await _guestRepository.UpdateGuest(GuestModel);
         Busy = false;
         Nav.NavigateTo("/guests/index");
+    }
+    
+    void GetQueryStringValues()
+    {
+        Nav.TryGetQueryString("id", out _guestId);
     }
 }

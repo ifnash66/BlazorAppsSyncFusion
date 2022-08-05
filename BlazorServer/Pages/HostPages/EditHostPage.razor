@@ -1,4 +1,4 @@
-@page "/hosts/edit-host/{id:int}"
+@page "/hosts/edit-host"
 @inject NavigationManager Nav
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
@@ -79,21 +79,18 @@
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
-    
     private HostRecord HostModel { get; set; } = new();
     private bool Busy { get; set; }
     private HostRepository? _hostRepository;
-    //private int _hostId;
+    private int _hostId;
 
     protected override async Task OnInitializedAsync()
     {
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
-        //GetQueryStringValues();
+        GetQueryStringValues();
         if (Busy) return;
         Busy = true;
-        var host = await _hostRepository.GetHost(Id);
+        var host = await _hostRepository.GetHost(_hostId);
         if (host is not null)
         {
             HostModel = host;
@@ -111,8 +108,8 @@
         Nav.NavigateTo("/hosts/index");
     }
     
-    /*void GetQueryStringValues()
+    void GetQueryStringValues()
     {
         Nav.TryGetQueryString("id", out _hostId);
-    }*/
+    }
 }

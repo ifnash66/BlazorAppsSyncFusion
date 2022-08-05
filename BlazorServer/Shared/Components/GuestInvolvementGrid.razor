@@ -2,12 +2,8 @@
 @using Microsoft.EntityFrameworkCore
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
-@inject NavigationManager NavigationManager
+@inject NavigationManager Nav
 @inherits OwningComponentBase
-
-<p>
-    <a href="@($"/cases/case-involvement/create/{CaseId}")">Create involvement</a>
-</p>
 
 <SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
@@ -22,9 +18,7 @@
                 @{
                     var guestRecord = (context as GuestRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => ViewGuest(guestRecord.Id))">View</button>
-                        <button class="btn btn-warning ml-2" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(guestRecord))">End</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(guestRecord))">End Involvement</button>
                     </div>
                 }
             </Template>
@@ -55,16 +49,6 @@
         }
         Busy = false;
         await base.OnInitializedAsync();
-    }
-    
-    private void ViewGuest(int id)
-    {
-        NavigationManager.NavigateTo($"/guests/view-guest/{id}");
-    }
-
-    private void EditGuest(int id)
-    {
-        NavigationManager.NavigateTo($"/guests/edit-guest/{id}");
     }
 
     private async Task EndInvolvement(GuestRecord guest)

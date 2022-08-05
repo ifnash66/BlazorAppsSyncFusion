@@ -56,12 +56,12 @@
     
     private void ViewHost(int id)
     {
-        Nav.NavigateTo($"/hosts/view-host/{id}");
+        Nav.NavigateTo($"/hosts/view-host?id={id}");
     }
 
     private void EditHost(int id)
     {
-        Nav.NavigateTo($"/hosts/edit-host/{id}");
+        Nav.NavigateTo($"/hosts/edit-host?id={id}");
     }
 
     private async Task DeleteHost(HostRecord hostRecord)

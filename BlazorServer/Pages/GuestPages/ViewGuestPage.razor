@@ -2,6 +2,7 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
+@inject NavigationManager Nav
 <h1>View Guest</h1>
 <hr/>
 <div class="row">
@@ -29,27 +30,26 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <a href="@($"/guests/guest-children/create/{Id}")" class="btn btn-primary">Add child</a>
+        <a href="@($"/guests/guest-children/create/{_guestId}")" class="btn btn-primary">Add child</a>
         <a href="/guests/index" class="btn btn-secondary ml-2">Back to guest list</a>
     </div>
 </div>
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
-
     private GuestRecord GuestRecord { get; set; } = new();
     private string GenderString { get; set; } = string.Empty;
     private bool Busy { get; set; }
     private GuestRepository? _guestRepository;
+    private int _guestId;
 
     protected override async Task OnInitializedAsync()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
+        GetQueryStringValues();
         if (Busy) return;
         Busy = true;
-        var guest = await _guestRepository.GetGuest(Id);
+        var guest = await _guestRepository.GetGuest(_guestId);
         if (guest is not null)
         {
             GuestRecord = guest;
@@ -57,5 +57,10 @@
         GenderString = guest.Gender.Title;
         Busy = false;
         await base.OnInitializedAsync();
+    }
+    
+    void GetQueryStringValues()
+    {
+        Nav.TryGetQueryString("id", out _guestId);
     }
 }

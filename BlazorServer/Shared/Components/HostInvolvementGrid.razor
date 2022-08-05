@@ -5,10 +5,6 @@
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<p>
-    <a href="@($"/cases/case-involvement/create/{CaseId}")">Create involvement</a>
-</p>
-
 <SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
@@ -22,9 +18,7 @@
                 @{
                     var hostRecord = (context as HostRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => ViewHost(hostRecord.Id))">View</button>
-                        <button class="btn btn-warning ml-2" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(hostRecord))">End</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(hostRecord))">End Involvement</button>
                     </div>
                 }
             </Template>
@@ -55,16 +49,6 @@
         }
         Busy = false;
         await base.OnInitializedAsync();
-    }
-    
-    private void ViewHost(int id)
-    {
-        Nav.NavigateTo($"/hosts/view-host/{id}");
-    }
-
-    private void EditHost(int id)
-    {
-        Nav.NavigateTo($"/hosts/edit-host/{id}");
     }
 
     private async Task EndInvolvement(HostRecord hostRecord)

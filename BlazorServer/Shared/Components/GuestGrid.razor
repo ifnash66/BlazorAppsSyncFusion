@@ -2,7 +2,7 @@
 @using Microsoft.EntityFrameworkCore
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
-@inject NavigationManager NavigationManager
+@inject NavigationManager Nav
 @inherits OwningComponentBase
 
 <p>
@@ -56,12 +56,12 @@
     
     private void ViewGuest(int id)
     {
-        NavigationManager.NavigateTo($"/guests/view-guest/{id}");
+        Nav.NavigateTo($"/guests/view-guest?id={id}");
     }
 
     private void EditGuest(int id)
     {
-        NavigationManager.NavigateTo($"/guests/edit-guest/{id}");
+        Nav.NavigateTo($"/guests/edit-guest?id={id}");
     }
 
     private async Task DeleteGuest(GuestRecord guest)

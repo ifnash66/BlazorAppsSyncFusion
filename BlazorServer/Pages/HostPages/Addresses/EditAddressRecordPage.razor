@@ -1,4 +1,4 @@
-@page "/hosts/addresses/edit-address/{id:int}"
+@page "/hosts/addresses/edit-address"
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
 @inject NavigationManager Nav
@@ -49,7 +49,7 @@
             </div>
             <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary"/>
-                <a href="@($"/hosts/view-host/{AddressModel.HostRecordId}")" class="btn btn-secondary">Back to host</a>
+                <a href="@_returnUrl" class="btn btn-secondary">Back to host</a>
             </div>
         </EditForm>
     </div>
@@ -57,19 +57,19 @@
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
-
     private AddressRecord AddressModel { get; set; } = new();
     private HostRepository? _hostRepository;
     private bool _busy = false;
+    private int _addressId;
+    private string _returnUrl;
 
     protected override async Task OnInitializedAsync()
     {
         _hostRepository = ScopedServices.GetRequiredService<HostRepository>();
+        GetQueryStringValues();
         if (_busy) return;
         _busy = true;
-        var addressRecord = await _hostRepository.GetAddress(Id);
+        var addressRecord = await _hostRepository.GetAddress(_addressId);
         if (addressRecord is not null)
         {
             AddressModel = addressRecord;
@@ -86,5 +86,10 @@
         _busy = false;
         Nav.NavigateTo($"/hosts/view-host/{AddressModel.HostRecordId}");
     }
-
+    
+    void GetQueryStringValues()
+    {
+        Nav.TryGetQueryString("id", out _addressId);
+        Nav.TryGetQueryString("returnUrl", out _returnUrl);
+    }
 }

@@ -13,125 +13,26 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/AccessDenied.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/AccessDenied.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ConfirmEmail.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ConfirmEmail.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ExternalLogin.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ForgotPassword.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ForgotPassword.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Lockout.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Lockout.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LogOut.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Login.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Login.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LoginWith2fa.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LoginWith2fa.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/Email.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/Email.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ManageNavPages.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/_Layout.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ResetPassword.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ResetPassword.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/_StatusMessage.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/_ViewImports.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Error.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Error.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/_Layout.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/_ViewImports.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/_ViewStart.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/GlobalUsings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220805114810_Initial.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated identity">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/App.db" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LogOut.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/LogOut.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Shared/_LoginPartial.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Shared/_LoginPartial.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Contexts/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Contexts/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/AppUser.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseInvolvement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseInvolvement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/CaseRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/GuestRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/GuestRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HostRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Models/Domain/HostRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Repositories/HostRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Repositories/HostRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220803120239_InitialCreate.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220803120239_InitialCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220803150931_CaseNav.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220803150931_CaseNav.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804105825_nullChanges.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804105825_nullChanges.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804120554_guestChild.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804120554_guestChild.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162206_hostDob.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162206_hostDob.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162926_addressRecord.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804162926_addressRecord.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804201431_IdentityCreate.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Migrations/20220805114810_Initial.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/20220804201431_IdentityCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CaseDetailPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CaseDetailPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCaseInvolvementPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCaseInvolvementPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/EditGuestPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/EditGuestPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/ViewGuestPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/GuestPages/ViewGuestPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddressRecordPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddressRecordPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/EditHostPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/EditHostPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHostPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHostPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseInvolvementGrid.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestInvolvementGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostInvolvementGrid.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/LoginDisplay.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/LoginDisplay.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Validation/CaseInvolvementValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Validation/CaseInvolvementValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" afterDir="false" />
@@ -293,7 +194,7 @@
       <workItem from="1659545976084" duration="11467000" />
       <workItem from="1659599011028" duration="30763000" />
       <workItem from="1659645070168" duration="810000" />
-      <workItem from="1659691567465" duration="6689000" />
+      <workItem from="1659691567465" duration="10923000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -505,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659645717458</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="updated identity">
+      <created>1659701199218</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1659701199218</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +476,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BlazorServer/Pages/CasePages/CreateCaseInvolvementPage.razor</url>
-          <line>142</line>
+          <line>145</line>
           <properties documentPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseInvolvementForm.razor" initialLine="104" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
           </properties>
@@ -601,6 +509,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs</url>
+          <line>114</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Areas/Identity/Pages/Account/Register.cshtml.cs" initialLine="116" containingFunctionPresentation="method 'OnPostAsync'">
+            <startOffsets>
+              <option value="4926" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4927" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

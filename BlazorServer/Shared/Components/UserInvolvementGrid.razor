@@ -2,24 +2,23 @@
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
+@using BlazorServer.Areas.Identity.Pages.Shared
+@using System.Security.Claims
 @inject NavigationManager Nav
 @inject IDbContextFactory<AppDbContext> DbContextFactory
-
-<p>
-    <a href="@($"/cases/case-involvement/create/{CaseId}")">Create involvement</a>
-</p>
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(IdentityUser.UserName) HeaderText="User Name"></GridColumn>
-        <GridColumn Field=@nameof(IdentityUser.Email) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(GridUser.FullName) HeaderText="User Name"></GridColumn>
+        <GridColumn Field=@nameof(GridUser.Email) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
             <Template>
                 @{
                     var userRecord = (context as IdentityUser);
                     <div>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(userRecord))">End</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(userRecord))">End Involvement</button>
                     </div>
                 }
             </Template>
@@ -28,8 +27,14 @@
 </SfGrid>
 
 @code {
+    
+    public class GridUser
+    {
+        public string FullName { get; set; }
+        public string Email { get; set; }
+    }
 
-    private List<IdentityUser> Users { get; set; } = new();
+    private List<GridUser> Users { get; set; } = new();
 
     [Parameter]
     public int CaseId { get; set; }
@@ -42,10 +47,17 @@
         if (Busy) return;
         Busy = true;
         await using var context = await DbContextFactory.CreateDbContextAsync();
-        var users = await context.Users.ToListAsync();
+        var caseInvolvementUserIds = await context.CaseInvolvements
+            .Where(x => x.CaseRecordId == CaseId && x.IsActive).Select(x => x.UserId).ToListAsync();
+        
+        var users = await context.Users.Where(x => caseInvolvementUserIds.Contains(x.Id)).ToListAsync();
         if (users is not null)
         {
-            Users = users;
+            foreach (var appUser in users)
+            {
+                var fullNameClaim = await context.UserClaims.Where(x => x.UserId == appUser.Id && x.ClaimType == "FullName").FirstOrDefaultAsync();
+                Users.Add(new GridUser { FullName = fullNameClaim.ClaimValue, Email = appUser.Email });
+            }
         }
         Busy = false;
         await base.OnInitializedAsync();
@@ -62,10 +74,21 @@
         
         context.CaseInvolvements.RemoveRange(userInvolvements);
         await context.SaveChangesAsync();
-        var users = await context.Users.ToListAsync();
+        
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        
+        var caseInvolvementUserIds = await context.CaseInvolvements
+            .Where(x => x.CaseRecordId == CaseId && x.IsActive).Select(x => x.UserId).ToListAsync();
+        
+        var users = await context.Users.Where(x => caseInvolvementUserIds.Contains(x.Id)).ToListAsync();
         if (users is not null)
         {
-            Users = users;
+            foreach (var appUser in users)
+            {
+                var fullNameClaim = await context.UserClaims.Where(x => x.UserId == appUser.Id && x.ClaimType == "FullName").FirstOrDefaultAsync();
+                Users.Add(new GridUser{ FullName = fullNameClaim.ClaimValue, Email = appUser.Email });
+            }
         }
         StateHasChanged();
         Busy = false;
