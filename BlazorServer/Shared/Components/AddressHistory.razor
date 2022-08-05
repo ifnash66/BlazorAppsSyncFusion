@@ -8,25 +8,12 @@
 <SfGrid DataSource="@AddressRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(AddressRecord.BuildingNameNumber) HeaderText="Building Name/Number"></GridColumn>
-        <GridColumn Field=@nameof(AddressRecord.Street) HeaderText="Street" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(AddressRecord.Town) HeaderText="Town" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(AddressRecord.County) HeaderText="County" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(AddressRecord.Postcode) HeaderText="Postcode" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.AddressText) HeaderText="Address" Width="400"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.IsCurrentAddress) HeaderText="Current Address" TextAlign="TextAlign.Right" Width="150"></GridColumn>
         <GridColumn Field=@nameof(AddressRecord.MoveInDate) HeaderText="Move In Date" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(AddressRecord.MoveOutDate) HeaderText="Move Out Date" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn Field=@nameof(AddressRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AddressRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy HH:mm" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(AddressRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
-            <Template>
-                @{
-                    var addressRecord = (context as AddressRecord);
-                    <div>
-                        <button class="btn btn-warning" @onclick="@(() => EditAddress(addressRecord.Id))">Edit</button>
-                    </div>
-                }
-            </Template>
-        </GridColumn>
     </GridColumns>
 </SfGrid>
 
@@ -54,10 +41,5 @@
         }
         Busy = false;
         await base.OnInitializedAsync();
-    }
-
-    private void EditAddress(int addressRecordId)
-    {
-        Nav.NavigateTo($"/hosts/addresses/edit-address?id={addressRecordId}");
     }
 }

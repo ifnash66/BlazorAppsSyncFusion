@@ -35,7 +35,8 @@ public class CaseInvolvementRepository
     public async Task UpdateCaseInvolvement(CaseInvolvement caseInvolvement)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        context.CaseInvolvements.Update(caseInvolvement);
+        context.Attach(caseInvolvement);
+        context.Entry(caseInvolvement).State = EntityState.Modified;
         await context.SaveChangesAsync();
     }
 

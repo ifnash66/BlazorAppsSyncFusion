@@ -62,7 +62,8 @@ public class HostRepository
     public async Task UpdateHost(HostRecord host)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        context.HostRecords.Update(host);
+        context.Attach(host);
+        context.Entry(host).State = EntityState.Modified;
         await context.SaveChangesAsync();
     }
 
@@ -87,13 +88,22 @@ public class HostRepository
     public async Task<IEnumerable<AddressRecord>> GetAddressHistory(int hostRecordId)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        return await context.AddressRecords.Where(x => x.HostRecordId == hostRecordId).ToListAsync();
+        return await context.AddressRecords.Where(x => x.HostRecordId == hostRecordId)
+            .OrderByDescending(x => x.IsCurrentAddress)
+            .ThenByDescending(x => x.DateCreated)
+            .ToListAsync();
     }
     
     public async Task<AddressRecord> GetAddress(int addressRecordId)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
         return await context.AddressRecords.FindAsync(addressRecordId);
+    }
+    
+    public async Task<AddressRecord> GetCurrentAddress(int hostRecordId)
+    {
+        await using var context = await _dbContextFactory.CreateDbContextAsync();
+        return await context.AddressRecords.FirstOrDefaultAsync(x => x.HostRecordId == hostRecordId && x.IsCurrentAddress);
     }
     
     public async Task AddAddress(AddressRecord addressRecord)

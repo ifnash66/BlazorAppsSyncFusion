@@ -12,15 +12,18 @@
             <dd class="col-lg-10">@HostRecord.FirstName</dd>
             <dt class="col-lg-2">Last name</dt>
             <dd class="col-lg-10">@HostRecord.LastName</dd>
-            <dt class="col-lg-2">Date of Birth</dt>
+            <dt class="col-lg-2">Date of birth</dt>
             <dd class="col-lg-10">@HostRecord.DateOfBirth</dd>
+            <dt class="col-lg-2">Current address</dt>
+            <dd class="col-lg-10">@HostRecord.AddressText</dd>
         </dl>
+        <a href="@($"/hosts/addresses/create-address?id={_hostId}")" class="btn btn-primary my-2">Add new address</a>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-8">
-        <AddressHistory HostRecordId="@_hostId" Busy="@_busy" />
+        <AddressHistory HostRecordId="@_hostId" Busy="@_busy"/>
     </div>
 </div>
 
@@ -51,9 +54,10 @@
         _busy = false;
         await base.OnInitializedAsync();
     }
-    
+
     void GetQueryStringValues()
     {
         Nav.TryGetQueryString("id", out _hostId);
     }
+
 }

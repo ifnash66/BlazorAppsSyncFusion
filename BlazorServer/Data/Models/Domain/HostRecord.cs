@@ -23,7 +23,7 @@ public class HostRecord
     public string CreatedBy { get; set; } = string.Empty;
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
-    
-    
+    [NotMapped] public string AddressText => $"{BuildingNameNumber}, {Street}, {Town}, {County}, {Postcode}";
+
     public ICollection<AddressRecord> AddressRecords { get; set; }
 }

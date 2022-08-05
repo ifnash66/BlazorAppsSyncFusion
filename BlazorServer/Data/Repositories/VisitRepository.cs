@@ -43,7 +43,8 @@ public class VisitRepository
     public async Task UpdateHomeVisit(HomeVisitRecord visit)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        context.HomeVisitRecords.Update(visit);
+        context.Attach(visit);
+        context.Entry(visit).State = EntityState.Modified;
         await context.SaveChangesAsync();
     }
 

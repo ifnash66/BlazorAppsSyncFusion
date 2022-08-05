@@ -46,7 +46,8 @@ public class GuestRepository
     public async Task UpdateGuest(GuestRecord guest)
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        context.GuestRecords.Update(guest);
+        context.Attach(guest);
+        context.Entry(guest).State = EntityState.Modified;
         await context.SaveChangesAsync();
     }
 
