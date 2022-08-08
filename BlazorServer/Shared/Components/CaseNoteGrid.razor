@@ -1,0 +1,83 @@
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inject NavigationManager NavigationManager
+@inherits OwningComponentBase
+
+<p>
+    <a href="@($"/cases/case-notes/create?caseRecordId={CaseId}")">Create case note</a>
+</p>
+
+<SfGrid DataSource="@CaseNotes" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(CaseNote.Id) HeaderText="Id"></GridColumn>
+        <GridColumn Field=@nameof(CaseNote.NoteText) HeaderText="Notes" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(CaseNote.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(CaseNote.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+            <Template>
+                @{
+                    var caseNote = (context as CaseNote);
+                    <div>
+                        <button class="btn btn-primary" @onclick="@(() => ViewCaseNote(caseNote.Id))">View</button>
+                        <button class="btn btn-warning" @onclick="@(() => EditCaseNote(caseNote.Id))">Edit</button>
+                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteCaseNote(caseNote))">Delete</button>
+                    </div>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+
+    private List<CaseNote> CaseNotes { get; set; } = new();
+    private CaseNoteRepository? _caseNoteRepository;
+    
+    [Parameter]
+    public int CaseId { get; set; }
+
+    [Parameter]
+    public bool Busy { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _caseNoteRepository = ScopedServices.GetRequiredService<CaseNoteRepository>();
+        if (Busy) return;
+        Busy = true;
+        var caseNotes = await _caseNoteRepository.GetCaseNotes();
+        if (caseNotes is not null)
+        {
+            CaseNotes = caseNotes.ToList();
+        }
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private void EditCaseNote(int id)
+    {
+        NavigationManager.NavigateTo($"/cases/case-notes/edit?caseRecordId={id}&caseNoteId={id}");
+    }
+
+    private void ViewCaseNote(int id)
+    {
+        NavigationManager.NavigateTo($"/cases/case-notes/view?caseRecordId={id}&caseNoteId={id}");
+    }
+
+    private async Task DeleteCaseNote(CaseNote caseNote)
+    {
+        if (Busy) return;
+        Busy = true;
+        if (_caseNoteRepository is not null)
+        {
+            await _caseNoteRepository.DeleteCaseNote(caseNote.Id);
+            var caseNotes = await _caseNoteRepository.GetCaseNotes();
+            if (caseNotes is not null)
+            {
+                CaseNotes = caseNotes.ToList();
+            }
+            StateHasChanged();
+        }
+        Busy = false;
+    }
+}

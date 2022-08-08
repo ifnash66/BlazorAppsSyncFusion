@@ -97,6 +97,60 @@ namespace BlazorServer.Migrations
                     b.ToTable("CaseInvolvement", (string)null);
                 });
 
+            modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CaseNoteCategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CaseRecordId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NoteText")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaseNoteCategoryId");
+
+                    b.HasIndex("CaseRecordId");
+
+                    b.ToTable("CaseNote", (string)null);
+                });
+
+            modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseNoteCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CaseNoteCategory", (string)null);
+                });
+
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -141,29 +195,6 @@ namespace BlazorServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Male"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Female"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Other/not specified"
-                        });
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestChild", b =>
@@ -211,37 +242,6 @@ namespace BlazorServer.Migrations
                     b.HasIndex("GenderId");
 
                     b.ToTable("GuestChild", (string)null);
-                });
-
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestGuestChild", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("GuestChildId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GuestId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("GuestRecordId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GuestChildId");
-
-                    b.HasIndex("GuestRecordId");
-
-                    b.ToTable("GuestGuestChild", (string)null);
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestRecord", b =>
@@ -346,6 +346,37 @@ namespace BlazorServer.Migrations
                     b.HasIndex("GenderId");
 
                     b.ToTable("GuestRecord", (string)null);
+                });
+
+            modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestRecordGuestChild", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("GuestChildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GuestId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GuestRecordId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuestChildId");
+
+                    b.HasIndex("GuestRecordId");
+
+                    b.ToTable("GuestRecordGuestChild", (string)null);
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.HomeVisitRecord", b =>
@@ -477,29 +508,6 @@ namespace BlazorServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VisitStatus", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Scheduled"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "In Progress"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Complete"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -709,6 +717,25 @@ namespace BlazorServer.Migrations
                     b.Navigation("HostRecord");
                 });
 
+            modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseNote", b =>
+                {
+                    b.HasOne("BlazorServer.Data.Models.Domain.CaseNoteCategory", "CaseNoteCategory")
+                        .WithMany("CaseNotes")
+                        .HasForeignKey("CaseNoteCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlazorServer.Data.Models.Domain.CaseRecord", "CaseRecord")
+                        .WithMany("CaseNotes")
+                        .HasForeignKey("CaseRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CaseNoteCategory");
+
+                    b.Navigation("CaseRecord");
+                });
+
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestChild", b =>
                 {
                     b.HasOne("BlazorServer.Data.Models.Domain.Gender", "Gender")
@@ -718,23 +745,6 @@ namespace BlazorServer.Migrations
                     b.Navigation("Gender");
                 });
 
-            modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestGuestChild", b =>
-                {
-                    b.HasOne("BlazorServer.Data.Models.Domain.GuestChild", "GuestChild")
-                        .WithMany("GuestGuestChildren")
-                        .HasForeignKey("GuestChildId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlazorServer.Data.Models.Domain.GuestRecord", "GuestRecord")
-                        .WithMany("GuestGuestChildren")
-                        .HasForeignKey("GuestRecordId");
-
-                    b.Navigation("GuestChild");
-
-                    b.Navigation("GuestRecord");
-                });
-
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestRecord", b =>
                 {
                     b.HasOne("BlazorServer.Data.Models.Domain.Gender", "Gender")
@@ -742,6 +752,25 @@ namespace BlazorServer.Migrations
                         .HasForeignKey("GenderId");
 
                     b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestRecordGuestChild", b =>
+                {
+                    b.HasOne("BlazorServer.Data.Models.Domain.GuestChild", "GuestChild")
+                        .WithMany("GuestRecordGuestChildren")
+                        .HasForeignKey("GuestChildId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlazorServer.Data.Models.Domain.GuestRecord", "GuestRecord")
+                        .WithMany("GuestRecordGuestChildren")
+                        .HasForeignKey("GuestRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GuestChild");
+
+                    b.Navigation("GuestRecord");
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.HomeVisitRecord", b =>
@@ -810,8 +839,15 @@ namespace BlazorServer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseNoteCategory", b =>
+                {
+                    b.Navigation("CaseNotes");
+                });
+
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.CaseRecord", b =>
                 {
+                    b.Navigation("CaseNotes");
+
                     b.Navigation("HomeVisitRecords");
                 });
 
@@ -824,12 +860,12 @@ namespace BlazorServer.Migrations
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestChild", b =>
                 {
-                    b.Navigation("GuestGuestChildren");
+                    b.Navigation("GuestRecordGuestChildren");
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.GuestRecord", b =>
                 {
-                    b.Navigation("GuestGuestChildren");
+                    b.Navigation("GuestRecordGuestChildren");
                 });
 
             modelBuilder.Entity("BlazorServer.Data.Models.Domain.HostRecord", b =>

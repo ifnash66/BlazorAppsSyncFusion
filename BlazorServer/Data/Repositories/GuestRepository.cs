@@ -80,14 +80,14 @@ public class GuestRepository
         await using var context = await _dbContextFactory.CreateDbContextAsync();
         await context.GuestChildren.AddAsync(child);
         await context.SaveChangesAsync();
-        var guestGuestChild = new GuestGuestChild
+        var guestRecordGuestChild = new GuestRecordGuestChild
         {
             GuestId = guestId,
             GuestChildId = child.Id,
             DateCreated = DateTime.Now,
             CreatedBy = "System"
         };
-        await context.GuestGuestChildren.AddAsync(guestGuestChild);
+        await context.GuestGuestChildren.AddAsync(guestRecordGuestChild);
         await context.SaveChangesAsync();
     }
 }

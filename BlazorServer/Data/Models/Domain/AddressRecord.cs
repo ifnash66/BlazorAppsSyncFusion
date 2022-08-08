@@ -18,5 +18,5 @@ public class AddressRecord
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     [NotMapped] public string AddressText => $"{BuildingNameNumber}, {Street}, {Town}, {County}, {Postcode}";
-    public HostRecord? HostRecord { get; set; }
+    public virtual HostRecord? HostRecord { get; set; }
 }

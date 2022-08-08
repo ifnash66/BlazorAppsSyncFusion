@@ -2,7 +2,6 @@ using BlazorServer.Data.Models.Domain;
 using BlazorServer.Data.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-#nullable disable
 namespace BlazorServer.Data.Contexts;
 
 public class AppDbContext: IdentityDbContext
@@ -20,8 +19,10 @@ public class AppDbContext: IdentityDbContext
     public virtual DbSet<CaseRecord> CaseRecords => Set<CaseRecord>();
     public virtual DbSet<CaseInvolvement> CaseInvolvements => Set<CaseInvolvement>();
     public virtual DbSet<GuestChild> GuestChildren => Set<GuestChild>();
-    public virtual DbSet<GuestGuestChild> GuestGuestChildren => Set<GuestGuestChild>();
+    public virtual DbSet<GuestRecordGuestChild> GuestGuestChildren => Set<GuestRecordGuestChild>();
     public virtual DbSet<AddressRecord> AddressRecords => Set<AddressRecord>();
+    public virtual DbSet<CaseNote> CaseNotes => Set<CaseNote>();
+    public virtual DbSet<CaseNoteCategory> CaseNoteCategories => Set<CaseNoteCategory>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,21 +35,9 @@ public class AppDbContext: IdentityDbContext
         modelBuilder.Entity<CaseInvolvement>().ToTable(nameof(CaseInvolvement));
         modelBuilder.Entity<CaseRecord>().ToTable(nameof(CaseRecord));
         modelBuilder.Entity<GuestChild>().ToTable(nameof(GuestChild));
-        modelBuilder.Entity<GuestGuestChild>().ToTable(nameof(GuestGuestChild));
+        modelBuilder.Entity<GuestRecordGuestChild>().ToTable(nameof(GuestRecordGuestChild));
         modelBuilder.Entity<AddressRecord>().ToTable(nameof(AddressRecord));
-        
-        modelBuilder.Entity<VisitStatus>().HasData(new List<VisitStatus>
-        {
-            new VisitStatus { Id = 1, Title = "Scheduled"},
-            new VisitStatus { Id = 2, Title = "In Progress"},
-            new VisitStatus { Id = 3, Title = "Complete"}
-        });
-        
-        modelBuilder.Entity<Gender>().HasData(new List<Gender>
-        {
-            new Gender { Id = 1, Title = "Male"},
-            new Gender { Id = 2, Title = "Female"},
-            new Gender { Id = 3, Title = "Other/not specified"}
-        });
+        modelBuilder.Entity<CaseNote>().ToTable(nameof(CaseNote));
+        modelBuilder.Entity<CaseNoteCategory>().ToTable(nameof(CaseNoteCategory));
     }
 }

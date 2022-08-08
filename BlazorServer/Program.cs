@@ -87,6 +87,7 @@ builder.Services.AddTransient<GuestRepository>();
 builder.Services.AddTransient<CaseRepository>();
 builder.Services.AddTransient<VisitRepository>();
 builder.Services.AddTransient<CaseInvolvementRepository>();
+builder.Services.AddTransient<CaseNoteRepository>();
 
 var app = builder.Build();
 

@@ -25,5 +25,5 @@ public class HostRecord
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     [NotMapped] public string AddressText => $"{BuildingNameNumber}, {Street}, {Town}, {County}, {Postcode}";
 
-    public ICollection<AddressRecord> AddressRecords { get; set; }
+    public virtual ICollection<AddressRecord> AddressRecords { get; set; }
 }

@@ -15,6 +15,6 @@ public class GuestChild
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public ICollection<GuestGuestChild> GuestGuestChildren { get; set; }
-    public Gender? Gender { get; set; }
+    public virtual ICollection<GuestRecordGuestChild> GuestRecordGuestChildren { get; set; }
+    public virtual Gender Gender { get; set; }
 }

@@ -7,5 +7,5 @@ public class VisitStatus
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public ICollection<HomeVisitRecord> HomeVisitRecords { get; set; }
+    public virtual ICollection<HomeVisitRecord> HomeVisitRecords { get; set; }
 }

@@ -17,6 +17,6 @@ public class HomeVisitRecord
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public VisitStatus? VisitStatus { get; set; }
-    public CaseRecord? CaseRecord { get; set; }
+    public virtual VisitStatus VisitStatus { get; set; }
+    public virtual CaseRecord CaseRecord { get; set; }
 }

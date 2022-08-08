@@ -8,6 +8,6 @@ public class Gender
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public ICollection<GuestRecord> GuestRecords { get; set; }
-    public ICollection<GuestChild> GuestChildren { get; set; }
+    public virtual ICollection<GuestRecord> GuestRecords { get; set; }
+    public virtual ICollection<GuestChild> GuestChildren { get; set; }
 }

@@ -1,6 +1,6 @@
 namespace BlazorServer.Data.Models.Domain;
 
-public class GuestGuestChild
+public class GuestRecordGuestChild
 {
     public int Id { get; set; }
     public int GuestId { get; set; }
@@ -8,6 +8,6 @@ public class GuestGuestChild
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public GuestChild? GuestChild { get; set; }
-    public GuestRecord? GuestRecord { get; set; }
+    public virtual GuestChild GuestChild { get; set; }
+    public virtual GuestRecord GuestRecord { get; set; }
 }

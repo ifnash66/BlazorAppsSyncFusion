@@ -44,10 +44,10 @@ public class GuestRecord
     public DateTime DateCreated { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
     
-    public Gender? Gender { get; set; }
+    public virtual Gender Gender { get; set; }
 
     [NotMapped] public string FullName => $"{FirstName} {LastName}";
     
-    public ICollection<GuestGuestChild> GuestGuestChildren { get; set; }
+    public virtual ICollection<GuestRecordGuestChild> GuestRecordGuestChildren { get; set; }
 
 }

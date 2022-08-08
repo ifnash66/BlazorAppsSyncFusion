@@ -1,0 +1,77 @@
+@page "/cases/case-notes/create"
+@inject NavigationManager Nav
+@using BlazorServer.Data.Models.Domain
+@using BlazorServer.Data.Repositories
+@inherits OwningComponentBase
+<h3>Create Case Note</h3>
+
+<div class="row">
+    <div class="col-lg-6">
+        <EditForm Model="@CaseNoteModel" OnValidSubmit="SubmitForm">
+            <FluentValidationValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <label for="@CaseNoteModel.CaseNoteCategoryId">Category</label>
+                <InputSelect @bind-Value="CaseNoteModel.CaseNoteCategoryId" class="form-control form-select">
+                    <option value="">Please select a category...</option>
+                    @foreach (var category in CaseNoteCategories)
+                    {
+                        <option value="@category.Id">@category.Title</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => CaseNoteModel.CaseNoteCategoryId)"/>
+            </div>
+            <div class="mb-3">
+                <label for="@CaseNoteModel.NoteText">Notes</label>
+                <InputTextArea @bind-Value="CaseNoteModel.NoteText" rows="5" class="form-control"></InputTextArea>
+                <ValidationMessage For="@(() => CaseNoteModel.NoteText)"/>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+                <a href="@($"/cases/case-detail/{_caseRecordId}")" class="btn btn-secondary ml-2">Back to case summary</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private CaseNote CaseNoteModel { get; set; } = new();
+    private List<CaseNoteCategory> CaseNoteCategories { get; set; } = new();
+    private bool Busy { get; set; }
+    private CaseNoteRepository? _caseNoteRepository;
+    private int _caseRecordId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _caseNoteRepository = ScopedServices.GetRequiredService<CaseNoteRepository>();
+        GetQueryStringValues();
+        CaseNoteModel.DateCreated = DateTime.Now;
+        CaseNoteModel.CreatedBy = "System";
+        CaseNoteModel.CaseRecordId = _caseRecordId;
+        if (Busy) return;
+        Busy = true;
+        var caseNoteCategories = await _caseNoteRepository.GetCaseNoteCategoryList();
+        if (caseNoteCategories is not null)
+        {
+            CaseNoteCategories = caseNoteCategories.ToList();
+        }
+        Busy = false;
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SubmitForm()
+    {
+        if (Busy) return;
+        Busy = true;
+        await _caseNoteRepository.AddCaseNote(CaseNoteModel);
+        Busy = false;
+        CaseNoteModel = new();
+        Nav.NavigateTo($"/cases/case-detail/{_caseRecordId}");
+    }
+
+    void GetQueryStringValues()
+    {
+        Nav.TryGetQueryString("caseRecordId", out _caseRecordId);
+    }
+}

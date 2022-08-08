@@ -68,6 +68,21 @@ namespace BlazorServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CaseNoteCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedBy = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CaseNoteCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CaseRecord",
                 columns: table => new
                 {
@@ -247,6 +262,35 @@ namespace BlazorServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CaseNote",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CaseRecordId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CaseNoteCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    NoteText = table.Column<string>(type: "TEXT", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedBy = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CaseNote", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CaseNote_CaseNoteCategory_CaseNoteCategoryId",
+                        column: x => x.CaseNoteCategoryId,
+                        principalTable: "CaseNoteCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CaseNote_CaseRecord_CaseRecordId",
+                        column: x => x.CaseRecordId,
+                        principalTable: "CaseRecord",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GuestChild",
                 columns: table => new
                 {
@@ -385,7 +429,7 @@ namespace BlazorServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GuestGuestChild",
+                name: "GuestRecordGuestChild",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -394,53 +438,24 @@ namespace BlazorServer.Migrations
                     GuestChildId = table.Column<int>(type: "INTEGER", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", nullable: false),
-                    GuestRecordId = table.Column<int>(type: "INTEGER", nullable: true)
+                    GuestRecordId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GuestGuestChild", x => x.Id);
+                    table.PrimaryKey("PK_GuestRecordGuestChild", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GuestGuestChild_GuestChild_GuestChildId",
+                        name: "FK_GuestRecordGuestChild_GuestChild_GuestChildId",
                         column: x => x.GuestChildId,
                         principalTable: "GuestChild",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GuestGuestChild_GuestRecord_GuestRecordId",
+                        name: "FK_GuestRecordGuestChild_GuestRecord_GuestRecordId",
                         column: x => x.GuestRecordId,
                         principalTable: "GuestRecord",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Genders",
-                columns: new[] { "Id", "CreatedBy", "DateCreated", "Title" },
-                values: new object[] { 1, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Male" });
-
-            migrationBuilder.InsertData(
-                table: "Genders",
-                columns: new[] { "Id", "CreatedBy", "DateCreated", "Title" },
-                values: new object[] { 2, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Female" });
-
-            migrationBuilder.InsertData(
-                table: "Genders",
-                columns: new[] { "Id", "CreatedBy", "DateCreated", "Title" },
-                values: new object[] { 3, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Other/not specified" });
-
-            migrationBuilder.InsertData(
-                table: "VisitStatus",
-                columns: new[] { "Id", "CreatedBy", "DateCreated", "Title" },
-                values: new object[] { 1, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Scheduled" });
-
-            migrationBuilder.InsertData(
-                table: "VisitStatus",
-                columns: new[] { "Id", "CreatedBy", "DateCreated", "Title" },
-                values: new object[] { 2, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In Progress" });
-
-            migrationBuilder.InsertData(
-                table: "VisitStatus",
-                columns: new[] { "Id", "CreatedBy", "DateCreated", "Title" },
-                values: new object[] { 3, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Complete" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AddressRecord_HostRecordId",
@@ -485,24 +500,34 @@ namespace BlazorServer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CaseNote_CaseNoteCategoryId",
+                table: "CaseNote",
+                column: "CaseNoteCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseNote_CaseRecordId",
+                table: "CaseNote",
+                column: "CaseRecordId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GuestChild_GenderId",
                 table: "GuestChild",
                 column: "GenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GuestGuestChild_GuestChildId",
-                table: "GuestGuestChild",
-                column: "GuestChildId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GuestGuestChild_GuestRecordId",
-                table: "GuestGuestChild",
-                column: "GuestRecordId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_GuestRecord_GenderId",
                 table: "GuestRecord",
                 column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestRecordGuestChild_GuestChildId",
+                table: "GuestRecordGuestChild",
+                column: "GuestChildId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestRecordGuestChild_GuestRecordId",
+                table: "GuestRecordGuestChild",
+                column: "GuestRecordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HomeVisitRecord_CaseRecordId",
@@ -539,7 +564,10 @@ namespace BlazorServer.Migrations
                 name: "CaseInvolvement");
 
             migrationBuilder.DropTable(
-                name: "GuestGuestChild");
+                name: "CaseNote");
+
+            migrationBuilder.DropTable(
+                name: "GuestRecordGuestChild");
 
             migrationBuilder.DropTable(
                 name: "HomeVisitRecord");
@@ -552,6 +580,9 @@ namespace BlazorServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CaseNoteCategory");
 
             migrationBuilder.DropTable(
                 name: "GuestChild");
