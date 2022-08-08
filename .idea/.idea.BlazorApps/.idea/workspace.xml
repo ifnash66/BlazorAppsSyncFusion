@@ -13,10 +13,23 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated case grid">
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseNoteGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseNoteGrid.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" afterDir="false" />
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated grids again">
+      <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-shm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-wal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddress.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/CreateAddress.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/CreateAddress.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHost.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHost.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/refint/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/refint/BlazorServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/staticwebassets.pack.sentinel" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +62,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5330988bfaacf93f15e30f9b3dd6018a768f89da3b38d874fda77299c62164/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/62d7a5fcde064b8a531e72b54ce9c67eb7212efe3352835525ba29b572e4e/Renderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6f2c3a317ee06bc1b0766b94d4e6a045ea25c9a3da49cb9075bcee751250d4/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7262732eee179af215faab36a7f3c3cfac93ba12af52a3888d839fe7e53420/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/883b71c25ac209a55cec616a5fb996ceca2779a441fba38b8d1b0c75b75c9/BindConverter.cs" root0="SKIP_HIGHLIGHTING" />
@@ -179,7 +193,7 @@
       <workItem from="1659599011028" duration="30763000" />
       <workItem from="1659645070168" duration="810000" />
       <workItem from="1659691567465" duration="30515000" />
-      <workItem from="1659939561337" duration="20912000" />
+      <workItem from="1659939561337" duration="22626000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -517,7 +531,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659970943379</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="updated grids again">
+      <created>1659971266378</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1659971266378</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +563,6 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="removed automapper and added fluent validation and validator classes" />
     <MESSAGE value="added address page" />
     <MESSAGE value="updated grid components" />
     <MESSAGE value="fixed typo" />
@@ -567,7 +587,8 @@
     <MESSAGE value="added action buttons to all grids" />
     <MESSAGE value="updated grids" />
     <MESSAGE value="updated case grid" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated case grid" />
+    <MESSAGE value="updated grids again" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated grids again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -759,6 +780,34 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddress.razor</url>
+          <line>54</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddress.razor" initialLine="54" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor</url>
+          <line>49</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" initialLine="49" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="96" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -79,6 +79,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0FkZHJlc3Nlcy9DcmVhdGVBZGRyZXNzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/Addresses/EditAddress.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0FkZHJlc3Nlcy9FZGl0QWRkcmVzcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Pages/HostPages/HostIndex.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdFBhZ2VzL0hvc3RJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

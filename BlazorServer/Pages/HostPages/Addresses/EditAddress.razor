@@ -1,8 +1,8 @@
-@page "/hosts/addresses/create-address"
+@page "/hosts/addresses/edit-address"
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<h1>Add New Address</h1>
+<h1>Edit Address</h1>
 <hr/>
 
 <div class="row">
@@ -36,7 +36,7 @@
                 <ValidationMessage For="@(() => AddressModel.Postcode)"/>
             </div>
             <div class="mb-3">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Save" class="btn btn-primary"/>
                 <a href="@($"/hosts/view-host?hostRecordId={AddressModel.HostRecordId}")" class="btn btn-secondary">Back to host</a>
             </div>
         </EditForm>
@@ -49,7 +49,7 @@
     private AddressRecord CurrentAddress { get; set; } = new();
     private HostRepository? _hostRepository;
     private bool _busy = false;
-    private int _hostId;
+    private int _addressRecordId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -57,15 +57,17 @@
         GetQueryStringValues();
         if (_busy) return;
         _busy = true;
-        var addressRecord = await _hostRepository.GetCurrentAddress(_hostId);
+        var addressRecord = await _hostRepository.GetAddress(_addressRecordId);
         if (addressRecord is not null)
         {
-            CurrentAddress = addressRecord;
+            AddressModel = addressRecord;
+            var currentAddressRecord = await _hostRepository.GetCurrentAddress(addressRecord.HostRecordId);
+            CurrentAddress = currentAddressRecord;
             AddressModel.DateCreated = DateTime.Now;
             AddressModel.CreatedBy = "System";
             AddressModel.MoveInDate = DateTime.Now;
             AddressModel.IsCurrentAddress = true;
-            AddressModel.HostRecordId = _hostId;
+            AddressModel.HostRecordId = addressRecord.HostRecordId;
         }
         _busy = false;
         await base.OnInitializedAsync();
@@ -77,12 +79,12 @@
         _busy = true;
         if (_hostRepository is not null)
         {
-            // Set current address in db to not current.
+    // Set current address in db to not current.
             CurrentAddress.MoveOutDate = DateTime.Now;
             CurrentAddress.IsCurrentAddress = false;
             await _hostRepository.UpdateAddress(CurrentAddress);
 
-            // Update host address fields with new address.
+    // Update host address fields with new address.
             var hostRecord = await _hostRepository.GetHost(AddressModel.HostRecordId);
             if (hostRecord is not null)
             {
@@ -94,7 +96,7 @@
                 await _hostRepository.UpdateHost(hostRecord);
             }
 
-            // Add the changed address.
+    // Add the changed address.
             await _hostRepository.AddAddress(AddressModel);
         }
         _busy = false;
@@ -103,6 +105,6 @@
 
     void GetQueryStringValues()
     {
-        Nav.TryGetQueryString("hostRecordId", out _hostId);
+        Nav.TryGetQueryString("addressRecordId", out _addressRecordId);
     }
 }

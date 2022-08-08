@@ -1,12 +1,15 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
+@using Action = Syncfusion.Blazor.Grids.Action
 @inherits OwningComponentBase
 @inject NavigationManager Nav
 
 <h2>Address History </h2>
 
-<SfGrid DataSource="@AddressRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@AddressRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridEvents OnActionBegin="OnActionBegin" TValue="AddressRecord"></GridEvents>
+        <GridEditSettings AllowAdding="true" AllowEditing="true" AllowEditOnDblClick="true" AllowDeleting="true"></GridEditSettings>
     <GridColumns>
         <GridColumn Field=@nameof(AddressRecord.AddressText) HeaderText="Address" Width="400"></GridColumn>
         <GridColumn Field=@nameof(AddressRecord.IsCurrentAddress) HeaderText="Current Address" TextAlign="TextAlign.Right" Width="150"></GridColumn>
@@ -41,5 +44,17 @@
         }
         Busy = false;
         await base.OnInitializedAsync();
+    }
+    
+    private void OnActionBegin(ActionEventArgs<AddressRecord> args)
+    {
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo($"/hosts/addresses/create-address?hostRecordId={HostRecordId}");
+        }
+        if (args.RequestType == Action.BeginEdit)
+        {
+            Nav.NavigateTo($"/hosts/addresses/edit-address?addressRecordId={args.Data.Id}");
+        } 
     }
 }

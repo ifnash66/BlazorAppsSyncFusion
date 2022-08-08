@@ -15,8 +15,7 @@
             <dt class="col-lg-2">Current address</dt>
             <dd class="col-lg-10">@HostRecord.AddressText</dd>
         </dl>
-        <a href="@($"/hosts/addresses/create-address?id={_hostId}")" class="btn btn-primary my-2">Add new address</a>
-    </div>
+       </div>
 </div>
 
 <div class="row">
@@ -55,7 +54,7 @@
 
     void GetQueryStringValues()
     {
-        Nav.TryGetQueryString("id", out _hostId);
+        Nav.TryGetQueryString("hostRecordId", out _hostId);
     }
 
 }
