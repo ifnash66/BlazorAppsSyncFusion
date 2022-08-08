@@ -10,6 +10,10 @@
 </div>
 
 @code {
+    
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    
     private bool Busy { get; set; }
     
 
