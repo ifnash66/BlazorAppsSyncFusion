@@ -24,7 +24,7 @@
                 @{
                     var hostRecord = (context as HostRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => ViewHost(hostRecord.Id))">View</button>
+                        <a class="btn btn-primary" href="@($"/hosts/view-host?id={hostRecord.Id}")">View</a>
                     </div>
                 }
             </Template>
@@ -69,11 +69,6 @@
         {
             await DeleteHost(args.Data);
         }
-    }
-
-    private void ViewHost(int id)
-    {
-        Nav.NavigateTo($"/hosts/view-host?id={id}");
     }
 
     private async Task DeleteHost(HostRecord hostRecord)

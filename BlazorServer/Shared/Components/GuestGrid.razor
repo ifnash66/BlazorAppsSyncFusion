@@ -24,7 +24,7 @@
                 @{
                     var guestRecord = (context as GuestRecord);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => ViewGuest(guestRecord.Id))">View</button>
+                        <a class="btn btn-primary" href="@($"/guests/view-guest?id={guestRecord.Id}")">View</a>
                     </div>
                 }
             </Template>
@@ -70,11 +70,6 @@
         {
             await DeleteGuest(args.Data);
         }
-    }
-
-    private void ViewGuest(int id)
-    {
-        Nav.NavigateTo($"/guests/view-guest?id={id}");
     }
 
     private async Task DeleteGuest(GuestRecord guest)

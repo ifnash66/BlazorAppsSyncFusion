@@ -20,7 +20,7 @@
                 @{
                     var caseNote = (context as CaseNote);
                     <div>
-                        <button class="btn btn-primary" @onclick="@(() => ViewCaseNote(caseNote.Id))">View</button>
+                        <a class="btn btn-primary" href="@($"/cases/case-notes/view?caseRecordId={CaseRecordId}&caseNoteId={caseNote.Id}")">View</a>
                     </div>
                 }
             </Template>
@@ -67,11 +67,6 @@
         {
             await DeleteCaseNote(args.Data);
         }
-    }
-
-    private void ViewCaseNote(int id)
-    {
-        Nav.NavigateTo($"/cases/case-notes/view?caseRecordId={id}&caseNoteId={id}");
     }
 
     private async Task DeleteCaseNote(CaseNote caseNote)
