@@ -2,15 +2,14 @@
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
-@inject NavigationManager NavigationManager
+@using Action = Syncfusion.Blazor.Grids.Action
+@inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<p>
-    <a href="/cases/create-case">Create case</a>
-</p>
-
-<SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" >
+<SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+                <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+                  <GridEvents OnActionBegin="OnActionBegin" TValue="CaseRecord"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(CaseRecord.CaseReference) HeaderText="Case Reference"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
@@ -22,8 +21,6 @@
                     var caseRecord = (context as CaseRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => ViewCase(caseRecord.Id))">View</button>
-                        <button class="btn btn-warning" @onclick="@(() => EditCase(caseRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteCase(caseRecord))">Delete</button>
                     </div>
                 }
             </Template>
@@ -52,15 +49,26 @@
         Busy = false;
         await base.OnInitializedAsync();
     }
-
-    private void EditCase(int id)
+    
+    private async Task OnActionBegin(ActionEventArgs<CaseRecord> args)
     {
-        NavigationManager.NavigateTo($"/cases/edit-case/{id}");
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo("/cases/create-case");
+        }
+        if (args.RequestType == Action.BeginEdit)
+        {
+            Nav.NavigateTo($"/cases/edit-case/{args.Data.Id}");
+        }
+        if (args.RequestType == Action.Delete)
+        {
+            await DeleteCase(args.Data);
+        }
     }
 
     private void ViewCase(int id)
     {
-        NavigationManager.NavigateTo($"/cases/case-detail/{id}");
+        Nav.NavigateTo($"/cases/case-detail/{id}");
     }
 
     private async Task DeleteCase(CaseRecord caseRecord)

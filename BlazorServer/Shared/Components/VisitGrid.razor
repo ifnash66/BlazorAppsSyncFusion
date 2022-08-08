@@ -2,15 +2,14 @@
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
 @using Microsoft.EntityFrameworkCore
-@inject NavigationManager NavigationManager
+@using Action = Syncfusion.Blazor.Grids.Action
+@inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<p>
-    <a href="@($"/home-visits/create-visit/{CaseRecordId}")">Create home visit</a>
-</p>
-
-<SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+          <GridEvents OnActionBegin="OnActionBegin" TValue="HomeVisitRecord"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(HomeVisitRecord.VisitorName) HeaderText="Visitor Name"></GridColumn>
         <GridColumn Field=@nameof(HomeVisitRecord.HostsVisited) HeaderText="Hosts Visited" TextAlign="TextAlign.Right"></GridColumn>
@@ -18,17 +17,6 @@
         <GridColumn Field=@nameof(HomeVisitRecord.VisitDate) HeaderText="Visit Date/Time" Format="dd/MM/yyyy hh:mm" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(HomeVisitRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(HomeVisitRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
-            <Template>
-                @{
-                    var visit = (context as HomeVisitRecord);
-                    <div>
-                        <button class="btn btn-primary" @onclick="@(() => EditVisit(visit.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteVisit(visit))">Delete</button>
-                    </div>
-                }
-            </Template>
-        </GridColumn>
     </GridColumns>
 </SfGrid>
 
@@ -53,10 +41,21 @@
         Busy = false;
         await base.OnInitializedAsync();
     }
-
-    private void EditVisit(int id)
+    
+    private async Task OnActionBegin(ActionEventArgs<HomeVisitRecord> args)
     {
-        NavigationManager.NavigateTo($"/home-visits/edit-visit/{id}");
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo($"/home-visits/create-visit/{CaseRecordId}");
+        }
+        if (args.RequestType == Action.BeginEdit)
+        {
+            Nav.NavigateTo($"/home-visits/edit-visit/{args.Data.Id}");
+        }
+        if (args.RequestType == Action.Delete)
+        {
+            await DeleteVisit(args.Data);
+        }
     }
 
     private async Task DeleteVisit(HomeVisitRecord visit)

@@ -4,26 +4,20 @@
 @using Microsoft.EntityFrameworkCore
 @using BlazorServer.Areas.Identity.Pages.Shared
 @using System.Security.Claims
+@using Action = Syncfusion.Blazor.Grids.Action
 @inject NavigationManager Nav
 @inject IDbContextFactory<AppDbContext> DbContextFactory
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+                <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+                <GridEvents OnActionBegin="OnActionBegin" TValue="AppUser"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(AppUser.FullName) HeaderText="User Name"></GridColumn>
         <GridColumn Field=@nameof(AppUser.IsValid) HeaderText="Is Valid"></GridColumn>
         <GridColumn Field=@nameof(AppUser.Email) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
-            <Template>
-                @{
-                    var userRecord = (context as IdentityUser);
-                    <div>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(userRecord))">End Involvement</button>
-                    </div>
-                }
-            </Template>
-        </GridColumn>
+
     </GridColumns>
 </SfGrid>
 
@@ -54,8 +48,20 @@
         Busy = false;
         await base.OnInitializedAsync();
     }
+    
+    private async Task OnActionBegin(ActionEventArgs<AppUser> args)
+    {
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo($"/cases/case-involvement/create/{CaseRecordId}");
+        } 
+        if (args.RequestType == Action.Delete)
+        {
+            await EndInvolvement(args.Data);
+        }
+    }
 
-    private async Task EndInvolvement(IdentityUser userRecord)
+    private async Task EndInvolvement(AppUser userRecord)
     {
         if (Busy) return;
         Busy = true;

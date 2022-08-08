@@ -1,14 +1,13 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
-@inject NavigationManager NavigationManager
+@using Action = Syncfusion.Blazor.Grids.Action
+@inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<p>
-    <a href="@($"/cases/case-notes/create?caseRecordId={CaseRecordId}")">Create case note</a>
-</p>
-
-<SfGrid DataSource="@CaseNotes" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@CaseNotes" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+            <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+              <GridEvents OnActionBegin="OnActionBegin" TValue="CaseNote"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(CaseNote.Id) HeaderText="Id"></GridColumn>
         <GridColumn Field="CaseRecord.CaseReference" HeaderText="Case Reference"></GridColumn>
@@ -22,8 +21,6 @@
                     var caseNote = (context as CaseNote);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => ViewCaseNote(caseNote.Id))">View</button>
-                        <button class="btn btn-warning" @onclick="@(() => EditCaseNote(caseNote.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteCaseNote(caseNote))">Delete</button>
                     </div>
                 }
             </Template>
@@ -55,15 +52,26 @@
         Busy = false;
         await base.OnInitializedAsync();
     }
-
-    private void EditCaseNote(int id)
+    
+    private async Task OnActionBegin(ActionEventArgs<CaseNote> args)
     {
-        NavigationManager.NavigateTo($"/cases/case-notes/edit?caseRecordId={id}&caseNoteId={id}");
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo("/guests/create-guest");
+        }
+        if (args.RequestType == Action.BeginEdit)
+        {
+            Nav.NavigateTo($"/cases/case-notes/edit?caseRecordId={CaseRecordId}&caseNoteId={args.Data.Id}");
+        }
+        if (args.RequestType == Action.Delete)
+        {
+            await DeleteCaseNote(args.Data);
+        }
     }
 
     private void ViewCaseNote(int id)
     {
-        NavigationManager.NavigateTo($"/cases/case-notes/view?caseRecordId={id}&caseNoteId={id}");
+        Nav.NavigateTo($"/cases/case-notes/view?caseRecordId={id}&caseNoteId={id}");
     }
 
     private async Task DeleteCaseNote(CaseNote caseNote)

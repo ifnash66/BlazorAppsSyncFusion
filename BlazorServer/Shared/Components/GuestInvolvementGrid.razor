@@ -2,27 +2,20 @@
 @using Microsoft.EntityFrameworkCore
 @using BlazorServer.Data.Contexts
 @using BlazorServer.Data.Repositories
+@using Action = Syncfusion.Blazor.Grids.Action
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+            <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+              <GridEvents OnActionBegin="OnActionBegin" TValue="GuestRecord"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(GuestRecord.FirstName) HeaderText="First Name"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.EmailAddress) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
-            <Template>
-                @{
-                    var guestRecord = (context as GuestRecord);
-                    <div>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => EndInvolvement(guestRecord))">End Involvement</button>
-                    </div>
-                }
-            </Template>
-        </GridColumn>
     </GridColumns>
 </SfGrid>
 
@@ -49,6 +42,18 @@
         }
         Busy = false;
         await base.OnInitializedAsync();
+    }
+    
+    private async Task OnActionBegin(ActionEventArgs<GuestRecord> args)
+    {
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo($"/cases/case-involvement/create/{CaseRecordId}");
+        } 
+        if (args.RequestType == Action.Delete)
+        {
+            await EndInvolvement(args.Data);
+        }
     }
 
     private async Task EndInvolvement(GuestRecord guest)

@@ -4,16 +4,15 @@
 @using BlazorServer.Data.Repositories
 @using System.Security.Claims
 @using BlazorServer.Constants
+@using Action = Syncfusion.Blazor.Grids.Action
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<p>
-    <a href="/guests/create-guest">Create guest</a>
-</p>
-
-<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+          <GridEvents OnActionBegin="OnActionBegin" TValue="GuestRecord"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(GuestRecord.FirstName) HeaderText="First Name"></GridColumn>
         <GridColumn Field=@nameof(GuestRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
@@ -26,8 +25,6 @@
                     var guestRecord = (context as GuestRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => ViewGuest(guestRecord.Id))">View</button>
-                        <button class="btn btn-warning ml-2" @onclick="@(() => EditGuest(guestRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteGuest(guestRecord))">Delete</button>
                     </div>
                 }
             </Template>
@@ -58,15 +55,26 @@
         Busy = false;
         await base.OnInitializedAsync();
     }
+    
+    private async Task OnActionBegin(ActionEventArgs<GuestRecord> args)
+    {
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo("/guests/create-guest");
+        }
+        if (args.RequestType == Action.BeginEdit)
+        {
+            Nav.NavigateTo($"/guests/edit-guest?id={args.Data.Id}");
+        }
+        if (args.RequestType == Action.Delete)
+        {
+            await DeleteGuest(args.Data);
+        }
+    }
 
     private void ViewGuest(int id)
     {
         Nav.NavigateTo($"/guests/view-guest?id={id}");
-    }
-
-    private void EditGuest(int id)
-    {
-        Nav.NavigateTo($"/guests/edit-guest?id={id}");
     }
 
     private async Task DeleteGuest(GuestRecord guest)

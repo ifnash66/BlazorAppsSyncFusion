@@ -1,7 +1,5 @@
 @page "/cases/case-detail/{id:int}"
-@using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
-@inject NavigationManager NavigationManager
+@inject NavigationManager Nav
 @inherits OwningComponentBase
 
 <h3>Case Detail Page</h3>
@@ -32,6 +30,7 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <a href="@($"/cases/case-involvement/create/{Id}")" class="btn btn-primary">Add involvement</a>
+                                        <a href="/cases/index" class="btn btn-secondary ml-2">Back to case summary</a>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +118,6 @@
 
     private void AddInvolvement()
     {
-        NavigationManager.NavigateTo($"/cases/case-involvement/create/{Id}");
+        Nav.NavigateTo($"/cases/case-involvement/create/{Id}");
     }
-
 }

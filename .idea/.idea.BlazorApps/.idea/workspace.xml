@@ -13,10 +13,19 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated grids to use grid lines">
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated user grid">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Data/Repositories/CaseNoteRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Data/Repositories/CaseNoteRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/App.db" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/App.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CaseSummary.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/CasePages/CaseSummary.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/Index.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/Index.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseNoteGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/CaseNoteGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/GuestInvolvementGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostInvolvementGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/VisitGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/VisitGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
@@ -186,7 +195,7 @@
       <workItem from="1659599011028" duration="30763000" />
       <workItem from="1659645070168" duration="810000" />
       <workItem from="1659691567465" duration="30515000" />
-      <workItem from="1659939561337" duration="9197000" />
+      <workItem from="1659939561337" duration="13917000" />
     </task>
     <task id="LOCAL-00001" summary="Initial local commit">
       <created>1659268077842</created>
@@ -482,7 +491,21 @@
       <option name="project" value="LOCAL" />
       <updated>1659951472517</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="fixed case note grid error">
+      <created>1659952319919</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1659952319919</updated>
+    </task>
+    <task id="LOCAL-00044" summary="updated user grid">
+      <created>1659952450592</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1659952450592</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,8 +530,6 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="added case involvement pages" />
-    <MESSAGE value="updated grid for involvements" />
     <MESSAGE value="updated case detail page" />
     <MESSAGE value="fixed null ref errors in repos" />
     <MESSAGE value="added guest child pages" />
@@ -532,7 +553,9 @@
     <MESSAGE value="added app user class for identity" />
     <MESSAGE value="renamed components" />
     <MESSAGE value="updated grids to use grid lines" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated grids to use grid lines" />
+    <MESSAGE value="fixed case note grid error" />
+    <MESSAGE value="updated user grid" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated user grid" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -682,6 +705,34 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor</url>
+          <line>58</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" initialLine="60" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor</url>
+          <line>64</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Shared/Components/UserInvolvementGrid.razor" initialLine="64" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="87" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

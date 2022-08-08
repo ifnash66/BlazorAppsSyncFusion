@@ -1,41 +1,8 @@
 ﻿@page "/"
-@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h1>Index page</h1>
 
-<div class="row">
-    <div class="col-lg-8">
-        <SfTab>
-            <TabItems>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Hosts"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <HostGrid Busy="@Busy"/>
-                    </ContentTemplate>
-                </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Guests"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <GuestGrid Busy="@Busy"/>
-                    </ContentTemplate>
-                </TabItem>
-            </TabItems>
-        </SfTab>
-    </div>
-</div>
-
 @code {
 
-    private bool Busy { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        await base.OnInitializedAsync();
-    }
 }

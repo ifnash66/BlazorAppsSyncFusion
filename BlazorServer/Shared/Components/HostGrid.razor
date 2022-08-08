@@ -4,16 +4,15 @@
 @using Microsoft.EntityFrameworkCore
 @using System.Security.Claims
 @using BlazorServer.Constants
+@using Action = Syncfusion.Blazor.Grids.Action
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<p>
-    <a href="/hosts/create-host">Create host</a>
-</p>
-
-<SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
+<SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+      <GridEvents OnActionBegin="OnActionBegin" TValue="HostRecord"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(HostRecord.FirstName) HeaderText="First Name"></GridColumn>
         <GridColumn Field=@nameof(HostRecord.LastName) HeaderText="Last Name" TextAlign="TextAlign.Right"></GridColumn>
@@ -26,8 +25,6 @@
                     var hostRecord = (context as HostRecord);
                     <div>
                         <button class="btn btn-primary" @onclick="@(() => ViewHost(hostRecord.Id))">View</button>
-                        <button class="btn btn-warning ml-2" @onclick="@(() => EditHost(hostRecord.Id))">Edit</button>
-                        <button class="btn btn-danger ml-2" @onclick="@(() => DeleteHost(hostRecord))">Delete</button>
                     </div>
                 }
             </Template>
@@ -40,7 +37,7 @@
     private List<HostRecord> HostRecords { get; set; } = new();
     private HostRepository? _hostRepository;
     private CaseRepository? _caseRepository;
-
+    
     [Parameter]
     public bool Busy { get; set; }
 
@@ -58,14 +55,25 @@
         await base.OnInitializedAsync();
     }
 
+    private async Task OnActionBegin(ActionEventArgs<HostRecord> args)
+    {
+        if (args.RequestType == Action.Add)
+        {
+            Nav.NavigateTo("/hosts/create-host");
+        }
+        if (args.RequestType == Action.BeginEdit)
+        {
+            Nav.NavigateTo($"/hosts/edit-host?id={args.Data.Id}");
+        }
+        if (args.RequestType == Action.Delete)
+        {
+            await DeleteHost(args.Data);
+        }
+    }
+
     private void ViewHost(int id)
     {
         Nav.NavigateTo($"/hosts/view-host?id={id}");
-    }
-
-    private void EditHost(int id)
-    {
-        Nav.NavigateTo($"/hosts/edit-host?id={id}");
     }
 
     private async Task DeleteHost(HostRecord hostRecord)
