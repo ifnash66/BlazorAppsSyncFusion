@@ -8,23 +8,23 @@
 
 <SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
-                <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
-    <GridEvents OnActionBegin="OnActionBegin" TValue="CaseRecord" OnRecordDoubleClick="RecordDoubleClickHandler"></GridEvents>
+    <GridEvents OnActionBegin="OnActionBegin" TValue="CaseRecord"></GridEvents>
+    <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
     <GridColumns>
         <GridColumn Field=@nameof(CaseRecord.CaseReference) HeaderText="Case Reference"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
-            <Template>
-                @{
-                    var caseRecord = (context as CaseRecord);
-                    <div>
-                        <button class="btn btn-primary" @onclick="@(() => ViewCase(caseRecord.Id))">View</button>
-                    </div>
-                }
-            </Template>
-        </GridColumn>
+                <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
+                    <Template>
+                        @{
+                            var caseRecord = (context as CaseRecord);
+                            <div>
+                                <a class="btn btn-primary" href="@($"/cases/case-detail/{caseRecord.Id}")">View</a>
+                            </div>
+                        }
+                    </Template>
+                </GridColumn>
     </GridColumns>
 </SfGrid>
 
@@ -50,12 +50,6 @@
         await base.OnInitializedAsync();
     }
     
-    public void RecordDoubleClickHandler(RecordDoubleClickEventArgs<CaseRecord> args)
-    {
-    // Here, you can customize your code.
-        Nav.NavigateTo($"/cases/case-detail/{args.RowData.Id}");
-    }
-    
     private async Task OnActionBegin(ActionEventArgs<CaseRecord> args)
     {
         if (args.RequestType == Action.Add)
@@ -70,11 +64,6 @@
         {
             await DeleteCase(args.Data);
         }
-    }
-
-    private void ViewCase(int id)
-    {
-        Nav.NavigateTo($"/cases/case-detail/{id}");
     }
 
     private async Task DeleteCase(CaseRecord caseRecord)

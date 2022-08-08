@@ -16,10 +16,6 @@
                 <ValidationMessage For="@(() => CaseModel.CaseReference)"/>
             </div>
             <div class="mb-3">
-                <SfCheckBox @bind-Checked="CaseModel.IsActive" Label="Active case" CssClass="e-success"></SfCheckBox><br/>
-                <ValidationMessage For="@(() => CaseModel.IsActive)"/>
-            </div>
-            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary"/>
                 <a href="/cases/index" class="btn btn-secondary ml-2">Back to case list</a>
             </div>
@@ -38,6 +34,7 @@
         _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
         CaseModel.DateCreated = DateTime.Now;
         CaseModel.CreatedBy = "System";
+        CaseModel.IsActive = true;
     }
 
     private async Task SubmitForm()
