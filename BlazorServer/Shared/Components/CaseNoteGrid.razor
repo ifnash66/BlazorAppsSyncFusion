@@ -4,13 +4,15 @@
 @inherits OwningComponentBase
 
 <p>
-    <a href="@($"/cases/case-notes/create?caseRecordId={CaseId}")">Create case note</a>
+    <a href="@($"/cases/case-notes/create?caseRecordId={CaseRecordId}")">Create case note</a>
 </p>
 
 <SfGrid DataSource="@CaseNotes" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(CaseNote.Id) HeaderText="Id"></GridColumn>
+        <GridColumn Field="CaseRecord.CaseReference" HeaderText="Case Reference"></GridColumn>
+        <GridColumn Field="CaseNoteCategory.Title" HeaderText="Note Category"></GridColumn>
         <GridColumn Field=@nameof(CaseNote.NoteText) HeaderText="Notes" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(CaseNote.DateCreated) HeaderText="Date Created" Format="dd/MM/yyyy" Type="ColumnType.Date" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn Field=@nameof(CaseNote.CreatedBy) HeaderText="Created By" TextAlign="TextAlign.Right"></GridColumn>
@@ -35,7 +37,7 @@
     private CaseNoteRepository? _caseNoteRepository;
     
     [Parameter]
-    public int CaseId { get; set; }
+    public int CaseRecordId { get; set; }
 
     [Parameter]
     public bool Busy { get; set; }

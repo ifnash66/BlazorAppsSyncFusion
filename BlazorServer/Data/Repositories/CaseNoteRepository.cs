@@ -16,7 +16,10 @@ public class CaseNoteRepository
     public async Task<IEnumerable<CaseNote>> GetCaseNotes()
     {
         await using var context = await _dbContextFactory.CreateDbContextAsync();
-        return await context.CaseNotes.Include(x => x.CaseNoteCategory).ToListAsync();
+        return await context.CaseNotes
+            .Include(x => x.CaseNoteCategory)
+            .Include(x => x.CaseRecord)
+            .ToListAsync();
     }
 
     public async Task<CaseNote?> GetCaseNote(int caseNoteId)
