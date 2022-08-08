@@ -3,29 +3,36 @@
 @using BlazorServer.Data.Models.Domain
 @using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
-<h3>Edit Case</h3>
 
-<div class="row">
-    <div class="col-lg-6">
-        <EditForm Model="@CaseModel" OnValidSubmit="SubmitForm">
-            <FluentValidationValidator />
-            <ValidationSummary/>
-            <div class="mb-3">
-                <label for="@CaseModel.CaseReference">Case reference</label>
-                <InputText @bind-Value="CaseModel.CaseReference" class="form-control"/>
-                <ValidationMessage For="@(() => CaseModel.CaseReference)"/>
+<AuthorizeView Policy="HasCaseInvolvement" Resource="CaseModel">
+    <Authorized Context="auth">
+        <h3>Edit Case</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <EditForm Model="@CaseModel" OnValidSubmit="SubmitForm">
+                    <FluentValidationValidator/>
+                    <ValidationSummary/>
+                    <div class="mb-3">
+                        <label for="@CaseModel.CaseReference">Case reference</label>
+                        <InputText @bind-Value="CaseModel.CaseReference" class="form-control"/>
+                        <ValidationMessage For="@(() => CaseModel.CaseReference)"/>
+                    </div>
+                    <div class="mb-3">
+                        <SfCheckBox @bind-Checked="CaseModel.IsActive" Label="Active case" CssClass="e-success"></SfCheckBox><br/>
+                        <ValidationMessage For="@(() => CaseModel.IsActive)"/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" value="Save" class="btn btn-primary"/>
+                        <a href="/cases/index" class="btn btn-secondary ml-2">Back to case list</a>
+                    </div>
+                </EditForm>
             </div>
-            <div class="mb-3">
-                <SfCheckBox @bind-Checked="CaseModel.IsActive" Label="Active case" CssClass="e-success"></SfCheckBox><br/>
-                <ValidationMessage For="@(() => CaseModel.IsActive)"/>
-            </div>
-            <div class="mb-3">
-                <input type="submit" value="Save" class="btn btn-primary"/>
-                <a href="/cases/index" class="btn btn-secondary ml-2">Back to case list</a>
-            </div>
-        </EditForm>
-    </div>
-</div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        You do not have permission to view this page!
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
 
@@ -58,4 +65,5 @@
         Busy = false;
         Nav.NavigateTo("/cases/index");
     }
+
 }
