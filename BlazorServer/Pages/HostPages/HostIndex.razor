@@ -1,4 +1,5 @@
 @page "/hosts/index"
+
 <h1>Hosts</h1>
 <hr/>
 
@@ -10,7 +11,18 @@
 
 @code {
 
-    private bool Busy { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
-   
+    private bool Busy { get; set; }
+    private string UserId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+        UserId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+        await base.OnInitializedAsync();
+    }
+
 }

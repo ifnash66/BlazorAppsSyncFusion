@@ -13,18 +13,15 @@
     <projectFile profileName="IIS Express">BlazorServer/BlazorServer.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated grids again">
+    <list default="true" id="fd6e32bb-5de4-4ea3-9549-1d4bd1f57966" name="Changes" comment="updated links">
       <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-shm" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BlazorServer/App.db-wal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/EditAddress.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlazorApps/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/CreateAddress.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/Addresses/CreateAddress.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHost.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/ViewHost.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/AddressHistory.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/HostIndex.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/HostIndex.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlazorServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/bin/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll" afterDir="false" />
@@ -68,6 +65,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/883b71c25ac209a55cec616a5fb996ceca2779a441fba38b8d1b0c75b75c9/BindConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9156f7f7d7fe31ecb86103c74e89e22a5242a153d4ccf14e354685cb3fb7b5/Task.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bebd253e21dcf766929bfdfd74615bfe46e6e1693b289273dbdb82152893/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/AddressHistory.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="mock:///Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/Shared/Components/AddressHistory.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="mock:///Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/_Imports.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BlazorServer/wwwroot/css/bootstrap/bootstrap.min.css.map" root0="FORCE_HIGHLIGHTING" />
@@ -193,14 +191,7 @@
       <workItem from="1659599011028" duration="30763000" />
       <workItem from="1659645070168" duration="810000" />
       <workItem from="1659691567465" duration="30515000" />
-      <workItem from="1659939561337" duration="22626000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial local commit">
-      <created>1659268077842</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1659268077842</updated>
+      <workItem from="1659939561337" duration="24023000" />
     </task>
     <task id="LOCAL-00002" summary="added automapper and dto classes">
       <created>1659270396203</created>
@@ -538,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659971266378</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="updated links">
+      <created>1659973078973</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1659973078973</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +561,6 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="added address page" />
     <MESSAGE value="updated grid components" />
     <MESSAGE value="fixed typo" />
     <MESSAGE value="updated case summary page" />
@@ -588,7 +585,8 @@
     <MESSAGE value="updated grids" />
     <MESSAGE value="updated case grid" />
     <MESSAGE value="updated grids again" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated grids again" />
+    <MESSAGE value="updated links" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated links" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -741,7 +739,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor</url>
-          <line>58</line>
+          <line>61</line>
           <properties documentPath="$PROJECT_DIR$/BlazorServer/Shared/Components/HostGrid.razor" initialLine="60" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
             <startOffsets>
@@ -808,6 +806,20 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlazorServer/Pages/HostPages/HostIndex.razor</url>
+          <line>20</line>
+          <properties documentPath="$PROJECT_DIR$/BlazorServer/Pages/HostPages/HostIndex.razor" initialLine="23" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="97" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

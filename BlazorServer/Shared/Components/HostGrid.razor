@@ -7,7 +7,6 @@
 @using Action = Syncfusion.Blazor.Grids.Action
 @inject NavigationManager Nav
 @inherits OwningComponentBase
-@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
@@ -37,6 +36,10 @@
     private List<HostRecord> HostRecords { get; set; } = new();
     private HostRepository? _hostRepository;
     private CaseRepository? _caseRepository;
+    private string _userRole;
+    
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
     
     [Parameter]
     public bool Busy { get; set; }
@@ -47,10 +50,10 @@
         _caseRepository = ScopedServices.GetRequiredService<CaseRepository>();
         if (Busy) return;
         Busy = true;
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var authState = await authenticationStateTask;
         var user = authState.User;
-        var userRole = user.FindFirstValue(ClaimTypes.Role);
-        await PopulateHosts(userRole, user);
+        _userRole = user.FindFirstValue(ClaimTypes.Role);
+        await PopulateHosts(user);
         Busy = false;
         await base.OnInitializedAsync();
     }
@@ -79,19 +82,18 @@
         {
             await _hostRepository.DeleteHost(hostRecord.Id);
         }
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var authState = await authenticationStateTask;
         var user = authState.User;
-        var userRole = user.FindFirstValue(ClaimTypes.Role);
-        await PopulateHosts(userRole, user);
+        await PopulateHosts(user);
         StateHasChanged();
         Busy = false;
     }
 
-    private async Task PopulateHosts(string userRole, ClaimsPrincipal user)
+    private async Task PopulateHosts(ClaimsPrincipal user)
     {
         if (_hostRepository is not null && _caseRepository is not null)
         {
-            if (userRole == ApplicationConstants.Admin)
+            if (_userRole == ApplicationConstants.Admin)
             {
                 var hosts = await _hostRepository.GetHosts();
                 if (hosts is not null)
