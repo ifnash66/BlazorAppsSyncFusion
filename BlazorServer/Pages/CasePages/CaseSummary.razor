@@ -2,94 +2,101 @@
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<h3>Case Detail Page</h3>
-<hr/>
-<div class="row">
-    <div class="col-lg-10">
-        <SfTab>
-               <TabAnimationSettings> 
-                    <TabAnimationPrevious Effect="AnimationEffect.None"></TabAnimationPrevious> 
-                    <TabAnimationNext Effect="AnimationEffect.None"></TabAnimationNext> 
-                </TabAnimationSettings> 
-            <TabItems>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Case Summary"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <div class="card my-3">
-                            <div class="card-body">
-                                <dl class="row">
-                                    <dt class="col-lg-2">Case reference</dt>
-                                    <dd class="col-lg-10">@CaseRecord.CaseReference</dd>
-                                    <dt class="col-lg-2">Is active</dt>
-                                    <dd class="col-lg-10">@CaseRecord.IsActive</dd>
-                                    <dt class="col-lg-2">Date created</dt>
-                                    <dd class="col-lg-10">@CaseRecord.DateCreated.ToShortDateString()</dd>
-                                </dl>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <a href="/cases/index" class="btn btn-secondary">Back to case summary</a>
+<AuthorizeView Policy="HasCaseInvolvement" Resource="CaseRecord">
+    <Authorized>
+        <h3>Case Detail Page</h3>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-10">
+                <SfTab>
+                    <TabAnimationSettings>
+                        <TabAnimationPrevious Effect="AnimationEffect.None"></TabAnimationPrevious>
+                        <TabAnimationNext Effect="AnimationEffect.None"></TabAnimationNext>
+                    </TabAnimationSettings>
+                    <TabItems>
+                        <TabItem>
+                            <ChildContent>
+                                <TabHeader Text="Case Summary"></TabHeader>
+                            </ChildContent>
+                            <ContentTemplate>
+                                <div class="card my-3">
+                                    <div class="card-body">
+                                        <dl class="row">
+                                            <dt class="col-lg-2">Case reference</dt>
+                                            <dd class="col-lg-10">@CaseRecord.CaseReference</dd>
+                                            <dt class="col-lg-2">Is active</dt>
+                                            <dd class="col-lg-10">@CaseRecord.IsActive</dd>
+                                            <dt class="col-lg-2">Date created</dt>
+                                            <dd class="col-lg-10">@CaseRecord.DateCreated.ToShortDateString()</dd>
+                                        </dl>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <a href="/cases/index" class="btn btn-secondary">Back to case summary</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </ContentTemplate>
-                </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Hosts"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <div class="my-3">
-                            <HostInvolvementGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
-                        </div>
-                    </ContentTemplate>
-                </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Guests"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <div class="my-3">
-                            <GuestInvolvementGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
-                        </div>
-                    </ContentTemplate>
-                </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Case Workers"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <div class="my-3">
-                             <UserInvolvementGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
-                        </div>
-                    </ContentTemplate>
-                </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Home Visits"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <div class="my-3">
-                            <VisitGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
-                        </div>
-                    </ContentTemplate>
-                </TabItem>
-                <TabItem>
-                    <ChildContent>
-                        <TabHeader Text="Case Notes"></TabHeader>
-                    </ChildContent>
-                    <ContentTemplate>
-                        <div class="my-3">
-                            <CaseNoteGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
-                        </div>
-                    </ContentTemplate>
-                </TabItem>
-            </TabItems>
-        </SfTab>
-    </div>
-</div>
+                            </ContentTemplate>
+                        </TabItem>
+                        <TabItem>
+                            <ChildContent>
+                                <TabHeader Text="Hosts"></TabHeader>
+                            </ChildContent>
+                            <ContentTemplate>
+                                <div class="my-3">
+                                    <HostInvolvementGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
+                                </div>
+                            </ContentTemplate>
+                        </TabItem>
+                        <TabItem>
+                            <ChildContent>
+                                <TabHeader Text="Guests"></TabHeader>
+                            </ChildContent>
+                            <ContentTemplate>
+                                <div class="my-3">
+                                    <GuestInvolvementGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
+                                </div>
+                            </ContentTemplate>
+                        </TabItem>
+                        <TabItem>
+                            <ChildContent>
+                                <TabHeader Text="Case Workers"></TabHeader>
+                            </ChildContent>
+                            <ContentTemplate>
+                                <div class="my-3">
+                                    <UserInvolvementGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
+                                </div>
+                            </ContentTemplate>
+                        </TabItem>
+                        <TabItem>
+                            <ChildContent>
+                                <TabHeader Text="Home Visits"></TabHeader>
+                            </ChildContent>
+                            <ContentTemplate>
+                                <div class="my-3">
+                                    <VisitGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
+                                </div>
+                            </ContentTemplate>
+                        </TabItem>
+                        <TabItem>
+                            <ChildContent>
+                                <TabHeader Text="Case Notes"></TabHeader>
+                            </ChildContent>
+                            <ContentTemplate>
+                                <div class="my-3">
+                                    <CaseNoteGrid Busy="@Busy" CaseRecordId="@CaseRecord.Id"/>
+                                </div>
+                            </ContentTemplate>
+                        </TabItem>
+                    </TabItems>
+                </SfTab>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        You do not have permission to view this page!
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
 
@@ -119,4 +126,5 @@
     {
         Nav.NavigateTo($"/cases/case-involvement/create/{Id}");
     }
+
 }

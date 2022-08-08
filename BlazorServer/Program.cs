@@ -61,7 +61,11 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("IsAdmin", policy => policy.RequireRole(ApplicationConstants.Admin));
     options.AddPolicy("IsCaseWorker", policy => policy.RequireRole(ApplicationConstants.CaseWorker));
     options.AddPolicy("IsReadOnlyUser", policy => policy.RequireRole(ApplicationConstants.ReadOnly));
+    
+    options.AddPolicy("HasCaseInvolvement", policy => policy.Requirements.Add(new HasCaseInvolvementRequirement()));
 });
+
+builder.Services.AddTransient<IAuthorizationHandler, HasCaseInvolvementHandler>();
 
 builder.Services.Configure<PasswordHasherOptions>(option =>
 {
