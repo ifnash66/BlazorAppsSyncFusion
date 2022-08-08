@@ -1,18 +1,3 @@
-global using BlazorServer.Data.Models.Domain;
-global using BlazorServer.Areas.Identity;
-global using BlazorServer.Data.Contexts;
-global using BlazorServer.Data.Repositories;
-global using Microsoft.EntityFrameworkCore;
-global using Syncfusion.Blazor;
-global using Microsoft.AspNetCore.Authentication.Cookies;
-global using Microsoft.AspNetCore.Authorization;
-global using Microsoft.AspNetCore.Components.Authorization;
-global using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-using BlazorServer.Constants;
-using BlazorServer.Data;
-using BlazorServer.SecurityClasses;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
@@ -24,10 +9,10 @@ builder.Services.AddSyncfusionBlazor();
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
+builder.Services.AddDefaultIdentity<AppUser>().AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>().AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>();
 
-builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AppClaimsPrincipalFactory>();
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AppClaimsPrincipalFactory>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -94,9 +79,11 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     SeedUsersAndRoles.SeedRoles(roleManager);
     SeedUsersAndRoles.SeedUsers(userManager);
+    SeedUsersAndRoles.SeedData(dbContext);
 }
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(

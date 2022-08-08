@@ -4,25 +4,35 @@ using Microsoft.Extensions.Options;
 
 namespace BlazorServer.SecurityClasses;
 
-public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<IdentityUser, IdentityRole>
+public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<AppUser, IdentityRole>
 {
     public AppClaimsPrincipalFactory(
-        UserManager<IdentityUser> userManager,
+        UserManager<AppUser> userManager,
         RoleManager<IdentityRole> roleManager,
         IOptions<IdentityOptions> optionsAccessor) : base(userManager, roleManager, optionsAccessor)
     {
     }
 
-    protected override async Task<ClaimsIdentity> GenerateClaimsAsync(IdentityUser user)
+    protected override async Task<ClaimsIdentity> GenerateClaimsAsync(AppUser user)
     {
         ClaimsIdentity claimsIdentity = await base.GenerateClaimsAsync(user);
+        
         var userClaims = await UserManager.GetClaimsAsync(user);
+        
         var fullNameClaim = userClaims?.FirstOrDefault(x => x.Type == ApplicationConstants.FullNameClaim);
         if (fullNameClaim != null)
         {
             if (!claimsIdentity.HasClaim(x => x.Type == ApplicationConstants.FullNameClaim))
             {
                 claimsIdentity.AddClaim(new Claim(ApplicationConstants.FullNameClaim, fullNameClaim.Value));
+            }
+        }
+        var isValidClaim = userClaims?.FirstOrDefault(x => x.Type == ApplicationConstants.IsValid);
+        if (isValidClaim != null)
+        {
+            if (!claimsIdentity.HasClaim(x => x.Type == ApplicationConstants.IsValid))
+            {
+                claimsIdentity.AddClaim(new Claim(ApplicationConstants.IsValid, isValidClaim.Value));
             }
         }
 

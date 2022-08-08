@@ -35,14 +35,14 @@
     public bool Busy { get; set; }
 
     [Parameter]
-    public int CaseId { get; set; }
+    public int CaseRecordId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         _guestRepository = ScopedServices.GetRequiredService<GuestRepository>();
         if (Busy) return;
         Busy = true;
-        var guests = await _guestRepository.GetGuestsForCase(CaseId);
+        var guests = await _guestRepository.GetGuestsForCase(CaseRecordId);
         if (guests is not null)
         {
             GuestRecords = guests.ToList();
@@ -57,8 +57,8 @@
         Busy = true;
         if (_guestRepository is not null)
         {
-            await _guestRepository.EndInvolvement(CaseId, guest.Id);
-            var guests = await _guestRepository.GetGuestsForCase(CaseId);
+            await _guestRepository.EndInvolvement(CaseRecordId, guest.Id);
+            var guests = await _guestRepository.GetGuestsForCase(CaseRecordId);
             if (guests is not null)
             {
                 GuestRecords = guests.ToList();

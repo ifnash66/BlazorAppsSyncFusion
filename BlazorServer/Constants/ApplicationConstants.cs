@@ -7,4 +7,5 @@ public static class ApplicationConstants
     public const string ReadOnly = nameof(ReadOnly);
     public const string PermissionClaim = nameof(PermissionClaim);
     public const string FullNameClaim = nameof(FullNameClaim);
+    public const string IsValid = nameof(IsValid);
 }

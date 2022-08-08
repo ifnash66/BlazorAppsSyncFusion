@@ -1,0 +1,13 @@
+global using BlazorServer.Data.Models.Domain;
+global using BlazorServer.Areas.Identity;
+global using BlazorServer.Data.Contexts;
+global using BlazorServer.Data.Repositories;
+global using Microsoft.EntityFrameworkCore;
+global using Syncfusion.Blazor;
+global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using Microsoft.AspNetCore.Identity;
+global using BlazorServer.Constants;
+global using BlazorServer.Data;
+global using BlazorServer.SecurityClasses;

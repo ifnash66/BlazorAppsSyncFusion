@@ -45,7 +45,7 @@
                 <option value="">Please select a user...</option>
                 @foreach (var item in Users)
                 {
-                    <option value="@item.Id">@item.UserName</option>
+                    <option value="@item.Id">@item.FullName</option>
                 }
             </InputSelect>
         </div>
@@ -77,7 +77,7 @@
     public string GuestString { get; set; } = string.Empty;
     private List<HostRecord> HostRecords { get; set; } = new();
     private List<GuestRecord> GuestRecords { get; set; } = new();
-    private List<IdentityUser> Users { get; set; } = new();
+    private List<AppUser> Users { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {

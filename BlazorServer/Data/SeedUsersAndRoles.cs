@@ -5,6 +5,44 @@ namespace BlazorServer.Data;
 
 public static class SeedUsersAndRoles
 {
+    public static void SeedData(AppDbContext dbContext)
+    {
+        var visitStatusList = dbContext.VisitStatuses.ToList();
+        if (!visitStatusList.Any())
+        {
+            dbContext.VisitStatuses.Add(new VisitStatus
+                {Title = "Scheduled", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.VisitStatuses.Add(new VisitStatus
+                {Title = "Complete", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.VisitStatuses.Add(new VisitStatus
+                {Title = "In Progress", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.SaveChanges();
+        }
+
+        var caseNoteCategories = dbContext.CaseNoteCategories.ToList();
+        if (!caseNoteCategories.Any())
+        {
+            dbContext.CaseNoteCategories.Add(new CaseNoteCategory
+                {Title = "General", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.CaseNoteCategories.Add(new CaseNoteCategory
+                {Title = "Safeguarding", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.CaseNoteCategories.Add(new CaseNoteCategory
+                {Title = "Housing", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.CaseNoteCategories.Add(new CaseNoteCategory
+                {Title = "Finances", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.SaveChanges();
+        }
+
+        var genders = dbContext.Genders.ToList();
+        if (!genders.Any())
+        {
+            dbContext.Genders.Add(new Gender {Title = "Male", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.Genders.Add(new Gender {Title = "Female", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.Genders.Add(new Gender {Title = "Other", DateCreated = DateTime.Now, CreatedBy = "System"});
+            dbContext.SaveChanges();
+        }
+    }
+
     public static void SeedRoles(RoleManager<IdentityRole> roleManager)
     {
         if (!roleManager.RoleExistsAsync(ApplicationConstants.Admin).Result)
@@ -68,14 +106,18 @@ public static class SeedUsersAndRoles
         }
     }
 
-    public static void SeedUsers(UserManager<IdentityUser> userManager)
+    public static void SeedUsers(UserManager<AppUser> userManager)
     {
         if (userManager.FindByNameAsync("inash@live.co.uk").Result == null)
         {
-            IdentityUser user = new IdentityUser
+            AppUser user = new AppUser
             {
+                FirstName = "Ian",
+                LastName = "Nash",
+                IsValid = true,
                 UserName = "inash@live.co.uk",
-                Email = "inash@live.co.uk"
+                Email = "inash@live.co.uk",
+                EmailConfirmed = true
             };
 
             IdentityResult result = userManager.CreateAsync(user, "Void1966@@").Result;
@@ -83,9 +125,11 @@ public static class SeedUsersAndRoles
             if (result.Succeeded)
             {
                 userManager.AddToRoleAsync(user, ApplicationConstants.Admin).Wait();
-                
                 IdentityResult fullNameResult = userManager
-                    .AddClaimAsync(user, new Claim(ApplicationConstants.FullNameClaim, "Ian Nash")).Result;
+                    .AddClaimAsync(user, new Claim(ApplicationConstants.FullNameClaim, $"{user.FirstName} {user.LastName}")).Result;
+                
+                IdentityResult isValidResult = userManager
+                    .AddClaimAsync(user, new Claim(ApplicationConstants.IsValid, user.IsValid.ToString())).Result;
             }
         }
     }
