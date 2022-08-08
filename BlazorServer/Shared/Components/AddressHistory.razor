@@ -5,7 +5,7 @@
 
 <h2>Address History </h2>
 
-<SfGrid DataSource="@AddressRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+<SfGrid DataSource="@AddressRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(AddressRecord.AddressText) HeaderText="Address" Width="400"></GridColumn>

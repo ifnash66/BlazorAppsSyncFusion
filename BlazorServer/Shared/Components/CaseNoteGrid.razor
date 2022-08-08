@@ -7,7 +7,7 @@
     <a href="@($"/cases/case-notes/create?caseRecordId={CaseId}")">Create case note</a>
 </p>
 
-<SfGrid DataSource="@CaseNotes" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+<SfGrid DataSource="@CaseNotes" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(CaseNote.Id) HeaderText="Id"></GridColumn>

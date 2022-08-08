@@ -8,7 +8,7 @@
 @inject IDbContextFactory<AppDbContext> DbContextFactory
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+<SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(GridUser.FullName) HeaderText="User Name"></GridColumn>

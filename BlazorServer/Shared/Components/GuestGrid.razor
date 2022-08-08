@@ -12,7 +12,7 @@
     <a href="/guests/create-guest">Create guest</a>
 </p>
 
-<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+<SfGrid DataSource="@GuestRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(GuestRecord.FirstName) HeaderText="First Name"></GridColumn>

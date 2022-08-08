@@ -9,7 +9,7 @@
     <a href="/cases/create-case">Create case</a>
 </p>
 
-<SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+<SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" >
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(CaseRecord.CaseReference) HeaderText="Case Reference"></GridColumn>

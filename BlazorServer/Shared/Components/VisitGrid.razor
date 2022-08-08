@@ -9,7 +9,7 @@
     <a href="@($"/home-visits/create-visit/{CaseRecordId}")">Create home visit</a>
 </p>
 
-<SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+<SfGrid DataSource="@HomeVisitRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
         <GridColumn Field=@nameof(HomeVisitRecord.VisitorName) HeaderText="Visitor Name"></GridColumn>
