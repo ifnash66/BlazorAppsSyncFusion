@@ -6,7 +6,7 @@
 @inject NavigationManager Nav
 @inherits OwningComponentBase
 
-<SfGrid DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Delete" })">
+<SfGrid ID="HostInvolvementGrid" DataSource="@HostRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@ToolbarItems">
     <GridPageSettings PageSize="5"></GridPageSettings>
         <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
           <GridEvents OnActionBegin="OnActionBegin" TValue="HostRecord"></GridEvents>
@@ -23,6 +23,11 @@
 
     private List<HostRecord> HostRecords { get; set; } = new();
     private HostRepository? _hostRepository;
+    
+    private List<object> ToolbarItems = new List<object>() {
+        new ItemModel() { Text = "Add Involvement", PrefixIcon = "e-add", Id = "HostInvolvementGrid_add"},//Here Grid is SfGrid ID
+        new ItemModel(){ Text = "End Involvement", PrefixIcon= "e-delete", Id="HostInvolvementGrid_delete"}
+    };
 
     [Parameter]
     public int CaseRecordId { get; set; }

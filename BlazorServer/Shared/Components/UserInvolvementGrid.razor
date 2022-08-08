@@ -9,7 +9,7 @@
 @inject IDbContextFactory<AppDbContext> DbContextFactory
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Delete" })">
+<SfGrid ID="UserInvolvementGrid" DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@ToolbarItems">
     <GridPageSettings PageSize="5"></GridPageSettings>
                 <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
                 <GridEvents OnActionBegin="OnActionBegin" TValue="AppUser"></GridEvents>
@@ -24,6 +24,11 @@
 @code {
 
     private List<AppUser> Users { get; set; } = new();
+    
+    private List<object> ToolbarItems = new List<object>() {
+        new ItemModel() { Text = "Add Involvement", PrefixIcon = "e-add", Id = "UserInvolvementGrid_add"},//Here Grid is SfGrid ID
+        new ItemModel(){ Text = "End Involvement", PrefixIcon= "e-delete", Id="UserInvolvementGrid_delete"}
+    };
 
     [Parameter]
     public int CaseRecordId { get; set; }

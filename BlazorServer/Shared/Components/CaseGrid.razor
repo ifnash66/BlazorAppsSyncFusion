@@ -8,8 +8,8 @@
 
 <SfGrid DataSource="@CaseRecords" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both" Toolbar="@(new List<string>() { "Add", "Edit", "Delete" })">
     <GridPageSettings PageSize="5"></GridPageSettings>
-                <GridEditSettings AllowAdding="true" AllowEditOnDblClick="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
-                  <GridEvents OnActionBegin="OnActionBegin" TValue="CaseRecord"></GridEvents>
+                <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true"></GridEditSettings>
+    <GridEvents OnActionBegin="OnActionBegin" TValue="CaseRecord" OnRecordDoubleClick="RecordDoubleClickHandler"></GridEvents>
     <GridColumns>
         <GridColumn Field=@nameof(CaseRecord.CaseReference) HeaderText="Case Reference"></GridColumn>
         <GridColumn Field=@nameof(CaseRecord.IsActive) HeaderText="Active" TextAlign="TextAlign.Right"></GridColumn>
@@ -48,6 +48,12 @@
         }
         Busy = false;
         await base.OnInitializedAsync();
+    }
+    
+    public void RecordDoubleClickHandler(RecordDoubleClickEventArgs<CaseRecord> args)
+    {
+    // Here, you can customize your code.
+        Nav.NavigateTo($"/cases/case-detail/{args.RowData.Id}");
     }
     
     private async Task OnActionBegin(ActionEventArgs<CaseRecord> args)
