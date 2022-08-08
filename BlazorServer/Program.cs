@@ -75,6 +75,8 @@ builder.Services.AddTransient<CaseRepository>();
 builder.Services.AddTransient<VisitRepository>();
 builder.Services.AddTransient<CaseInvolvementRepository>();
 builder.Services.AddTransient<CaseNoteRepository>();
+// For Dapper.
+builder.Services.AddTransient<SqlRepository>();
 
 var app = builder.Build();
 

@@ -641,3 +641,5 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HomeVisitPages/EditHomeVisit.razor.rz.scp.css
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HostPages/CreateHost.razor.rz.scp.css
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HostPages/EditHost.razor.rz.scp.css
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Dapper.dll
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/Dapper.Contrib.dll

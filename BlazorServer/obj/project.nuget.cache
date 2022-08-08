@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "sfATwVuaS2SOn99cMU0m1BEv28C3Pgnr0sTq94nXbpa3GszyCpcBdyr5juxzU8t0N1nNFxbLvktUgqtOidbbQQ==",
+  "dgSpecHash": "4NEtcsbIyt55l/dMqnEus+ka3T+TwcK4Naj4fFt4ToYzyMTugdXVWi4ZoX2qYyMgd4ewVpJ5b3toxOCNcwou2A==",
   "success": true,
   "projectFilePath": "/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/BlazorServer.csproj",
   "expectedPackageFiles": [
     "/Users/iannash/.nuget/packages/blazored.fluentvalidation/2.0.3/blazored.fluentvalidation.2.0.3.nupkg.sha512",
+    "/Users/iannash/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
+    "/Users/iannash/.nuget/packages/dapper.contrib/2.0.78/dapper.contrib.2.0.78.nupkg.sha512",
     "/Users/iannash/.nuget/packages/fluentvalidation/10.4.0/fluentvalidation.10.4.0.nupkg.sha512",
     "/Users/iannash/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/iannash/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
