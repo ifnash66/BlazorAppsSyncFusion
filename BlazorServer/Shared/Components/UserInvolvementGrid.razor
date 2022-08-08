@@ -11,8 +11,9 @@
 <SfGrid DataSource="@Users" AllowPaging="true" AllowSorting="true" AllowFiltering="true" GridLines="GridLine.Both">
     <GridPageSettings PageSize="5"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(GridUser.FullName) HeaderText="User Name"></GridColumn>
-        <GridColumn Field=@nameof(GridUser.Email) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn Field=@nameof(AppUser.FullName) HeaderText="User Name"></GridColumn>
+        <GridColumn Field=@nameof(AppUser.IsValid) HeaderText="Is Valid"></GridColumn>
+        <GridColumn Field=@nameof(AppUser.Email) HeaderText="Email Address" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn HeaderText="Action" TextAlign="TextAlign.Center">
             <Template>
                 @{
@@ -27,14 +28,8 @@
 </SfGrid>
 
 @code {
-    
-    public class GridUser
-    {
-        public string FullName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-    }
 
-    private List<GridUser> Users { get; set; } = new();
+    private List<AppUser> Users { get; set; } = new();
 
     [Parameter]
     public int CaseRecordId { get; set; }
@@ -53,12 +48,9 @@
         var users = await context.Users.Where(x => caseInvolvementUserIds.Contains(x.Id)).ToListAsync();
         if (users is not null)
         {
-            foreach (var appUser in users)
-            {
-                var fullNameClaim = await context.UserClaims.Where(x => x.UserId == appUser.Id && x.ClaimType == "FullName").FirstOrDefaultAsync();
-                Users.Add(new GridUser { FullName = fullNameClaim.ClaimValue, Email = appUser.Email });
-            }
+            Users = users;
         }
+ 
         Busy = false;
         await base.OnInitializedAsync();
     }
@@ -84,11 +76,7 @@
         var users = await context.Users.Where(x => caseInvolvementUserIds.Contains(x.Id)).ToListAsync();
         if (users is not null)
         {
-            foreach (var appUser in users)
-            {
-                var fullNameClaim = await context.UserClaims.Where(x => x.UserId == appUser.Id && x.ClaimType == "FullName").FirstOrDefaultAsync();
-                Users.Add(new GridUser{ FullName = fullNameClaim?.ClaimValue ?? string.Empty, Email = appUser.Email });
-            }
+            Users = users;  
         }
         StateHasChanged();
         Busy = false;
