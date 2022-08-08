@@ -1,9 +1,4 @@
-using System.Security.Claims;
-using BlazorServer.Constants;
-using Microsoft.Extensions.Options;
-
 namespace BlazorServer.SecurityClasses;
-
 public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<AppUser, IdentityRole>
 {
     public AppClaimsPrincipalFactory(

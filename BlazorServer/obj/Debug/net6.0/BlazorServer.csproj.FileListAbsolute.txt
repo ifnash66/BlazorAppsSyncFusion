@@ -625,12 +625,6 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/bin/Debug/net6.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/staticwebassets.build.json
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/staticwebassets.development.json
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/GuestPages/CreateGuestPage.razor.rz.scp.css
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/GuestPages/EditGuestPage.razor.rz.scp.css
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HomeVisitPages/CreateHomeVisitPage.razor.rz.scp.css
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HomeVisitPages/EditHomeVisitPage.razor.rz.scp.css
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HostPages/CreateHostPage.razor.rz.scp.css
-/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HostPages/EditHostPage.razor.rz.scp.css
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Shared/MainLayout.razor.rz.scp.css
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Shared/NavMenu.razor.rz.scp.css
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/bundle/BlazorServer.styles.css
@@ -641,3 +635,9 @@
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.pdb
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/BlazorServer.genruntimeconfig.cache
 /Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/ref/BlazorServer.dll
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/GuestPages/CreateGuest.razor.rz.scp.css
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/GuestPages/EditGuest.razor.rz.scp.css
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HomeVisitPages/CreateHomeVisit.razor.rz.scp.css
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HomeVisitPages/EditHomeVisit.razor.rz.scp.css
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HostPages/CreateHost.razor.rz.scp.css
+/Users/iannash/RiderProjects/BlazorSyncfusionHfu/BlazorServer/obj/Debug/net6.0/scopedcss/Pages/HostPages/EditHost.razor.rz.scp.css

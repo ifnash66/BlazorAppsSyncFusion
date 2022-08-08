@@ -1,9 +1,10 @@
-@page "/hosts/index"
-<h3>Hosts</h3>
+@page "/home-visits/index"
 
+<h1>Home Visits</h1>
+<hr/>
 <div class="row">
     <div class="col-lg-8">
-        <HostGrid Busy="@Busy"/>
+        <VisitGrid Busy="@Busy"/>
     </div>
 </div>
 
@@ -11,5 +12,4 @@
 
     private bool Busy { get; set; }
 
-   
 }

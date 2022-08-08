@@ -1,10 +1,9 @@
 @page "/home-visits/create-visit/{caseRecordId:int}"
 @inject NavigationManager Nav
-@using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
-<h3>Create Home Visit</h3>
 
+<h1>Create Home Visit</h1>
+<hr/>
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@HomeVisitModel" OnValidSubmit="SubmitForm">

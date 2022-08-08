@@ -11,3 +11,5 @@ global using Microsoft.AspNetCore.Identity;
 global using BlazorServer.Constants;
 global using BlazorServer.Data;
 global using BlazorServer.SecurityClasses;
+global using System.Security.Claims;
+global using Microsoft.Extensions.Options;

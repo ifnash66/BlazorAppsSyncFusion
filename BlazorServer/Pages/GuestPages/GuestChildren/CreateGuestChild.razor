@@ -1,11 +1,9 @@
 @page "/guests/guest-children/create/{guestId:int}"
-@using Microsoft.AspNetCore.Components
-@using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
 @inject NavigationManager Nav
-<h3>Guest Child Page</h3>
 
+<h1>Guest Child Page</h1>
+<hr/>
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@_guestChildModel" OnValidSubmit="SubmitForm">

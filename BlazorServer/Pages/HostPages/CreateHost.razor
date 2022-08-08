@@ -1,10 +1,8 @@
 @page "/hosts/create-host"
 @inject NavigationManager NavigationManager
-@using BlazorServer.Data.Models.Domain
-@using BlazorServer.Data.Repositories
 @inherits OwningComponentBase
-<h3>Create Host</h3>
-
+<h1>Create Host</h1>
+<hr/>
 <div class="row">
     <div class="col-lg-6">
         <EditForm Model="@HostModel" OnValidSubmit="SubmitForm">
